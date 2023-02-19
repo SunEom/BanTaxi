@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct RequestResult {
+    let isSuccess: Bool
+    let msg: String
+}

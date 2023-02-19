@@ -7,21 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44118729A21DFE00A55F27 /* RequestResult.swift */; };
+		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
 		BFE361DC29A1F6F200FA0F11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFE361DB29A1F6F200FA0F11 /* Assets.xcassets */; };
-		BFE361E829A1F7FA00FA0F11 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BFE361E729A1F7FA00FA0F11 /* SnapKit */; };
-		BFE361EB29A1F80D00FA0F11 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BFE361EA29A1F80D00FA0F11 /* RxCocoa */; };
-		BFE361ED29A1F80D00FA0F11 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BFE361EC29A1F80D00FA0F11 /* RxRelay */; };
-		BFE361EF29A1F80D00FA0F11 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BFE361EE29A1F80D00FA0F11 /* RxSwift */; };
+		BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361F329A1F94B00FA0F11 /* StartViewController.swift */; };
+		BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361F629A1FB3800FA0F11 /* LoginViewController.swift */; };
+		BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361F829A1FB3D00FA0F11 /* LoginViewModel.swift */; };
+		BFE361FB29A1FED000FA0F11 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE361FA29A1FED000FA0F11 /* Launch Screen.storyboard */; };
+		C0FA2E24A80F5F325DDF804F /* Pods_BanTaxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040B15DF90100D48B261E40C /* Pods_BanTaxi.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040B15DF90100D48B261E40C /* Pods_BanTaxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BanTaxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B36A7539BC0DC746A09FF449 /* Pods-BanTaxi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BanTaxi.debug.xcconfig"; path = "Target Support Files/Pods-BanTaxi/Pods-BanTaxi.debug.xcconfig"; sourceTree = "<group>"; };
+		BF44118729A21DFE00A55F27 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
+		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BFE361DB29A1F6F200FA0F11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFE361E029A1F6F200FA0F11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BFE361F329A1F94B00FA0F11 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		BFE361F629A1FB3800FA0F11 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BFE361F829A1FB3D00FA0F11 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		BFE361FA29A1FED000FA0F11 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C5190DF9A2A5F3990F31C8F0 /* Pods-BanTaxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BanTaxi.release.xcconfig"; path = "Target Support Files/Pods-BanTaxi/Pods-BanTaxi.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,21 +41,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFE361ED29A1F80D00FA0F11 /* RxRelay in Frameworks */,
-				BFE361EB29A1F80D00FA0F11 /* RxCocoa in Frameworks */,
-				BFE361EF29A1F80D00FA0F11 /* RxSwift in Frameworks */,
-				BFE361E829A1F7FA00FA0F11 /* SnapKit in Frameworks */,
+				C0FA2E24A80F5F325DDF804F /* Pods_BanTaxi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22BBDDB721C99B09776FDCE7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B36A7539BC0DC746A09FF449 /* Pods-BanTaxi.debug.xcconfig */,
+				C5190DF9A2A5F3990F31C8F0 /* Pods-BanTaxi.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		ADEE4199E4C924C58D919B38 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				040B15DF90100D48B261E40C /* Pods_BanTaxi.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF44118629A21DF400A55F27 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				BF44118729A21DFE00A55F27 /* RequestResult.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		BFE361C629A1F6F200FA0F11 = {
 			isa = PBXGroup;
 			children = (
 				BFE361D129A1F6F200FA0F11 /* BanTaxi */,
 				BFE361D029A1F6F200FA0F11 /* Products */,
+				22BBDDB721C99B09776FDCE7 /* Pods */,
+				ADEE4199E4C924C58D919B38 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,9 +94,13 @@
 		BFE361D129A1F6F200FA0F11 /* BanTaxi */ = {
 			isa = PBXGroup;
 			children = (
+				BF44118629A21DF400A55F27 /* Entity */,
+				BFE361F129A1F92B00FA0F11 /* Presentation */,
 				BFE361F029A1F90500FA0F11 /* Delegate */,
 				BFE361DB29A1F6F200FA0F11 /* Assets.xcassets */,
 				BFE361E029A1F6F200FA0F11 /* Info.plist */,
+				BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */,
+				BFE361FA29A1FED000FA0F11 /* Launch Screen.storyboard */,
 			);
 			path = BanTaxi;
 			sourceTree = "<group>";
@@ -74,6 +114,32 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		BFE361F129A1F92B00FA0F11 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				BFE361F529A1FB2F00FA0F11 /* Login */,
+				BFE361F229A1F93E00FA0F11 /* Start */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		BFE361F229A1F93E00FA0F11 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				BFE361F329A1F94B00FA0F11 /* StartViewController.swift */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
+		BFE361F529A1FB2F00FA0F11 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BFE361F629A1FB3800FA0F11 /* LoginViewController.swift */,
+				BFE361F829A1FB3D00FA0F11 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -81,21 +147,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFE361E329A1F6F200FA0F11 /* Build configuration list for PBXNativeTarget "BanTaxi" */;
 			buildPhases = (
+				65234E7292036BF604AFFA6C /* [CP] Check Pods Manifest.lock */,
 				BFE361CB29A1F6F200FA0F11 /* Sources */,
 				BFE361CC29A1F6F200FA0F11 /* Frameworks */,
 				BFE361CD29A1F6F200FA0F11 /* Resources */,
+				DEB9DD4337425DD6BC62B145 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BanTaxi;
-			packageProductDependencies = (
-				BFE361E729A1F7FA00FA0F11 /* SnapKit */,
-				BFE361EA29A1F80D00FA0F11 /* RxCocoa */,
-				BFE361EC29A1F80D00FA0F11 /* RxRelay */,
-				BFE361EE29A1F80D00FA0F11 /* RxSwift */,
-			);
 			productName = BanTaxi;
 			productReference = BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */;
 			productType = "com.apple.product-type.application";
@@ -125,8 +187,6 @@
 			);
 			mainGroup = BFE361C629A1F6F200FA0F11;
 			packageReferences = (
-				BFE361E629A1F7FA00FA0F11 /* XCRemoteSwiftPackageReference "snapkit" */,
-				BFE361E929A1F80D00FA0F11 /* XCRemoteSwiftPackageReference "rxswift" */,
 			);
 			productRefGroup = BFE361D029A1F6F200FA0F11 /* Products */;
 			projectDirPath = "";
@@ -142,19 +202,67 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFE361FB29A1FED000FA0F11 /* Launch Screen.storyboard in Resources */,
 				BFE361DC29A1F6F200FA0F11 /* Assets.xcassets in Resources */,
+				BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65234E7292036BF604AFFA6C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BanTaxi-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEB9DD4337425DD6BC62B145 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BanTaxi/Pods-BanTaxi-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BanTaxi/Pods-BanTaxi-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BanTaxi/Pods-BanTaxi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BFE361CB29A1F6F200FA0F11 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
+				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
+				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
+				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +385,7 @@
 		};
 		BFE361E429A1F6F200FA0F11 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B36A7539BC0DC746A09FF449 /* Pods-BanTaxi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -286,8 +395,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BanTaxi/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +415,7 @@
 		};
 		BFE361E529A1F6F200FA0F11 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5190DF9A2A5F3990F31C8F0 /* Pods-BanTaxi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -312,8 +425,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BanTaxi/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -349,48 +465,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		BFE361E629A1F7FA00FA0F11 /* XCRemoteSwiftPackageReference "snapkit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/snapkit/snapkit";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-		BFE361E929A1F80D00FA0F11 /* XCRemoteSwiftPackageReference "rxswift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/reactivex/rxswift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BFE361E729A1F7FA00FA0F11 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BFE361E629A1F7FA00FA0F11 /* XCRemoteSwiftPackageReference "snapkit" */;
-			productName = SnapKit;
-		};
-		BFE361EA29A1F80D00FA0F11 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BFE361E929A1F80D00FA0F11 /* XCRemoteSwiftPackageReference "rxswift" */;
-			productName = RxCocoa;
-		};
-		BFE361EC29A1F80D00FA0F11 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BFE361E929A1F80D00FA0F11 /* XCRemoteSwiftPackageReference "rxswift" */;
-			productName = RxRelay;
-		};
-		BFE361EE29A1F80D00FA0F11 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BFE361E929A1F80D00FA0F11 /* XCRemoteSwiftPackageReference "rxswift" */;
-			productName = RxSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFE361C729A1F6F200FA0F11 /* Project object */;
 }
