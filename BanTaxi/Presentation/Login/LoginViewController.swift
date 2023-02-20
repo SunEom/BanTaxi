@@ -175,9 +175,10 @@ extension LoginViewController {
                     return
                 }
                 
-                if let authResult = authResult {
-                    print(authResult.user.displayName)
-                }
+                let vc = MainViewController()
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
             }
         }
     }
@@ -273,6 +274,11 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                   print(error?.localizedDescription)
                   return
                 }
+                
+                let vc = MainViewController()
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
               
             }
         }

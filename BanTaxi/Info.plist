@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>앱을 사용안해도 항상 가져오기</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>앱이 사용중일때만 가져오기</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>754fd572f0c42513fd417c90b2883add</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
