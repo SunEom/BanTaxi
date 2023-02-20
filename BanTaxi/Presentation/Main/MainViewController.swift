@@ -15,25 +15,46 @@ class MainViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    let locationManager = CLLocationManager()
+    let locationManager: CLLocationManager!
+    let viewModel: MainViewModel!
     
     let titleLabel = UILabel()
+    
     let mapView = MTMapView()
+    let centerMarker = MTMapPOIItem()
+    
+    init() {
+        locationManager = CLLocationManager()
+        viewModel = MainViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-        
+        mapViewSetting()
         locationManagerSetting()
         
-        bind(MainViewModel())
+        bind()
         attribute()
         layout()
     }
     
-    private func bind(_ viewModel: MainViewModel){
+    private func bind(){
+        viewModel.mapCenterPoint
+            .bind(to: centerMarker.rx.mapPoint)
+            .disposed(by: disposeBag)
         
+        viewModel.mapCenterAddress
+            .subscribe(onNext: {
+                self.centerMarker.itemName = $0
+                self.mapView.select(self.centerMarker, animated: false)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
@@ -57,7 +78,7 @@ class MainViewController: UIViewController {
         }
         
         mapView.snp.makeConstraints {
-            $0.height.equalTo(400)
+            $0.height.equalTo(UIScreen.main.bounds.width)
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(30)
         }
@@ -72,9 +93,20 @@ class MainViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         if let location = locationManager.location {
-            mapView.setMapCenter(MTMapPoint(geoCoord: MTMapPointGeo(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)), zoomLevel: 1, animated: true)
+            let centerPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            
+            mapView.setMapCenter(centerPoint, zoomLevel: 1, animated: true)
+
         }
         
+    }
+    
+    private func mapViewSetting() {
+        mapView.delegate = self
+        
+        centerMarker.showDisclosureButtonOnCalloutBalloon = false
+
+        mapView.addPOIItems([centerMarker])
     }
 }
 
@@ -91,18 +123,21 @@ extension MainViewController: CLLocationManagerDelegate {
                 return
         }
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        //위도, 경도 가져오기
-        let currentLocation = "\(locValue.latitude), \(locValue.longitude)"
-        
-        print(currentLocation)
-    }
 }
 
 extension MainViewController: MTMapViewDelegate {
+    
     func mapView(_ mapView: MTMapView!, finishedMapMoveAnimation mapCenterPoint: MTMapPoint!) {
-        print(mapCenterPoint!.mapPointGeo())
+        viewModel.mapCenterPoint.accept(mapCenterPoint)
     }
+    
+    func mapView(_ mapView: MTMapView!, dragStartedOn mapPoint: MTMapPoint!) {
+        mapView.deselect(centerMarker)
+    }
+    
+    func mapView(_ mapView: MTMapView!, centerPointMovedTo mapCenterPoint: MTMapPoint!) {
+        centerMarker.mapPoint = mapCenterPoint
+    }
+
 }
+

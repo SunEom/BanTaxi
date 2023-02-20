@@ -42,6 +42,8 @@
 		BF47194029A3603E00A64225 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF47193F29A3603E00A64225 /* SystemConfiguration.framework */; };
 		BF47194229A3604600A64225 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF47194129A3604600A64225 /* CoreLocation.framework */; };
 		BF47194429A3604E00A64225 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF47194329A3604E00A64225 /* QuartzCore.framework */; };
+		BF47194A29A3CAC500A64225 /* API-Key.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF47194929A3CAC500A64225 /* API-Key.plist */; };
+		BF47194D29A3CAFB00A64225 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47194C29A3CAFB00A64225 /* API.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -104,6 +106,8 @@
 		BF47194629A3606400A64225 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		BF47194729A3606E00A64225 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		BF47194829A361F600A64225 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		BF47194929A3CAC500A64225 /* API-Key.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API-Key.plist"; sourceTree = "<group>"; };
+		BF47194C29A3CAFB00A64225 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -235,6 +239,14 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		BF47194B29A3CAEE00A64225 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				BF47194C29A3CAFB00A64225 /* API.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		BFE361C629A1F6F200FA0F11 = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +268,7 @@
 		BFE361D129A1F6F200FA0F11 /* BanTaxi */ = {
 			isa = PBXGroup;
 			children = (
+				BF47194B29A3CAEE00A64225 /* Util */,
 				BF4718F429A33ED500A64225 /* BanTaxi.entitlements */,
 				BF44118629A21DF400A55F27 /* Entity */,
 				BFE361F129A1F92B00FA0F11 /* Presentation */,
@@ -263,6 +276,7 @@
 				BFE361DB29A1F6F200FA0F11 /* Assets.xcassets */,
 				BFE361E029A1F6F200FA0F11 /* Info.plist */,
 				BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */,
+				BF47194929A3CAC500A64225 /* API-Key.plist */,
 				BFE361FA29A1FED000FA0F11 /* Launch Screen.storyboard */,
 				BF47194829A361F600A64225 /* BridgingHeader.h */,
 			);
@@ -388,6 +402,7 @@
 				BF47192229A3601300A64225 /* map_pin_custom.png in Resources */,
 				BF47193229A3601300A64225 /* map_pinup_custom.png in Resources */,
 				BF47192729A3601300A64225 /* map_pinup@3x.png in Resources */,
+				BF47194A29A3CAC500A64225 /* API-Key.plist in Resources */,
 				BF47193129A3601300A64225 /* point_sprite.png in Resources */,
 				BF47193929A3601300A64225 /* map_present_background_update.png in Resources */,
 				BF47193529A3601300A64225 /* map_present_direction.png in Resources */,
@@ -456,6 +471,7 @@
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
+				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
