@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-struct MainViewModel {
+struct MapViewModel {
     let disposeBag = DisposeBag()
     let mapCenterPoint = PublishRelay<MTMapPoint>()
     let mapCenterAddress = PublishRelay<String>()
@@ -30,9 +30,6 @@ struct MainViewModel {
             }
             .bind(to: mapCenterAddress)
             .disposed(by: disposeBag)
-        
-        mapCenterAddress.subscribe(onNext: { print($0) })
-        
             
     }
 

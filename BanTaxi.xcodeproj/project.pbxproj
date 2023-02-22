@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44118729A21DFE00A55F27 /* RequestResult.swift */; };
-		BF4718F729A35BF500A64225 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F629A35BF500A64225 /* MainViewController.swift */; };
-		BF4718F929A35BFD00A64225 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F829A35BFD00A64225 /* MainViewModel.swift */; };
+		BF4718F729A35BF500A64225 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F629A35BF500A64225 /* MapViewController.swift */; };
+		BF4718F929A35BFD00A64225 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F829A35BFD00A64225 /* MapViewModel.swift */; };
 		BF47192129A3601300A64225 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF4718FC29A3601300A64225 /* map_pinup_custom@3x.png */; };
 		BF47192229A3601300A64225 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = BF4718FD29A3601300A64225 /* map_pin_custom.png */; };
 		BF47192329A3601300A64225 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF4718FE29A3601300A64225 /* shadow_balloon.png */; };
@@ -60,8 +60,8 @@
 		B36A7539BC0DC746A09FF449 /* Pods-BanTaxi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BanTaxi.debug.xcconfig"; path = "Target Support Files/Pods-BanTaxi/Pods-BanTaxi.debug.xcconfig"; sourceTree = "<group>"; };
 		BF44118729A21DFE00A55F27 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		BF4718F429A33ED500A64225 /* BanTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BanTaxi.entitlements; sourceTree = "<group>"; };
-		BF4718F629A35BF500A64225 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		BF4718F829A35BFD00A64225 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		BF4718F629A35BF500A64225 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BF4718F829A35BFD00A64225 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BF4718FC29A3601300A64225 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		BF4718FD29A3601300A64225 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
 		BF4718FE29A3601300A64225 /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
@@ -171,13 +171,13 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		BF4718F529A35BE600A64225 /* Main */ = {
+		BF4718F529A35BE600A64225 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				BF4718F629A35BF500A64225 /* MainViewController.swift */,
-				BF4718F829A35BFD00A64225 /* MainViewModel.swift */,
+				BF4718F629A35BF500A64225 /* MapViewController.swift */,
+				BF4718F829A35BFD00A64225 /* MapViewModel.swift */,
 			);
-			path = Main;
+			path = Map;
 			sourceTree = "<group>";
 		};
 		BF4718FA29A3601300A64225 /* DaumMap.embeddedframework */ = {
@@ -268,8 +268,8 @@
 		BFE361D129A1F6F200FA0F11 /* BanTaxi */ = {
 			isa = PBXGroup;
 			children = (
-				BF47194B29A3CAEE00A64225 /* Util */,
 				BF4718F429A33ED500A64225 /* BanTaxi.entitlements */,
+				BF47194B29A3CAEE00A64225 /* Util */,
 				BF44118629A21DF400A55F27 /* Entity */,
 				BFE361F129A1F92B00FA0F11 /* Presentation */,
 				BFE361F029A1F90500FA0F11 /* Delegate */,
@@ -295,7 +295,7 @@
 		BFE361F129A1F92B00FA0F11 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				BF4718F529A35BE600A64225 /* Main */,
+				BF4718F529A35BE600A64225 /* Map */,
 				BFE361F529A1FB2F00FA0F11 /* Login */,
 				BFE361F229A1F93E00FA0F11 /* Start */,
 			);
@@ -464,7 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF4718F729A35BF500A64225 /* MainViewController.swift in Sources */,
+				BF4718F729A35BF500A64225 /* MapViewController.swift in Sources */,
 				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
@@ -472,7 +472,7 @@
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
-				BF4718F929A35BFD00A64225 /* MainViewModel.swift in Sources */,
+				BF4718F929A35BFD00A64225 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,12 +11,12 @@ import RxCocoa
 import SnapKit
 import CoreLocation
 
-class MainViewController: UIViewController {
+class MapViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
     let locationManager: CLLocationManager!
-    let viewModel: MainViewModel!
+    let viewModel: MapViewModel!
     
     let titleLabel = UILabel()
     
@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     
     init() {
         locationManager = CLLocationManager()
-        viewModel = MainViewModel()
+        viewModel = MapViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -111,7 +111,7 @@ class MainViewController: UIViewController {
 }
 
 
-extension MainViewController: CLLocationManagerDelegate {
+extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
             case  .authorizedAlways,
@@ -125,7 +125,7 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MainViewController: MTMapViewDelegate {
+extension MapViewController: MTMapViewDelegate {
     
     func mapView(_ mapView: MTMapView!, finishedMapMoveAnimation mapCenterPoint: MTMapPoint!) {
         viewModel.mapCenterPoint.accept(mapCenterPoint)
