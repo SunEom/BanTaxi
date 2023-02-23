@@ -18,8 +18,6 @@ class MapViewController: UIViewController {
     let locationManager: CLLocationManager!
     let viewModel: MapViewModel!
     
-    let titleLabel = UILabel()
-    
     let mapView = MTMapView()
     let centerMarker = MTMapPOIItem()
     
@@ -60,27 +58,17 @@ class MapViewController: UIViewController {
     private func attribute() {
         view.backgroundColor = .white
         
-        titleLabel.text = "BanTaxi"
-        titleLabel.font = .systemFont(ofSize: 30, weight: .heavy)
-        titleLabel.textColor = UIColor(named: "MainColor")
     }
     
     private func layout() {
-        [titleLabel, mapView].forEach {
+        [mapView].forEach {
             view.addSubview($0)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
-            $0.trailing.equalToSuperview()
-            $0.leading.equalToSuperview().offset(30)
-            $0.height.equalTo(40)
         }
         
         mapView.snp.makeConstraints {
             $0.height.equalTo(UIScreen.main.bounds.width)
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
         }
     }
     
