@@ -46,6 +46,9 @@
 		BF47194D29A3CAFB00A64225 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47194C29A3CAFB00A64225 /* API.swift */; };
 		BF47195229A5A6E000A64225 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47195129A5A6E000A64225 /* MainViewController.swift */; };
 		BF47195429A5A6E700A64225 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47195329A5A6E700A64225 /* MainViewModel.swift */; };
+		BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47195E29A856AA00A64225 /* NewGroupViewController.swift */; };
+		BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196029A856DD00A64225 /* NewGroupViewModel.swift */; };
+		BF47196329A8871700A64225 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196229A8871700A64225 /* UIView.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -112,6 +115,9 @@
 		BF47194C29A3CAFB00A64225 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		BF47195129A5A6E000A64225 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BF47195329A5A6E700A64225 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		BF47195E29A856AA00A64225 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
+		BF47196029A856DD00A64225 /* NewGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewModel.swift; sourceTree = "<group>"; };
+		BF47196229A8871700A64225 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				BF47194C29A3CAFB00A64225 /* API.swift */,
+				BF47196229A8871700A64225 /* UIView.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -258,6 +265,15 @@
 				BF47195329A5A6E700A64225 /* MainViewModel.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		BF47195D29A856A000A64225 /* NewGroup */ = {
+			isa = PBXGroup;
+			children = (
+				BF47195E29A856AA00A64225 /* NewGroupViewController.swift */,
+				BF47196029A856DD00A64225 /* NewGroupViewModel.swift */,
+			);
+			path = NewGroup;
 			sourceTree = "<group>";
 		};
 		BFE361C629A1F6F200FA0F11 = {
@@ -308,6 +324,7 @@
 		BFE361F129A1F92B00FA0F11 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BF47195D29A856A000A64225 /* NewGroup */,
 				BF47195029A5A6D900A64225 /* Main */,
 				BF4718F529A35BE600A64225 /* Map */,
 				BFE361F529A1FB2F00FA0F11 /* Login */,
@@ -479,13 +496,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF4718F729A35BF500A64225 /* MapViewController.swift in Sources */,
+				BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */,
 				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
+				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
+				BF47196329A8871700A64225 /* UIView.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* MapViewModel.swift in Sources */,
 				BF47195229A5A6E000A64225 /* MainViewController.swift in Sources */,
 				BF47195429A5A6E700A64225 /* MainViewModel.swift in Sources */,

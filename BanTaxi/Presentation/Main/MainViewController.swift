@@ -37,7 +37,12 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
-        
+        newGroupButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(NewGroupViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
@@ -85,7 +90,7 @@ class MainViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalToSuperview()
             $0.leading.equalToSuperview().offset(30)
             $0.height.equalTo(40)
