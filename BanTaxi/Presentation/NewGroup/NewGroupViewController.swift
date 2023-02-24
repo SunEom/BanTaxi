@@ -138,14 +138,24 @@ class NewGroupViewController: UIViewController {
     private func layout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        
-        [nameStackView, startingPointStackView, destinationStackView, timeInTakeStackView].forEach { view.addSubview($0)}
+        [nameStackView, startingPointStackView, destinationStackView, timeInTakeStackView].forEach { contentView.addSubview($0)}
         [timeStackView, intakeStackView].forEach { timeInTakeStackView.addArrangedSubview($0) }
         [nameLabel, nameTextField].forEach { nameStackView.addArrangedSubview($0) }
         [startingPointLabel, startingPointTextView, startingPointButton].forEach { startingPointStackView.addArrangedSubview($0) }
         [destinationLabel, destinationTextView, destinationButton].forEach { destinationStackView.addArrangedSubview($0) }
         [timeLabel, timePicker].forEach { timeStackView.addArrangedSubview($0) }
         [intakeLabel, intakePicker].forEach { intakeStackView.addArrangedSubview($0) }
+        
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(scrollView)
+            $0.bottom.equalTo(destinationStackView.snp.bottom)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+        }
         
         nameStackView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
