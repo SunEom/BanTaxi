@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-struct MapViewModel {
+struct LocationSelectViewModel {
     let disposeBag = DisposeBag()
     let mapCenterPoint = PublishRelay<MTMapPoint>()
     let mapCenterAddress = PublishRelay<String>()

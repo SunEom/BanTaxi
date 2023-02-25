@@ -11,19 +11,23 @@ import RxCocoa
 import SnapKit
 import CoreLocation
 
-class MapViewController: UIViewController {
+class LocationSelectViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    let titleString: String!
     let locationManager: CLLocationManager!
-    let viewModel: MapViewModel!
+    let viewModel: LocationSelectViewModel!
     
     let mapView = MTMapView()
     let centerMarker = MTMapPOIItem()
+    let addressSearchButton = UIButton()
+    let saveButton = UIButton()
     
-    init() {
+    init(_ title: String = "") {
+        self.titleString  = title
         locationManager = CLLocationManager()
-        viewModel = MapViewModel()
+        viewModel = LocationSelectViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,10 +62,26 @@ class MapViewController: UIViewController {
     private func attribute() {
         view.backgroundColor = .white
         
+        title = titleString
+        
+        self.navigationController?.navigationBar.topItem?.title = " "
+        
+        addressSearchButton.setTitle("주소로 위치 검색", for: .normal)
+        addressSearchButton.setTitleColor(.white, for: .normal)
+        addressSearchButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        addressSearchButton.backgroundColor = UIColor(named: "MainColor")
+        addressSearchButton.layer.cornerRadius = 5
+        
+        saveButton.setTitle("해당 위치로 설정", for: .normal)
+        saveButton.setTitleColor(.white, for: .normal)
+        saveButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        saveButton.backgroundColor = UIColor(named: "MainColor")
+        saveButton.layer.cornerRadius = 5
+        
     }
     
     private func layout() {
-        [mapView].forEach {
+        [mapView, addressSearchButton, saveButton].forEach {
             view.addSubview($0)
         }
         
@@ -69,6 +89,20 @@ class MapViewController: UIViewController {
             $0.height.equalTo(UIScreen.main.bounds.width)
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+        }
+        
+        addressSearchButton.snp.makeConstraints {
+            $0.top.equalTo(mapView.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.height.equalTo(40)
+        }
+        
+        saveButton.snp.makeConstraints {
+            $0.top.equalTo(addressSearchButton.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.height.equalTo(40)
         }
     }
     
@@ -99,7 +133,7 @@ class MapViewController: UIViewController {
 }
 
 
-extension MapViewController: CLLocationManagerDelegate {
+extension LocationSelectViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
             case  .authorizedAlways,
@@ -113,7 +147,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MapViewController: MTMapViewDelegate {
+extension LocationSelectViewController: MTMapViewDelegate {
     
     func mapView(_ mapView: MTMapView!, finishedMapMoveAnimation mapCenterPoint: MTMapPoint!) {
         viewModel.mapCenterPoint.accept(mapCenterPoint)

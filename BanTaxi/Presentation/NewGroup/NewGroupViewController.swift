@@ -62,10 +62,25 @@ class NewGroupViewController: UIViewController {
     }
     
     private func bind() {
+        
         viewModel.intakeCount.bind(to: intakePicker.rx.itemTitles) { _, item in
             return "\(item)"
         }
         .disposed(by: disposeBag)
+        
+        startingPointButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(LocationSelectViewController("출발지 설정"), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        destinationButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(LocationSelectViewController("도착지 설정"), animated: true)
+            })
+            .disposed(by: disposeBag)
             
     }
     

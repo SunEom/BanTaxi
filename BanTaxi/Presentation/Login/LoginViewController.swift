@@ -175,7 +175,7 @@ extension LoginViewController {
                     return
                 }
                 
-                let vc = MapViewController()
+                let vc = LocationSelectViewController()
                 vc.modalPresentationStyle = .fullScreen
                 vc.modalTransitionStyle = .crossDissolve
                 self.present(vc, animated: true)
@@ -275,7 +275,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                   return
                 }
                 
-                let vc = MapViewController()
+                let vc = LocationSelectViewController()
                 vc.modalPresentationStyle = .fullScreen
                 vc.modalTransitionStyle = .crossDissolve
                 self.present(vc, animated: true)
