@@ -49,6 +49,8 @@
 		BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47195E29A856AA00A64225 /* NewGroupViewController.swift */; };
 		BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196029A856DD00A64225 /* NewGroupViewModel.swift */; };
 		BF47196329A8871700A64225 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196229A8871700A64225 /* UIView.swift */; };
+		BF47196629A9C9A900A64225 /* AddressSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196529A9C9A900A64225 /* AddressSearchViewModel.swift */; };
+		BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196729A9C9C100A64225 /* AddressSearchViewController.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -118,6 +120,8 @@
 		BF47195E29A856AA00A64225 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		BF47196029A856DD00A64225 /* NewGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewModel.swift; sourceTree = "<group>"; };
 		BF47196229A8871700A64225 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		BF47196529A9C9A900A64225 /* AddressSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewModel.swift; sourceTree = "<group>"; };
+		BF47196729A9C9C100A64225 /* AddressSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewController.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,13 +185,14 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		BF4718F529A35BE600A64225 /* Map */ = {
+		BF4718F529A35BE600A64225 /* LocationSelect */ = {
 			isa = PBXGroup;
 			children = (
 				BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */,
 				BF4718F829A35BFD00A64225 /* LocationSelectViewModel.swift */,
+				BF47196429A9C99B00A64225 /* AddressSearch */,
 			);
-			path = Map;
+			path = LocationSelect;
 			sourceTree = "<group>";
 		};
 		BF4718FA29A3601300A64225 /* DaumMap.embeddedframework */ = {
@@ -272,8 +277,18 @@
 			children = (
 				BF47195E29A856AA00A64225 /* NewGroupViewController.swift */,
 				BF47196029A856DD00A64225 /* NewGroupViewModel.swift */,
+				BF4718F529A35BE600A64225 /* LocationSelect */,
 			);
 			path = NewGroup;
+			sourceTree = "<group>";
+		};
+		BF47196429A9C99B00A64225 /* AddressSearch */ = {
+			isa = PBXGroup;
+			children = (
+				BF47196529A9C9A900A64225 /* AddressSearchViewModel.swift */,
+				BF47196729A9C9C100A64225 /* AddressSearchViewController.swift */,
+			);
+			path = AddressSearch;
 			sourceTree = "<group>";
 		};
 		BFE361C629A1F6F200FA0F11 = {
@@ -326,7 +341,6 @@
 			children = (
 				BF47195D29A856A000A64225 /* NewGroup */,
 				BF47195029A5A6D900A64225 /* Main */,
-				BF4718F529A35BE600A64225 /* Map */,
 				BFE361F529A1FB2F00FA0F11 /* Login */,
 				BFE361F229A1F93E00FA0F11 /* Start */,
 			);
@@ -496,9 +510,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */,
+				BF47196629A9C9A900A64225 /* AddressSearchViewModel.swift in Sources */,
 				BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */,
 				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
+				BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,

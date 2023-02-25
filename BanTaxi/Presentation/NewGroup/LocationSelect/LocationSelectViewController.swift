@@ -57,6 +57,13 @@ class LocationSelectViewController: UIViewController {
                 self.mapView.select(self.centerMarker, animated: false)
             })
             .disposed(by: disposeBag)
+        
+        addressSearchButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(AddressSearchViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
