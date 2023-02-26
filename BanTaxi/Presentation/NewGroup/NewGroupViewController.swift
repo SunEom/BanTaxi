@@ -71,17 +71,26 @@ class NewGroupViewController: UIViewController {
         startingPointButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(LocationSelectViewController("출발지 설정"), animated: true)
+                self.navigationController?.pushViewController(LocationSelectViewController("출발지 설정", newGroupViewModel: self.viewModel), animated: true)
             })
             .disposed(by: disposeBag)
         
         destinationButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(LocationSelectViewController("도착지 설정"), animated: true)
+                self.navigationController?.pushViewController(LocationSelectViewController("도착지 설정", newGroupViewModel: self.viewModel), animated: true)
             })
             .disposed(by: disposeBag)
             
+        viewModel.startingPoint
+            .map { $0.roadAddress }
+            .bind(to: startingPointTextView.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.destinationPoint
+            .map { $0.roadAddress }
+            .bind(to: destinationTextView.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {

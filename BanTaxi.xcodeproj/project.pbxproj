@@ -51,6 +51,7 @@
 		BF47196329A8871700A64225 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196229A8871700A64225 /* UIView.swift */; };
 		BF47196629A9C9A900A64225 /* AddressSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196529A9C9A900A64225 /* AddressSearchViewModel.swift */; };
 		BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196729A9C9C100A64225 /* AddressSearchViewController.swift */; };
+		BF47196A29AB26DC00A64225 /* AddressSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196929AB26DC00A64225 /* AddressSearchResult.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -122,6 +123,7 @@
 		BF47196229A8871700A64225 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		BF47196529A9C9A900A64225 /* AddressSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewModel.swift; sourceTree = "<group>"; };
 		BF47196729A9C9C100A64225 /* AddressSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewController.swift; sourceTree = "<group>"; };
+		BF47196929AB26DC00A64225 /* AddressSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchResult.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				BF44118729A21DFE00A55F27 /* RequestResult.swift */,
+				BF47196929AB26DC00A64225 /* AddressSearchResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
+				BF47196A29AB26DC00A64225 /* AddressSearchResult.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
 				BF47196329A8871700A64225 /* UIView.swift in Sources */,

@@ -14,6 +14,7 @@ import CoreLocation
 class LocationSelectViewController: UIViewController {
     
     let disposeBag = DisposeBag()
+    let newGroupViewModel: NewGroupViewModel!
     
     let titleString: String!
     let locationManager: CLLocationManager!
@@ -24,7 +25,8 @@ class LocationSelectViewController: UIViewController {
     let addressSearchButton = UIButton()
     let saveButton = UIButton()
     
-    init(_ title: String = "") {
+    init(_ title: String = "", newGroupViewModel: NewGroupViewModel) {
+        self.newGroupViewModel = newGroupViewModel
         self.titleString  = title
         locationManager = CLLocationManager()
         viewModel = LocationSelectViewModel()
@@ -51,9 +53,10 @@ class LocationSelectViewController: UIViewController {
             .bind(to: centerMarker.rx.mapPoint)
             .disposed(by: disposeBag)
         
-        viewModel.mapCenterAddress
+        viewModel.selectedPoint
             .subscribe(onNext: {
-                self.centerMarker.itemName = $0
+                print($0)
+                self.centerMarker.itemName = $0.roadAddress
                 self.mapView.select(self.centerMarker, animated: false)
             })
             .disposed(by: disposeBag)
@@ -62,6 +65,20 @@ class LocationSelectViewController: UIViewController {
             .asDriver()
             .drive(onNext: {
                 self.navigationController?.pushViewController(AddressSearchViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .withLatestFrom(viewModel.selectedPoint)
+            .subscribe(onNext: {
+                switch self.titleString {
+                    case "출발지 설정":
+                        self.newGroupViewModel.startingPoint.onNext($0)
+                    case "도착지 설정":
+                        self.newGroupViewModel.destinationPoint.onNext($0)
+                    default: break
+                }
+                self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
     }
