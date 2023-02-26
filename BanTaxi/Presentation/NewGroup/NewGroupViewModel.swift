@@ -11,6 +11,6 @@ import RxRelay
 
 struct NewGroupViewModel {
     let intakeCount = PublishRelay.just([2,3,4,5])
-    let startingPoint = PublishSubject<AddressSearchResult>()
-    let destinationPoint = PublishSubject<AddressSearchResult>()
+    let startingPoint = BehaviorRelay<AddressSearchResult?>(value: nil)
+    let destinationPoint = BehaviorRelay<AddressSearchResult?>(value: nil)
 }

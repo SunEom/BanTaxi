@@ -83,12 +83,12 @@ class NewGroupViewController: UIViewController {
             .disposed(by: disposeBag)
             
         viewModel.startingPoint
-            .map { $0.roadAddress }
+            .map { $0?.roadAddress ?? "아직 선택된 출발지가 없습니다" }
             .bind(to: startingPointTextView.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.destinationPoint
-            .map { $0.roadAddress }
+            .map { $0?.roadAddress ?? "아직 선택된 도착지가 없습니다" }
             .bind(to: destinationTextView.rx.text)
             .disposed(by: disposeBag)
     }

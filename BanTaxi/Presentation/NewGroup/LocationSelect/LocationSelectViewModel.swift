@@ -30,8 +30,6 @@ struct LocationSelectViewModel {
             }
             .bind(to: selectedPoint)
             .disposed(by: disposeBag)
-            
-        
         
             
     }

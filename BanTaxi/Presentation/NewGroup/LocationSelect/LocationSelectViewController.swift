@@ -68,19 +68,46 @@ class LocationSelectViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        saveButton.rx.tap
-            .withLatestFrom(viewModel.selectedPoint)
-            .subscribe(onNext: {
-                switch self.titleString {
-                    case "출발지 설정":
-                        self.newGroupViewModel.startingPoint.onNext($0)
-                    case "도착지 설정":
-                        self.newGroupViewModel.destinationPoint.onNext($0)
-                    default: break
-                }
-                self.navigationController?.popViewController(animated: true)
-            })
-            .disposed(by: disposeBag)
+        switch titleString {
+            case "출발지 설정":
+                saveButton.rx.tap
+                    .withLatestFrom(viewModel.selectedPoint)
+                    .subscribe(onNext: {
+                        self.newGroupViewModel.startingPoint.accept($0)
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                    .disposed(by: disposeBag)
+                
+                newGroupViewModel.startingPoint
+                    .filter { $0 != nil && $0?.latitude != nil && $0?.longitude != nil }
+                    .map {
+                        let center = MTMapPoint(geoCoord: MTMapPointGeo(latitude: $0!.latitude!, longitude: $0!.longitude!))
+                        self.mapView.setMapCenter(center, zoomLevel: 1, animated: true)
+                        return center!
+                    }
+                    .bind(to: viewModel.mapCenterPoint)
+                    .disposed(by: disposeBag)
+                
+            case "도착지 설정":
+                saveButton.rx.tap
+                    .withLatestFrom(viewModel.selectedPoint)
+                    .subscribe(onNext: {
+                        self.newGroupViewModel.destinationPoint.accept($0)
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                    .disposed(by: disposeBag)
+                
+                newGroupViewModel.destinationPoint
+                    .filter { $0 != nil && $0?.latitude != nil && $0?.longitude != nil }
+                    .map {
+                        let center = MTMapPoint(geoCoord: MTMapPointGeo(latitude: $0!.latitude!, longitude: $0!.longitude!))
+                        self.mapView.setMapCenter(center, zoomLevel: 1, animated: true)
+                        return center!
+                    }
+                    .bind(to: viewModel.mapCenterPoint)
+                    .disposed(by: disposeBag)
+            default: break
+        }
     }
     
     private func attribute() {
@@ -140,9 +167,7 @@ class LocationSelectViewController: UIViewController {
         
         if let location = locationManager.location {
             let centerPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
-            
             mapView.setMapCenter(centerPoint, zoomLevel: 1, animated: true)
-
         }
         
     }
