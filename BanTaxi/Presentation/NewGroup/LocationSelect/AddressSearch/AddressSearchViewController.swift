@@ -31,12 +31,25 @@ class AddressSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(AddressSearchViewCell.self, forCellReuseIdentifier: K.TableViewCellID.AddressSearchCell)
+        
         bind()
         attribute()
         layout()
     }
     
     private func bind() {
+        
+        viewModel.searchResults
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items) { tv, row, result in
+                let cell = self.tableView.dequeueReusableCell(withIdentifier: K.TableViewCellID.AddressSearchCell, for: IndexPath(row: row, section: 0)) as! AddressSearchViewCell
+                
+                cell.setUp(with: AddressSearchViewCellViewModel(addressSearchResult: result))
+                
+                return cell
+            }
+            .disposed(by: diseposeBag)
         
     }
     
