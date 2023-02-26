@@ -14,12 +14,17 @@ class AddressSearchViewController: UIViewController {
     let diseposeBag = DisposeBag()
     let viewModel : AddressSearchViewModel!
     
+    let newGroupViewModel: NewGroupViewModel!
+    let mode: LocationSettingMode!
+    
     let topView = UIView()
     let keywordTextField = UITextField()
     let underLine = UIView()
     let tableView = UITableView()
     
-    init() {
+    init(mode: LocationSettingMode, with newGroupViewModel: NewGroupViewModel) {
+        self.newGroupViewModel = newGroupViewModel
+        self.mode = mode
         viewModel = AddressSearchViewModel()
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,6 +55,27 @@ class AddressSearchViewController: UIViewController {
                 return cell
             }
             .disposed(by: diseposeBag)
+        
+        tableView.rx.itemSelected
+            .map { indexPath in
+                self.tableView.cellForRow(at: indexPath)?.isSelected = false
+                return indexPath.row
+            }
+            .withLatestFrom(viewModel.searchResults) { row, results in
+                return results[row]
+            }
+            .subscribe {
+                self.navigationController?.popViewController(animated: true)
+                switch self.mode {
+                    case .Starting:
+                        self.newGroupViewModel.startingPoint.accept($0)
+                    case .Destination:
+                        self.newGroupViewModel.destinationPoint.accept($0)
+                    default:break
+                }
+            }
+            .disposed(by: diseposeBag)
+            
         
     }
     

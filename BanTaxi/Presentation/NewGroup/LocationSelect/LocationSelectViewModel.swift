@@ -12,17 +12,17 @@ import RxRelay
 struct LocationSelectViewModel {
     let disposeBag = DisposeBag()
     let mapCenterPoint = PublishRelay<MTMapPoint>()
-    let selectedPoint = PublishSubject<AddressSearchResult>()
+    let selectedPoint = PublishSubject<AddressData>()
     
     init() {
         
         // 지도 이동시 중앙 지점 주소 확인
         mapCenterPoint
             .flatMapLatest { centerPoint in
-                return Observable<AddressSearchResult>.create { observer in
+                return Observable<AddressData>.create { observer in
                     
                     MTMapReverseGeoCoder.executeFindingAddress(for: centerPoint, openAPIKey: Bundle.main.Kakao_API_KEY) { success, shortAddress, error in
-                        observer.onNext(AddressSearchResult(postCode: "", roadAddress: shortAddress, jibunAddress: nil, latitude: centerPoint.mapPointGeo().latitude, longitude: centerPoint.mapPointGeo().longitude))
+                        observer.onNext(AddressData(postCode: "", roadAddress: shortAddress, jibunAddress: nil, latitude: centerPoint.mapPointGeo().latitude, longitude: centerPoint.mapPointGeo().longitude))
                     }
                     
                     return Disposables.create()
@@ -30,8 +30,7 @@ struct LocationSelectViewModel {
             }
             .bind(to: selectedPoint)
             .disposed(by: disposeBag)
-        
-            
+    
     }
 
 }

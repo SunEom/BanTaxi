@@ -15,7 +15,7 @@ struct AddressSearchViewCellViewModel {
     let jibunAddress: String?
     let postCode: String?
     
-    init(addressSearchResult: AddressSearchResult) {
+    init(addressSearchResult: AddressData) {
         roadAddress = addressSearchResult.roadAddress
         jibunAddress = addressSearchResult.jibunAddress
         postCode = addressSearchResult.postCode

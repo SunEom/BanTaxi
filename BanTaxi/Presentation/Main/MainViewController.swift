@@ -47,11 +47,13 @@ class MainViewController: UIViewController {
     
     private func attribute() {
         view .backgroundColor = .white
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "MainColor")
+        
         titleLabel.text = "BanTaxi"
         titleLabel.font = .systemFont(ofSize: 30, weight: .heavy)
         titleLabel.textColor = UIColor(named: "MainColor")
-        
-        
+    
         buttonStackView.axis = .vertical
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 0

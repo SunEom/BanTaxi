@@ -26,12 +26,16 @@ class NewGroupViewController: UIViewController {
     let startingPointStackView = UIStackView()
     let startingPointLabel = UILabel()
     let startingPointTextView = UITextView()
-    let startingPointButton = UIButton()
+    let startingPointButtonStackView = UIStackView()
+    let startingPointMapButton = UIButton()
+    let startingPointSearchButton = UIButton()
     
     let destinationStackView = UIStackView()
     let destinationLabel = UILabel()
     let destinationTextView = UITextView()
-    let destinationButton = UIButton()
+    let destinationButtonStackView = UIStackView()
+    let destinationMapButton = UIButton()
+    let destinationSearchButton = UIButton()
     
     let timeInTakeStackView = UIStackView()
     
@@ -61,6 +65,11 @@ class NewGroupViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "MainColor")
+    }
+    
     private func bind() {
         
         viewModel.intakeCount.bind(to: intakePicker.rx.itemTitles) { _, item in
@@ -68,17 +77,31 @@ class NewGroupViewController: UIViewController {
         }
         .disposed(by: disposeBag)
         
-        startingPointButton.rx.tap
+        startingPointMapButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(LocationSelectViewController("출발지 설정", newGroupViewModel: self.viewModel), animated: true)
+                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Starting, with: self.viewModel), animated: true)
             })
             .disposed(by: disposeBag)
         
-        destinationButton.rx.tap
+        destinationMapButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(LocationSelectViewController("도착지 설정", newGroupViewModel: self.viewModel), animated: true)
+                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Destination, with: self.viewModel), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        startingPointSearchButton.rx.tap
+            .asDriver()
+            .drive(onNext:  {
+                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Starting, with: self.viewModel), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        destinationSearchButton.rx.tap
+            .asDriver()
+            .drive(onNext:  {
+                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Destination,with: self.viewModel), animated: true)
             })
             .disposed(by: disposeBag)
             
@@ -114,6 +137,12 @@ class NewGroupViewController: UIViewController {
         timeInTakeStackView.axis = .horizontal
         timeInTakeStackView.spacing = 10
         
+        [startingPointButtonStackView, destinationButtonStackView].forEach {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.spacing = 10
+        }
+        
         // Label 속성
         [nameLabel, startingPointLabel, destinationLabel, timeLabel, intakeLabel].forEach {
             $0.font = .systemFont(ofSize: 11, weight: .bold)
@@ -143,15 +172,19 @@ class NewGroupViewController: UIViewController {
         
         // Button 속성
         
-        [startingPointButton, destinationButton].forEach {
+        [startingPointMapButton, startingPointSearchButton, destinationMapButton, destinationSearchButton].forEach {
             $0.setTitleColor(.white, for: .normal)
             $0.backgroundColor = UIColor(named: "MainColor")
             $0.layer.cornerRadius = 5
             $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         }
         
-        startingPointButton.setTitle( "출발지 설정", for: .normal)
-        destinationButton.setTitle("도착지 설정", for: .normal)
+        
+        startingPointMapButton.setTitle( "지도에서 찾기", for: .normal)
+        destinationMapButton.setTitle("지도에서 찾기", for: .normal)
+        
+        startingPointSearchButton.setTitle( "주소 검색하기", for: .normal)
+        destinationSearchButton.setTitle("주소 검색하기", for: .normal)
         
         // DatePciker 속성
         timePicker.datePickerMode = .time
@@ -165,8 +198,13 @@ class NewGroupViewController: UIViewController {
         [nameStackView, startingPointStackView, destinationStackView, timeInTakeStackView].forEach { contentView.addSubview($0)}
         [timeStackView, intakeStackView].forEach { timeInTakeStackView.addArrangedSubview($0) }
         [nameLabel, nameTextField].forEach { nameStackView.addArrangedSubview($0) }
-        [startingPointLabel, startingPointTextView, startingPointButton].forEach { startingPointStackView.addArrangedSubview($0) }
-        [destinationLabel, destinationTextView, destinationButton].forEach { destinationStackView.addArrangedSubview($0) }
+        
+        [startingPointLabel, startingPointTextView, startingPointButtonStackView].forEach { startingPointStackView.addArrangedSubview($0) }
+        [startingPointMapButton, startingPointSearchButton].forEach { startingPointButtonStackView.addArrangedSubview($0)}
+        
+        [destinationLabel, destinationTextView, destinationButtonStackView].forEach { destinationStackView.addArrangedSubview($0) }
+        [destinationMapButton, destinationSearchButton].forEach { destinationButtonStackView.addArrangedSubview($0)}
+        
         [timeLabel, timePicker].forEach { timeStackView.addArrangedSubview($0) }
         [intakeLabel, intakePicker].forEach { intakeStackView.addArrangedSubview($0) }
         
@@ -218,8 +256,12 @@ class NewGroupViewController: UIViewController {
             $0.height.equalTo(30)
         }
         
-        startingPointButton.snp.makeConstraints {
-            $0.height.equalTo(25)
+        startingPointMapButton.snp.makeConstraints {
+            $0.height.equalTo(30)
+        }
+        
+        startingPointSearchButton.snp.makeConstraints {
+            $0.height.equalTo(30)
         }
         
         destinationStackView.snp.makeConstraints {
@@ -237,8 +279,12 @@ class NewGroupViewController: UIViewController {
             $0.height.equalTo(30)
         }
         
-        destinationButton.snp.makeConstraints {
-            $0.height.equalTo(25)
+        destinationMapButton.snp.makeConstraints {
+            $0.height.equalTo(30)
+        }
+        
+        destinationSearchButton.snp.makeConstraints {
+            $0.height.equalTo(30)
         }
         
     }

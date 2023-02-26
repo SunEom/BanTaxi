@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddressSearchResult { // 임시 데이터를 위한 구조체
+struct AddressData { // 임시 데이터를 위한 구조체
     let postCode: String?
     let roadAddress: String?
     let jibunAddress: String?

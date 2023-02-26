@@ -13,21 +13,20 @@ import CoreLocation
 
 class LocationSelectViewController: UIViewController {
     
+    let mode: LocationSettingMode!
     let disposeBag = DisposeBag()
     let newGroupViewModel: NewGroupViewModel!
-    
-    let titleString: String!
+
     let locationManager: CLLocationManager!
     let viewModel: LocationSelectViewModel!
     
     let mapView = MTMapView()
     let centerMarker = MTMapPOIItem()
-    let addressSearchButton = UIButton()
     let saveButton = UIButton()
     
-    init(_ title: String = "", newGroupViewModel: NewGroupViewModel) {
-        self.newGroupViewModel = newGroupViewModel
-        self.titleString  = title
+    init(mode: LocationSettingMode, with: NewGroupViewModel) {
+        self.newGroupViewModel = with
+        self.mode = mode
         locationManager = CLLocationManager()
         viewModel = LocationSelectViewModel()
         super.init(nibName: nil, bundle: nil)
@@ -53,23 +52,22 @@ class LocationSelectViewController: UIViewController {
             .bind(to: centerMarker.rx.mapPoint)
             .disposed(by: disposeBag)
         
+        viewModel.mapCenterPoint
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.mapView.setMapCenter($0, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.selectedPoint
             .subscribe(onNext: {
-                print($0)
                 self.centerMarker.itemName = $0.roadAddress
                 self.mapView.select(self.centerMarker, animated: false)
             })
             .disposed(by: disposeBag)
         
-        addressSearchButton.rx.tap
-            .asDriver()
-            .drive(onNext: {
-                self.navigationController?.pushViewController(AddressSearchViewController(), animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        switch titleString {
-            case "출발지 설정":
+        switch mode {
+            case .Starting:
                 saveButton.rx.tap
                     .withLatestFrom(viewModel.selectedPoint)
                     .subscribe(onNext: {
@@ -88,7 +86,7 @@ class LocationSelectViewController: UIViewController {
                     .bind(to: viewModel.mapCenterPoint)
                     .disposed(by: disposeBag)
                 
-            case "도착지 설정":
+            case .Destination:
                 saveButton.rx.tap
                     .withLatestFrom(viewModel.selectedPoint)
                     .subscribe(onNext: {
@@ -113,15 +111,15 @@ class LocationSelectViewController: UIViewController {
     private func attribute() {
         view.backgroundColor = .white
         
-        title = titleString
+        switch mode {
+            case .Starting:
+                title = "출발지 설정"
+            case .Destination:
+                title = "도착지 설정"
+            default: break
+        }
         
         self.navigationController?.navigationBar.topItem?.title = " "
-        
-        addressSearchButton.setTitle("주소로 위치 검색", for: .normal)
-        addressSearchButton.setTitleColor(.white, for: .normal)
-        addressSearchButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-        addressSearchButton.backgroundColor = UIColor(named: "MainColor")
-        addressSearchButton.layer.cornerRadius = 5
         
         saveButton.setTitle("해당 위치로 설정", for: .normal)
         saveButton.setTitleColor(.white, for: .normal)
@@ -132,7 +130,7 @@ class LocationSelectViewController: UIViewController {
     }
     
     private func layout() {
-        [mapView, addressSearchButton, saveButton].forEach {
+        [mapView, saveButton].forEach {
             view.addSubview($0)
         }
         
@@ -141,16 +139,10 @@ class LocationSelectViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
         }
-        
-        addressSearchButton.snp.makeConstraints {
-            $0.top.equalTo(mapView.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(40)
-        }
+    
         
         saveButton.snp.makeConstraints {
-            $0.top.equalTo(addressSearchButton.snp.bottom).offset(20)
+            $0.top.equalTo(mapView.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(40)
@@ -174,9 +166,7 @@ class LocationSelectViewController: UIViewController {
     
     private func mapViewSetting() {
         mapView.delegate = self
-        
         centerMarker.showDisclosureButtonOnCalloutBalloon = false
-
         mapView.addPOIItems([centerMarker])
     }
 }
