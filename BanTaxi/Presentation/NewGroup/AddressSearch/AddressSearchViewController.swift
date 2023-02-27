@@ -47,6 +47,7 @@ class AddressSearchViewController: UIViewController {
         
         viewModel.searchResults
             .asDriver(onErrorJustReturn: [])
+            .map { $0 == nil ? [] : $0! }
             .drive(tableView.rx.items) { tv, row, result in
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: K.TableViewCellID.AddressSearchCell, for: IndexPath(row: row, section: 0)) as! AddressSearchViewCell
                 
@@ -62,7 +63,7 @@ class AddressSearchViewController: UIViewController {
                 return indexPath.row
             }
             .withLatestFrom(viewModel.searchResults) { row, results in
-                return results[row]
+                return results![row]
             }
             .subscribe {
                 self.navigationController?.popViewController(animated: true)
@@ -76,7 +77,14 @@ class AddressSearchViewController: UIViewController {
             }
             .disposed(by: diseposeBag)
             
+        keywordTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.keyword)
+            .disposed(by: diseposeBag)
         
+        keywordTextField.rx.controlEvent(.editingDidEndOnExit)
+            .bind(to: viewModel.searchButtonTap)
+            .disposed(by: diseposeBag)
     }
     
     private func attribute() {
@@ -92,6 +100,7 @@ class AddressSearchViewController: UIViewController {
         keywordTextField.tintColor = .white
         keywordTextField.textColor = .white
         keywordTextField.font = .systemFont(ofSize: 23, weight: .semibold)
+        keywordTextField.returnKeyType = .search
         underLine.backgroundColor = UIColor(white: 0.8, alpha: 1)
 
     }

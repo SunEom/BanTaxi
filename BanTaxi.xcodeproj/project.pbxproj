@@ -56,6 +56,8 @@
 		BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196D29AB2F7B00A64225 /* AddressSearchCellViewModel.swift */; };
 		BF47197029AB30B100A64225 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47196F29AB30B100A64225 /* Constant.swift */; };
 		BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197129ABC77200A64225 /* LocationSettingMode.swift */; };
+		BF47197729AC422500A64225 /* AddressRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197629AC422500A64225 /* AddressRepository.swift */; };
+		BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197929AC426A00A64225 /* AddressNetwork.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -132,6 +134,8 @@
 		BF47196D29AB2F7B00A64225 /* AddressSearchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchCellViewModel.swift; sourceTree = "<group>"; };
 		BF47196F29AB30B100A64225 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		BF47197129ABC77200A64225 /* LocationSettingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSettingMode.swift; sourceTree = "<group>"; };
+		BF47197629AC422500A64225 /* AddressRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRepository.swift; sourceTree = "<group>"; };
+		BF47197929AC426A00A64225 /* AddressNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressNetwork.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -305,6 +309,22 @@
 			path = AddressSearch;
 			sourceTree = "<group>";
 		};
+		BF47197529AC420000A64225 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				BF47197629AC422500A64225 /* AddressRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		BF47197829AC425E00A64225 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BF47197929AC426A00A64225 /* AddressNetwork.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		BFE361C629A1F6F200FA0F11 = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +347,8 @@
 		BFE361D129A1F6F200FA0F11 /* BanTaxi */ = {
 			isa = PBXGroup;
 			children = (
+				BF47197829AC425E00A64225 /* Network */,
+				BF47197529AC420000A64225 /* Repository */,
 				BF4718F429A33ED500A64225 /* BanTaxi.entitlements */,
 				BF47194B29A3CAEE00A64225 /* Util */,
 				BF44118629A21DF400A55F27 /* Entity */,
@@ -532,8 +554,10 @@
 				BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BF47197029AB30B100A64225 /* Constant.swift in Sources */,
+				BF47197729AC422500A64225 /* AddressRepository.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
+				BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */,
 				BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */,
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
 				BF47196A29AB26DC00A64225 /* AddressData.swift in Sources */,

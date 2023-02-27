@@ -22,7 +22,7 @@ struct LocationSelectViewModel {
                 return Observable<AddressData>.create { observer in
                     
                     MTMapReverseGeoCoder.executeFindingAddress(for: centerPoint, openAPIKey: Bundle.main.Kakao_API_KEY) { success, shortAddress, error in
-                        observer.onNext(AddressData(postCode: "", roadAddress: shortAddress, jibunAddress: nil, latitude: centerPoint.mapPointGeo().latitude, longitude: centerPoint.mapPointGeo().longitude))
+                        observer.onNext(AddressData(roadAddress: shortAddress, jibunAddress: nil, latitude: centerPoint.mapPointGeo().latitude, longitude: centerPoint.mapPointGeo().longitude, placeName: nil))
                     }
                     
                     return Disposables.create()

@@ -14,5 +14,6 @@ target 'BanTaxi' do
   pod 'RxCocoa', '6.5.0'
   pod 'GoogleSignIn'
   pod 'SnapKit', '~> 5.6.0'
+  pod 'RxAlamofire'
   
 end

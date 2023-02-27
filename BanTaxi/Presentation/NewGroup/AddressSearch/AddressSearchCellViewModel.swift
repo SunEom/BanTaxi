@@ -13,11 +13,11 @@ struct AddressSearchViewCellViewModel {
     let disposeBag = DisposeBag()
     let roadAddress: String?
     let jibunAddress: String?
-    let postCode: String?
+    let placeName: String?
     
     init(addressSearchResult: AddressData) {
         roadAddress = addressSearchResult.roadAddress
         jibunAddress = addressSearchResult.jibunAddress
-        postCode = addressSearchResult.postCode
+        placeName = addressSearchResult.placeName
     }
 }
