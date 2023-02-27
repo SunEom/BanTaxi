@@ -43,6 +43,13 @@ class MainViewController: UIViewController {
                 self.navigationController?.pushViewController(NewGroupViewController(), animated: true)
             })
             .disposed(by: disposeBag)
+        
+        searchButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(SearchViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {

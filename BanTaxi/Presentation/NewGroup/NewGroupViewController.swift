@@ -65,6 +65,11 @@ class NewGroupViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = "새 그룹 만들기"
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor(named: "MainColor")
@@ -117,7 +122,6 @@ class NewGroupViewController: UIViewController {
     }
     
     private func attribute() {
-        title = "새 그룹 만들기"
         
         view.addTapGesture()
         view.backgroundColor = UIColor(white: 0.95, alpha: 1)

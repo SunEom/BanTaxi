@@ -58,6 +58,9 @@
 		BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197129ABC77200A64225 /* LocationSettingMode.swift */; };
 		BF47197729AC422500A64225 /* AddressRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197629AC422500A64225 /* AddressRepository.swift */; };
 		BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197929AC426A00A64225 /* AddressNetwork.swift */; };
+		BF47198029AC7E3400A64225 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197F29AC7E3400A64225 /* SearchViewModel.swift */; };
+		BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198129AC7E5200A64225 /* SearchViewController.swift */; };
+		BF47198429AC882900A64225 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198329AC882900A64225 /* UITextField.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -136,6 +139,9 @@
 		BF47197129ABC77200A64225 /* LocationSettingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSettingMode.swift; sourceTree = "<group>"; };
 		BF47197629AC422500A64225 /* AddressRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRepository.swift; sourceTree = "<group>"; };
 		BF47197929AC426A00A64225 /* AddressNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressNetwork.swift; sourceTree = "<group>"; };
+		BF47197F29AC7E3400A64225 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		BF47198129AC7E5200A64225 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		BF47198329AC882900A64225 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -274,6 +280,7 @@
 			children = (
 				BF47194C29A3CAFB00A64225 /* API.swift */,
 				BF47196229A8871700A64225 /* UIView.swift */,
+				BF47198329AC882900A64225 /* UITextField.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -323,6 +330,15 @@
 				BF47197929AC426A00A64225 /* AddressNetwork.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		BF47197E29AC7E2600A64225 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BF47197F29AC7E3400A64225 /* SearchViewModel.swift */,
+				BF47198129AC7E5200A64225 /* SearchViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		BFE361C629A1F6F200FA0F11 = {
@@ -376,6 +392,7 @@
 		BFE361F129A1F92B00FA0F11 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BF47197E29AC7E2600A64225 /* Search */,
 				BF47195D29A856A000A64225 /* NewGroup */,
 				BF47195029A5A6D900A64225 /* Main */,
 				BFE361F529A1FB2F00FA0F11 /* Login */,
@@ -551,6 +568,7 @@
 				BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */,
 				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
+				BF47198429AC882900A64225 /* UITextField.swift in Sources */,
 				BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BF47197029AB30B100A64225 /* Constant.swift in Sources */,
@@ -561,9 +579,11 @@
 				BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */,
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
 				BF47196A29AB26DC00A64225 /* AddressData.swift in Sources */,
+				BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */,
 				BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
+				BF47198029AC7E3400A64225 /* SearchViewModel.swift in Sources */,
 				BF47196C29AB2F6100A64225 /* AddressSearchViewCell.swift in Sources */,
 				BF47196329A8871700A64225 /* UIView.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */,
