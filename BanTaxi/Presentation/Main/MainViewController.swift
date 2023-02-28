@@ -15,9 +15,11 @@ class MainViewController: UIViewController {
     let viewModel: MainViewModel!
     
     let titleLabel = UILabel()
+    let profileButton = UIButton()
     
     let buttonStackView = UIStackView()
     let newGroupButton = UIButton()
+    let myGroupButton = UIButton()
     let searchButton = UIButton()
     init() {
         viewModel = MainViewModel()
@@ -61,40 +63,76 @@ class MainViewController: UIViewController {
         titleLabel.font = .systemFont(ofSize: 30, weight: .heavy)
         titleLabel.textColor = UIColor(named: "MainColor")
     
+        let profileButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        let profileButtonImg = UIImage(systemName: "person.circle", withConfiguration: profileButtonConfig)?.withRenderingMode(.alwaysTemplate)
+        profileButton.tintColor = UIColor(named: "MainColor")
+        profileButton.setImage(profileButtonImg, for: .normal)
+        
         buttonStackView.axis = .vertical
         buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 0
-        [newGroupButton, searchButton].forEach {
+        buttonStackView.spacing = 30
+        [newGroupButton].forEach {
             $0.backgroundColor = UIColor(named: "MainColor")
-            $0.layer.borderWidth = 0.5
-            $0.layer.borderColor = UIColor.white.cgColor
         }
         
-        let newGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 40, weight: .semibold, scale: .default)
+        [myGroupButton, searchButton].forEach {
+            $0.backgroundColor = .white
+        }
+        
+        let newGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
         let newGroupButtonImg = UIImage(systemName: "person.3", withConfiguration: newGroupButtonConfig)?.withRenderingMode(.alwaysTemplate)
-        newGroupButton.setTitle("새로운 그룹 만들기!", for: .normal)
+        newGroupButton.setTitle("새 그룹 만들기", for: .normal)
         newGroupButton.setImage(newGroupButtonImg, for: .normal)
         newGroupButton.tintColor = .white
-        newGroupButton.titleLabel?.font = .systemFont(ofSize: 30, weight: .bold)
+        newGroupButton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         newGroupButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         newGroupButton.imageView?.contentMode = .scaleAspectFit
+        newGroupButton.layer.cornerRadius = 20
+        newGroupButton.layer.shadowColor = UIColor.black.cgColor
+        newGroupButton.layer.shadowOpacity = 0.3
+        newGroupButton.layer.shadowRadius = 20
+        newGroupButton.layer.shadowOffset = CGSize.zero
+        newGroupButton.layer.masksToBounds = false
         
-        let searchButtonConfig = UIImage.SymbolConfiguration(pointSize: 40, weight: .semibold, scale: .default)
+        let myGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
+        let myGroupButtonImg = UIImage(systemName: "list.star", withConfiguration: myGroupButtonConfig)?.withRenderingMode(.alwaysTemplate)
+        myGroupButton.setTitle("내 그룹 보기", for: .normal)
+        myGroupButton.setTitleColor(UIColor(named: "MainColor"), for: .normal)
+        myGroupButton.setImage(myGroupButtonImg, for: .normal)
+        myGroupButton.tintColor = UIColor(named: "MainColor")
+        myGroupButton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        myGroupButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        myGroupButton.imageView?.contentMode = .scaleAspectFit
+        myGroupButton.layer.cornerRadius = 20
+        myGroupButton.layer.shadowColor = UIColor.black.cgColor
+        myGroupButton.layer.shadowOpacity = 0.3
+        myGroupButton.layer.shadowRadius = 20
+        myGroupButton.layer.shadowOffset = CGSize.zero
+        myGroupButton.layer.masksToBounds = false
+        
+        let searchButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
         let searchButtonImg = UIImage(systemName: "magnifyingglass", withConfiguration: searchButtonConfig)?.withRenderingMode(.alwaysTemplate)
-        searchButton.setTitle("기존 그룹에서 찾아보기", for: .normal)
+        searchButton.setTitle("그룹 찾기", for: .normal)
+        searchButton.setTitleColor(UIColor(named: "MainColor"), for: .normal)
         searchButton.setImage(searchButtonImg, for: .normal)
-        searchButton.tintColor = .white
-        searchButton.titleLabel?.font = .systemFont(ofSize: 30, weight: .bold)
+        searchButton.tintColor = UIColor(named: "MainColor")
+        searchButton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         searchButton.imageView?.contentMode = .scaleAspectFit
+        searchButton.layer.cornerRadius = 20
+        searchButton.layer.shadowColor = UIColor.black.cgColor
+        searchButton.layer.shadowOpacity = 0.3
+        searchButton.layer.shadowRadius = 20
+        searchButton.layer.shadowOffset = CGSize.zero
+        searchButton.layer.masksToBounds = false
     }
     
     private func layout() {
-        [titleLabel, buttonStackView].forEach {
+        [titleLabel, profileButton, buttonStackView].forEach {
             view.addSubview($0)
         }
         
-        [newGroupButton, searchButton].forEach {
+        [newGroupButton, myGroupButton, searchButton].forEach {
             buttonStackView.addArrangedSubview($0)
         }
         
@@ -105,10 +143,16 @@ class MainViewController: UIViewController {
             $0.height.equalTo(40)
         }
         
+        profileButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.trailing.equalToSuperview().offset(-30)
+        }
+        
         buttonStackView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(50)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().offset(-30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
         
     }
