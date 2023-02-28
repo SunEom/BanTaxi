@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import RxSwift
 
 struct NewGroupRepository {
@@ -17,7 +18,12 @@ struct NewGroupRepository {
             return Observable.just(validResult)
         }
         
-        return network.createNewGroupFB(with: GroupInfo(name: data.name, time: data.time, intake: data.intake, start: data.start!, destination: data.destination!))
+        if let uid = Auth.auth().currentUser?.uid {
+            return network.createNewGroupFB(with: GroupInfo(name: data.name, time: data.time, intake: data.intake, start: data.start!, destination: data.destination!,hostUid: uid))
+        } else {
+            return Observable.just(RequestResult(isSuccess: false, msg: "로그인 오류"))
+        }
+        
     }
     
     private func vaildateData(_ data: (name: String, time: Date, intake: Int, start: AddressData?, destination: AddressData?)) -> RequestResult? {

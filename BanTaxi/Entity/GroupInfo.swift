@@ -13,6 +13,7 @@ struct GroupInfo {
     let intake: Int
     let start: AddressData
     let destination: AddressData
+    let hostUid: String
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -23,6 +24,6 @@ struct GroupInfo {
     }
     
     func getDict() -> [String: Any] {
-        return ["name":name, "time":time, "intake": intake, "start":start.getDict(), "destination":destination.getDict()]
+        return ["name":name, "time":time, "intake": intake, "start":start.getDict(), "destination":destination.getDict(), "hostUid": hostUid]
     }
 }
