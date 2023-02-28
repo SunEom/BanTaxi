@@ -17,16 +17,20 @@ class SearchViewController: UIViewController {
     let modeButtonStackView = UIStackView()
     let titleModeButton = UIButton()
     let locationModeButton = UIButton()
+    let divider = UIView()
+    let titleUnderLine = UIView()
+    let locationUnderLine = UIView()
     
     let titleModeView = UIView()
     let locationModeView = UIView()
     
+    let titleSearchView = UIView()
     let titleSearchBarStackView = UIStackView()
+    let titleSearchImageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
     let titleSearchTextField = UITextField()
-    let titleSearchButton = UIButton()
     let titleSearchTableView = UITableView()
 
-    let searchView = UIView()
+    let locationSearchView = UIView()
     let currentLocationStackView = UIStackView()
     let currentLocationImageView = UIImageView(image: UIImage(systemName: "location.circle"))
     let currentLocationLabel = UILabel()
@@ -54,11 +58,16 @@ class SearchViewController: UIViewController {
     }
     
     private func bind() {
+        
         titleModeButton.rx.tap
             .asDriver()
             .drive(onNext: {
                 self.titleModeView.isHidden = false
+                self.titleModeButton.setTitleColor(K.Color.mainColor, for: .normal)
+                self.titleUnderLine.isHidden = false
                 self.locationModeView.isHidden = true
+                self.locationModeButton.setTitleColor(.gray, for: .normal)
+                self.locationUnderLine.isHidden = true
             })
             .disposed(by: disposeBag)
         
@@ -66,18 +75,31 @@ class SearchViewController: UIViewController {
             .asDriver()
             .drive(onNext: {
                 self.titleModeView.isHidden = true
+                self.titleModeButton.setTitleColor(.gray, for: .normal)
+                self.titleUnderLine.isHidden = true
                 self.locationModeView.isHidden = false
+                self.locationModeButton.setTitleColor(K.Color.mainColor, for: .normal)
+                self.locationUnderLine.isHidden = false
             })
             .disposed(by: disposeBag)
         
     }
     
     private func attribute() {
+        view.addTapGesture()
         
         // Initialize
         self.navigationController?.navigationBar.topItem?.title = " "
         view.backgroundColor = .white
         locationModeView.isHidden = true
+        
+        divider.backgroundColor = .lightGray
+        
+        [titleUnderLine, locationUnderLine].forEach {
+            $0.backgroundColor = K.Color.mainColor
+        }
+        
+        locationUnderLine.isHidden = true
         
         // Common
         modeButtonStackView.axis = .horizontal
@@ -89,39 +111,41 @@ class SearchViewController: UIViewController {
         locationModeButton.setTitle("위치 검색", for: .normal)
         
         [titleModeButton, locationModeButton].forEach {
-            $0.setTitleColor(UIColor(named: "MainColor"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         }
+        titleModeButton.setTitleColor(UIColor(named: "MainColor"), for: .normal)
+        locationModeButton.setTitleColor(.gray, for: .normal)
         
         // Title Mode
+        
+        titleSearchView.backgroundColor = .white
+        titleSearchView.layer.cornerRadius = 20
+        titleSearchView.layer.shadowColor = UIColor.black.cgColor
+        titleSearchView.layer.shadowOpacity = 0.1
+        titleSearchView.layer.shadowRadius = 10
+        titleSearchView.layer.shadowOffset = CGSize.zero
+        titleSearchView.layer.masksToBounds = false
+        
         titleSearchBarStackView.axis = .horizontal
-        titleSearchBarStackView.alignment = .fill
         titleSearchBarStackView.distribution = .fillProportionally
         titleSearchBarStackView.spacing = 5
         
-        titleSearchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        titleSearchButton.tintColor = .white
-        titleSearchButton.backgroundColor = UIColor(named: "MainColor")
-        titleSearchButton.layer.cornerRadius = 10
+        titleSearchImageView.contentMode = .scaleAspectFit
+        titleSearchImageView.tintColor = K.Color.mainColor
         
-        titleSearchTextField.layer.cornerRadius = 10
-        titleSearchTextField.layer.borderColor = UIColor.black.cgColor
-        titleSearchTextField.layer.borderWidth = 1
-        titleSearchTextField.addLeftPadding()
         titleSearchTextField.placeholder = "그룹명을 입력해주세요."
         
         // Location Mode
         
-        searchView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        searchView.layer.cornerRadius = 15
-        searchView.layer.shadowColor = UIColor.black.cgColor
-        searchView.layer.shadowOpacity = 0.2
-        searchView.layer.shadowRadius = 15
-        searchView.layer.shadowOffset = CGSize.zero
-        searchView.layer.masksToBounds = false
+        locationSearchView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        locationSearchView.layer.cornerRadius = 15
+        locationSearchView.layer.shadowColor = UIColor.black.cgColor
+        locationSearchView.layer.shadowOpacity = 0.2
+        locationSearchView.layer.shadowRadius = 15
+        locationSearchView.layer.shadowOffset = CGSize.zero
+        locationSearchView.layer.masksToBounds = false
         
         currentLocationStackView.axis = .horizontal
-        currentLocationStackView.alignment = .fill
         currentLocationStackView.distribution = .fillProportionally
         currentLocationStackView.spacing = 20
         
@@ -173,17 +197,18 @@ class SearchViewController: UIViewController {
     
     private func layout() {
         // Common
-        [modeButtonStackView, titleModeView, locationModeView].forEach { view.addSubview($0) }
+        [modeButtonStackView, divider, titleUnderLine, locationUnderLine, titleModeView, locationModeView].forEach { view.addSubview($0) }
         [titleModeButton, locationModeButton].forEach { modeButtonStackView.addArrangedSubview($0) }
         
         //TitleMode
-        [titleSearchBarStackView, titleSearchTableView].forEach { titleModeView.addSubview($0) }
-        [titleSearchTextField, titleSearchButton].forEach { titleSearchBarStackView.addArrangedSubview($0) }
+        [titleSearchView, titleSearchTableView].forEach { titleModeView.addSubview($0) }
+        titleSearchView.addSubview(titleSearchBarStackView)
+        [titleSearchImageView, titleSearchTextField].forEach { titleSearchBarStackView.addArrangedSubview($0) }
         
         
         //LocationMode
-        [searchView, locationTableView].forEach { locationModeView.addSubview($0) }
-        [currentLocationStackView, locationButtonStackView, searchModeButtonStackView].forEach { searchView.addSubview($0)}
+        [locationSearchView, locationTableView].forEach { locationModeView.addSubview($0) }
+        [currentLocationStackView, locationButtonStackView, searchModeButtonStackView].forEach { locationSearchView.addSubview($0)}
         [currentLocationImageView, currentLocationLabel].forEach { currentLocationStackView.addArrangedSubview($0) }
         [mapSearchButton, addressSearchButton].forEach { locationButtonStackView.addArrangedSubview($0) }
         [startingPointButton, destinationButton].forEach { searchModeButtonStackView.addArrangedSubview($0) }
@@ -194,6 +219,24 @@ class SearchViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(40)
+        }
+        
+        divider.snp.makeConstraints {
+            $0.top.equalTo(modeButtonStackView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        
+        titleUnderLine.snp.makeConstraints {
+            $0.top.equalTo(modeButtonStackView.snp.bottom)
+            $0.leading.trailing.equalTo(titleModeButton)
+            $0.height.equalTo(2)
+        }
+        
+        locationUnderLine.snp.makeConstraints {
+            $0.top.equalTo(modeButtonStackView.snp.bottom)
+            $0.leading.trailing.equalTo(locationModeButton)
+            $0.height.equalTo(2)
         }
         
         titleModeView.snp.makeConstraints{
@@ -210,16 +253,23 @@ class SearchViewController: UIViewController {
         
         // Title Mode
         
-        titleSearchBarStackView.snp.makeConstraints{
+        titleSearchView.snp.makeConstraints {
             $0.top.equalTo(modeButtonStackView.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
             $0.height.equalTo(40)
         }
         
-        titleSearchButton.snp.makeConstraints{
-            $0.width.equalTo(50)
+        titleSearchBarStackView.snp.makeConstraints{
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
+        
+        titleSearchImageView.snp.makeConstraints {
+            $0.height.width.equalTo(25)
+        }
+        
         
         titleSearchTableView.snp.makeConstraints {
             $0.top.equalTo(titleSearchBarStackView.snp.bottom).offset(15)
@@ -228,7 +278,7 @@ class SearchViewController: UIViewController {
         
         //Location Mode
         
-        searchView.snp.makeConstraints {
+        locationSearchView.snp.makeConstraints {
             $0.top.equalTo(locationModeView.snp.top).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
@@ -236,7 +286,7 @@ class SearchViewController: UIViewController {
         }
         
         currentLocationStackView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.top).offset(15)
+            $0.top.equalTo(locationSearchView.snp.top).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(30)
@@ -259,7 +309,7 @@ class SearchViewController: UIViewController {
         }
         
         locationTableView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(15)
+            $0.top.equalTo(locationSearchView.snp.bottom).offset(15)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }

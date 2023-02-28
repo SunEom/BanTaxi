@@ -8,6 +8,10 @@
 import Foundation
 
 struct K {
+    struct Color {
+        static let mainColor = UIColor(named: "MainColor")
+    }
+    
     struct TableViewCellID {
         static let AddressSearchCell = "AddressSearchCell"
     }
