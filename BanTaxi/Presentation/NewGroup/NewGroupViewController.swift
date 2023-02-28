@@ -77,7 +77,26 @@ class NewGroupViewController: UIViewController {
     
     private func bind() {
         
-        viewModel.intakeCount.bind(to: intakePicker.rx.itemTitles) { _, item in
+        saveButton.rx.tap
+            .bind(to: viewModel.saveButtonTap)
+            .disposed(by: disposeBag)
+        
+        nameTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.groupName)
+            .disposed(by: disposeBag)
+        
+        timePicker.rx.controlEvent(.valueChanged)
+            .map { self.timePicker.date }
+            .bind(to: viewModel.time)
+            .disposed(by: disposeBag)
+        
+        intakePicker.rx.itemSelected
+            .map { $0.row }
+            .bind(to: viewModel.intakeIndex)
+            .disposed(by: disposeBag)
+        
+        viewModel.intakeCountList.bind(to: intakePicker.rx.itemTitles) { _, item in
             return "\(item)"
         }
         .disposed(by: disposeBag)
@@ -118,6 +137,24 @@ class NewGroupViewController: UIViewController {
         viewModel.destinationPoint
             .map { $0?.roadAddress ?? "아직 선택된 도착지가 없습니다" }
             .bind(to: destinationTextView.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.requestResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext:{ result in
+                if result.isSuccess {
+                    let alert = UIAlertController(title: "성공", message: "새로운 그룹을 만들었습니다.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                } else {
+                    print(result.msg)
+                    let alert = UIAlertController(title: "오류", message: "오류가 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                }
+            })
             .disposed(by: disposeBag)
     }
     
@@ -193,6 +230,9 @@ class NewGroupViewController: UIViewController {
         // DatePciker 속성
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
+        timePicker.locale = Locale(identifier: "ko-KR")
+        timePicker.setDate(Date.now, animated: true)
+        
         
     }
     

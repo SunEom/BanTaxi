@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.trailing.equalToSuperview()
             $0.leading.equalToSuperview().offset(30)
             $0.height.equalTo(40)

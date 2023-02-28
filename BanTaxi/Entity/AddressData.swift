@@ -34,6 +34,18 @@ struct AddressData: Codable { // 임시 데이터를 위한 구조체
         case longitudeStr = "x"
         case placeName = "place_name"
     }
+    
+    func getDict() -> [String:Any] {
+        return [
+            "roadAddress": roadAddress ?? "",
+            "jibunAddress": jibunAddress ?? "",
+            "latitude": latitude ?? 0,
+            "longitude": longitude ?? 0,
+            "latitudeStr": latitudeStr ?? "",
+            "longitudeStr": longitudeStr ?? "",
+            "placeName": placeName ?? "",
+        ]
+    }
 }
 
 
