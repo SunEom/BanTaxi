@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 라이트 모드만 지원
         self.window?.overrideUserInterfaceStyle = .light
         
-        let rootViewController = UINavigationController(rootViewController: MainViewController())
+        let rootViewController = StartViewController()
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }

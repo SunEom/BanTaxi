@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAB829AF0906002F7995 /* UserManager.swift */; };
 		BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44118729A21DFE00A55F27 /* RequestResult.swift */; };
 		BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */; };
 		BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F829A35BFD00A64225 /* LocationSelectViewModel.swift */; };
@@ -78,6 +79,7 @@
 /* Begin PBXFileReference section */
 		040B15DF90100D48B261E40C /* Pods_BanTaxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BanTaxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36A7539BC0DC746A09FF449 /* Pods-BanTaxi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BanTaxi.debug.xcconfig"; path = "Target Support Files/Pods-BanTaxi/Pods-BanTaxi.debug.xcconfig"; sourceTree = "<group>"; };
+		BF23DAB829AF0906002F7995 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		BF44118729A21DFE00A55F27 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		BF4718F429A33ED500A64225 /* BanTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BanTaxi.entitlements; sourceTree = "<group>"; };
 		BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,14 @@
 				040B15DF90100D48B261E40C /* Pods_BanTaxi.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF23DAB729AF08FE002F7995 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				BF23DAB829AF0906002F7995 /* UserManager.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		BF44118629A21DF400A55F27 /* Entity */ = {
@@ -372,6 +382,7 @@
 		BFE361D129A1F6F200FA0F11 /* BanTaxi */ = {
 			isa = PBXGroup;
 			children = (
+				BF23DAB729AF08FE002F7995 /* User */,
 				BF47197829AC425E00A64225 /* Network */,
 				BF47197529AC420000A64225 /* Repository */,
 				BF4718F429A33ED500A64225 /* BanTaxi.entitlements */,
@@ -590,6 +601,7 @@
 				BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */,
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
 				BF47196A29AB26DC00A64225 /* AddressData.swift in Sources */,
+				BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */,
 				BF47198A29AD8D7A00A64225 /* NewGroupNetwork.swift in Sources */,
 				BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */,
 				BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */,
