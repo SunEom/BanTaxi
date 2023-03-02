@@ -45,7 +45,7 @@ class StartViewController: UIViewController {
                     vc.modalTransitionStyle = .crossDissolve
                     self.present(vc, animated: true)
                 } else {
-                    let vc = MainViewController()
+                    let vc = UINavigationController(rootViewController: MainViewController())
                     vc.modalPresentationStyle = .fullScreen
                     vc.modalTransitionStyle = .crossDissolve
                     self.present(vc, animated: true)
