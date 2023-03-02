@@ -275,10 +275,13 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                   return
                 }
                 
-//                let vc = LocationSelectViewController()
-//                vc.modalPresentationStyle = .fullScreen
-//                vc.modalTransitionStyle = .crossDissolve
-//                self.present(vc, animated: true)
+                guard let uid = authResult?.user.uid, let nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0] else { return }
+                UserManager.login(userData: User(uid: uid, nickname: nickname))
+                
+                let vc = MainViewController()
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
               
             }
         }
