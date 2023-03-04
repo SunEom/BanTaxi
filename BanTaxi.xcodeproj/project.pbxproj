@@ -10,7 +10,10 @@
 		BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAB829AF0906002F7995 /* UserManager.swift */; };
 		BF23DABD29B09340002F7995 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DABC29B09340002F7995 /* User.swift */; };
 		BF23DAC129B096D5002F7995 /* StartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC029B096D5002F7995 /* StartViewModel.swift */; };
-		BF23DAC329B099F6002F7995 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC229B099F6002F7995 /* LoginRepository.swift */; };
+		BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC229B099F6002F7995 /* AuthRepository.swift */; };
+		BF23DACA29B19337002F7995 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC929B19337002F7995 /* MyPageViewModel.swift */; };
+		BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACB29B1934F002F7995 /* MyPageViewController.swift */; };
+		BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACD29B1A655002F7995 /* AuthNetwork.swift */; };
 		BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44118729A21DFE00A55F27 /* RequestResult.swift */; };
 		BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */; };
 		BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F829A35BFD00A64225 /* LocationSelectViewModel.swift */; };
@@ -85,7 +88,10 @@
 		BF23DAB829AF0906002F7995 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		BF23DABC29B09340002F7995 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF23DAC029B096D5002F7995 /* StartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewModel.swift; sourceTree = "<group>"; };
-		BF23DAC229B099F6002F7995 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
+		BF23DAC229B099F6002F7995 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		BF23DAC929B19337002F7995 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		BF23DACB29B1934F002F7995 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		BF23DACD29B1A655002F7995 /* AuthNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetwork.swift; sourceTree = "<group>"; };
 		BF44118729A21DFE00A55F27 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		BF4718F429A33ED500A64225 /* BanTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BanTaxi.entitlements; sourceTree = "<group>"; };
 		BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +225,15 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		BF23DAC829B19328002F7995 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				BF23DAC929B19337002F7995 /* MyPageViewModel.swift */,
+				BF23DACB29B1934F002F7995 /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		BF44118629A21DF400A55F27 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,7 +360,7 @@
 			children = (
 				BF47197629AC422500A64225 /* AddressRepository.swift */,
 				BF47198529AD8A9E00A64225 /* NewGroupRepository.swift */,
-				BF23DAC229B099F6002F7995 /* LoginRepository.swift */,
+				BF23DAC229B099F6002F7995 /* AuthRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -355,6 +370,7 @@
 			children = (
 				BF47197929AC426A00A64225 /* AddressNetwork.swift */,
 				BF47198929AD8D7A00A64225 /* NewGroupNetwork.swift */,
+				BF23DACD29B1A655002F7995 /* AuthNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -420,6 +436,7 @@
 		BFE361F129A1F92B00FA0F11 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BF23DAC829B19328002F7995 /* MyPage */,
 				BF47197E29AC7E2600A64225 /* Search */,
 				BF47195D29A856A000A64225 /* NewGroup */,
 				BF47195029A5A6D900A64225 /* Main */,
@@ -608,6 +625,7 @@
 				BF47197729AC422500A64225 /* AddressRepository.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
+				BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */,
 				BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */,
 				BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */,
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
@@ -615,13 +633,15 @@
 				BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */,
 				BF47198A29AD8D7A00A64225 /* NewGroupNetwork.swift in Sources */,
 				BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */,
+				BF23DACA29B19337002F7995 /* MyPageViewModel.swift in Sources */,
 				BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
 				BF47198029AC7E3400A64225 /* SearchViewModel.swift in Sources */,
 				BF47196C29AB2F6100A64225 /* AddressSearchViewCell.swift in Sources */,
 				BF47196329A8871700A64225 /* UIView.swift in Sources */,
-				BF23DAC329B099F6002F7995 /* LoginRepository.swift in Sources */,
+				BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */,
+				BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */,
 				BF47195229A5A6E000A64225 /* MainViewController.swift in Sources */,
 				BF47195429A5A6E700A64225 /* MainViewModel.swift in Sources */,

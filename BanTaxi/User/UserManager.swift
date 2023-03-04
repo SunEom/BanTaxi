@@ -25,6 +25,8 @@ struct UserManager {
         if let userData = userData {
             UserDefaults.standard.setValue(userData.uid, forKey: "uid")
             UserDefaults.standard.setValue(userData.nickname, forKey: "nickname")
+            UserDefaults.standard.setValue(userData.email, forKey: "email")
+            UserDefaults.standard.setValue(userData.provider, forKey: "provider")
             isLogin = true
         }
         
@@ -36,5 +38,7 @@ struct UserManager {
         
         UserDefaults.standard.removeObject(forKey: "uid")
         UserDefaults.standard.removeObject(forKey: "nickname")
+        UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "provider")
     }
 }

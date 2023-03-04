@@ -52,6 +52,13 @@ class MainViewController: UIViewController {
                 self.navigationController?.pushViewController(SearchViewController(), animated: true)
             })
             .disposed(by: disposeBag)
+        
+        profileButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {

@@ -10,4 +10,6 @@ import Foundation
 struct User {
     let uid: String
     let nickname : String
+    let email: String
+    let provider: String
 }

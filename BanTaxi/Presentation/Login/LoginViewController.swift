@@ -167,18 +167,20 @@ extension LoginViewController {
                                                          accessToken: authentication.accessToken)
 
             Auth.auth().signIn(with: credential) { authResult, error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    let alert = UIAlertController(title: "오류", message: "오류가 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "확인", style: .default))
-                    self.present(alert, animated: true)
-                    return
+                if (error != nil) {
+                  print(error?.localizedDescription)
+                  return
                 }
                 
-//                let vc = LocationSelectViewController()
-//                vc.modalPresentationStyle = .fullScreen
-//                vc.modalTransitionStyle = .crossDissolve
-//                self.present(vc, animated: true)
+                guard let uid = authResult?.user.uid, let nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0], let email = authResult?.user.email else { return }
+                
+                
+                UserManager.login(userData: User(uid: uid, nickname: nickname, email: email, provider: "google"))
+                
+                let vc = UINavigationController(rootViewController: MainViewController())
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
             }
         }
     }
@@ -275,8 +277,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                   return
                 }
                 
-                guard let uid = authResult?.user.uid, let nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0] else { return }
-                UserManager.login(userData: User(uid: uid, nickname: nickname))
+                guard let uid = authResult?.user.uid, let nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0], let email = authResult?.user.email else { return }
+                
+                
+                UserManager.login(userData: User(uid: uid, nickname: nickname, email: email, provider: "apple"))
                 
                 let vc = UINavigationController(rootViewController: MainViewController())
                 vc.modalPresentationStyle = .fullScreen
