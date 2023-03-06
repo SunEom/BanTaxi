@@ -47,6 +47,7 @@ struct GroupNetwork {
                         for document in snapshot!.documents {
                             list.append(GroupInfo(data: document.data()))
                         }
+                        list.sort { $0.time > $1.time}
                         observer.onNext(list)
                     }
                 }
