@@ -14,6 +14,10 @@
 		BF23DACA29B19337002F7995 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC929B19337002F7995 /* MyPageViewModel.swift */; };
 		BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACB29B1934F002F7995 /* MyPageViewController.swift */; };
 		BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACD29B1A655002F7995 /* AuthNetwork.swift */; };
+		BF23DAD729B5A7EC002F7995 /* MyGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAD629B5A7EC002F7995 /* MyGroupViewModel.swift */; };
+		BF23DAD929B5A80C002F7995 /* MyGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */; };
+		BF23DADF29B5AB3E002F7995 /* GroupListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */; };
+		BF23DAE129B5ABA6002F7995 /* GroupListCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAE029B5ABA6002F7995 /* GroupListCellViewController.swift */; };
 		BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44118729A21DFE00A55F27 /* RequestResult.swift */; };
 		BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */; };
 		BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F829A35BFD00A64225 /* LocationSelectViewModel.swift */; };
@@ -92,6 +96,10 @@
 		BF23DAC929B19337002F7995 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		BF23DACB29B1934F002F7995 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		BF23DACD29B1A655002F7995 /* AuthNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetwork.swift; sourceTree = "<group>"; };
+		BF23DAD629B5A7EC002F7995 /* MyGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupViewModel.swift; sourceTree = "<group>"; };
+		BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupViewController.swift; sourceTree = "<group>"; };
+		BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCellViewModel.swift; sourceTree = "<group>"; };
+		BF23DAE029B5ABA6002F7995 /* GroupListCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCellViewController.swift; sourceTree = "<group>"; };
 		BF44118729A21DFE00A55F27 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		BF4718F429A33ED500A64225 /* BanTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BanTaxi.entitlements; sourceTree = "<group>"; };
 		BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +240,32 @@
 				BF23DACB29B1934F002F7995 /* MyPageViewController.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		BF23DAD529B5A7DE002F7995 /* MyGroup */ = {
+			isa = PBXGroup;
+			children = (
+				BF23DAD629B5A7EC002F7995 /* MyGroupViewModel.swift */,
+				BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */,
+			);
+			path = MyGroup;
+			sourceTree = "<group>";
+		};
+		BF23DADA29B5AAF2002F7995 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				BF23DADB29B5AB07002F7995 /* GroupListCell */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BF23DADB29B5AB07002F7995 /* GroupListCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */,
+				BF23DAE029B5ABA6002F7995 /* GroupListCellViewController.swift */,
+			);
+			path = GroupListCell;
 			sourceTree = "<group>";
 		};
 		BF44118629A21DF400A55F27 /* Entity */ = {
@@ -436,6 +470,8 @@
 		BFE361F129A1F92B00FA0F11 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BF23DADA29B5AAF2002F7995 /* Component */,
+				BF23DAD529B5A7DE002F7995 /* MyGroup */,
 				BF23DAC829B19328002F7995 /* MyPage */,
 				BF47197E29AC7E2600A64225 /* Search */,
 				BF47195D29A856A000A64225 /* NewGroup */,
@@ -614,6 +650,7 @@
 				BF47198629AD8A9E00A64225 /* NewGroupRepository.swift in Sources */,
 				BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */,
 				BF23DABD29B09340002F7995 /* User.swift in Sources */,
+				BF23DAD729B5A7EC002F7995 /* MyGroupViewModel.swift in Sources */,
 				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
 				BF47198429AC882900A64225 /* UITextField.swift in Sources */,
@@ -628,6 +665,7 @@
 				BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */,
 				BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */,
 				BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */,
+				BF23DADF29B5AB3E002F7995 /* GroupListCellViewModel.swift in Sources */,
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
 				BF47196A29AB26DC00A64225 /* AddressData.swift in Sources */,
 				BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */,
@@ -638,10 +676,12 @@
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
 				BF47198029AC7E3400A64225 /* SearchViewModel.swift in Sources */,
+				BF23DAD929B5A80C002F7995 /* MyGroupViewController.swift in Sources */,
 				BF47196C29AB2F6100A64225 /* AddressSearchViewCell.swift in Sources */,
 				BF47196329A8871700A64225 /* UIView.swift in Sources */,
 				BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */,
 				BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */,
+				BF23DAE129B5ABA6002F7995 /* GroupListCellViewController.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */,
 				BF47195229A5A6E000A64225 /* MainViewController.swift in Sources */,
 				BF47195429A5A6E700A64225 /* MainViewModel.swift in Sources */,

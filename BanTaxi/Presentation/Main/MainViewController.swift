@@ -39,10 +39,24 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
+        profileButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         newGroupButton.rx.tap
             .asDriver()
             .drive(onNext: {
                 self.navigationController?.pushViewController(NewGroupViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        myGroupButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(MyGroupViewController(), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -53,12 +67,7 @@ class MainViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        profileButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: {
-                self.navigationController?.pushViewController(MyPageViewController(), animated: true)
-            })
-            .disposed(by: disposeBag)
+        
     }
     
     private func attribute() {
