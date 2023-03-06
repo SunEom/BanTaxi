@@ -26,6 +26,16 @@ struct AddressData: Codable { // 임시 데이터를 위한 구조체
         self.placeName = placeName
     }
     
+    init(data: [String: Any]) {
+        self.roadAddress = data["roadAddress"] as? String ?? ""
+        self.jibunAddress = data["jibunAddress"] as? String ?? ""
+        self.latitude = data["latitude"] as? Double ?? 0.0
+        self.longitude = data["longitude"] as? Double ?? 0.0
+        self.latitudeStr = data["latitudeStr"] as? String ?? ""
+        self.longitudeStr = data["longitudeStr"] as? String ?? ""
+        self.placeName = data["placeName"] as? String ?? ""
+    }
+    
     enum CodingKeys: String, CodingKey {
         case latitude, longitude
         case roadAddress = "address_name"

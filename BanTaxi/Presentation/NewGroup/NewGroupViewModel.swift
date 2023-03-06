@@ -23,7 +23,7 @@ struct NewGroupViewModel {
     
     let requestResult = PublishRelay<RequestResult>()
     
-    init(_ repo: NewGroupRepository = NewGroupRepository()) {
+    init(_ repo: GroupRepository = GroupRepository()) {
         
         intakeIndex
             .withLatestFrom(intakeCountList) { $1[$0] }

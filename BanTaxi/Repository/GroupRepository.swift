@@ -9,9 +9,9 @@ import Foundation
 import FirebaseAuth
 import RxSwift
 
-struct NewGroupRepository {
+struct GroupRepository {
     
-    private let network = NewGroupNetwork()
+    private let network = GroupNetwork()
     
     func createNewGroup(with data: (name: String, time: Date, intake: Int, start: AddressData?, destination: AddressData?)) -> Observable<RequestResult> {
         if let validResult = vaildateData(data) {
@@ -35,5 +35,14 @@ struct NewGroupRepository {
             return RequestResult(isSuccess: false, msg: "도착점을 설정해주세요.")
         }
         return nil
+    }
+    
+    func fetchMyGroup() -> Observable<[GroupInfo]> {
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            return network.fetchMyGroupsFB(with: uid)
+        } else {
+            return Observable.just([])
+        }
     }
 }

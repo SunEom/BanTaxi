@@ -72,9 +72,9 @@
 		BF47198029AC7E3400A64225 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47197F29AC7E3400A64225 /* SearchViewModel.swift */; };
 		BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198129AC7E5200A64225 /* SearchViewController.swift */; };
 		BF47198429AC882900A64225 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198329AC882900A64225 /* UITextField.swift */; };
-		BF47198629AD8A9E00A64225 /* NewGroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198529AD8A9E00A64225 /* NewGroupRepository.swift */; };
+		BF47198629AD8A9E00A64225 /* GroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198529AD8A9E00A64225 /* GroupRepository.swift */; };
 		BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198729AD8AD100A64225 /* GroupInfo.swift */; };
-		BF47198A29AD8D7A00A64225 /* NewGroupNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198929AD8D7A00A64225 /* NewGroupNetwork.swift */; };
+		BF47198A29AD8D7A00A64225 /* GroupNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198929AD8D7A00A64225 /* GroupNetwork.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -167,9 +167,9 @@
 		BF47197F29AC7E3400A64225 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BF47198129AC7E5200A64225 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BF47198329AC882900A64225 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
-		BF47198529AD8A9E00A64225 /* NewGroupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupRepository.swift; sourceTree = "<group>"; };
+		BF47198529AD8A9E00A64225 /* GroupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRepository.swift; sourceTree = "<group>"; };
 		BF47198729AD8AD100A64225 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
-		BF47198929AD8D7A00A64225 /* NewGroupNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupNetwork.swift; sourceTree = "<group>"; };
+		BF47198929AD8D7A00A64225 /* GroupNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNetwork.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -393,7 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				BF47197629AC422500A64225 /* AddressRepository.swift */,
-				BF47198529AD8A9E00A64225 /* NewGroupRepository.swift */,
+				BF47198529AD8A9E00A64225 /* GroupRepository.swift */,
 				BF23DAC229B099F6002F7995 /* AuthRepository.swift */,
 			);
 			path = Repository;
@@ -403,7 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				BF47197929AC426A00A64225 /* AddressNetwork.swift */,
-				BF47198929AD8D7A00A64225 /* NewGroupNetwork.swift */,
+				BF47198929AD8D7A00A64225 /* GroupNetwork.swift */,
 				BF23DACD29B1A655002F7995 /* AuthNetwork.swift */,
 			);
 			path = Network;
@@ -647,7 +647,7 @@
 			files = (
 				BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */,
 				BF47196629A9C9A900A64225 /* AddressSearchViewModel.swift in Sources */,
-				BF47198629AD8A9E00A64225 /* NewGroupRepository.swift in Sources */,
+				BF47198629AD8A9E00A64225 /* GroupRepository.swift in Sources */,
 				BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */,
 				BF23DABD29B09340002F7995 /* User.swift in Sources */,
 				BF23DAD729B5A7EC002F7995 /* MyGroupViewModel.swift in Sources */,
@@ -669,7 +669,7 @@
 				BF47196129A856DD00A64225 /* NewGroupViewModel.swift in Sources */,
 				BF47196A29AB26DC00A64225 /* AddressData.swift in Sources */,
 				BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */,
-				BF47198A29AD8D7A00A64225 /* NewGroupNetwork.swift in Sources */,
+				BF47198A29AD8D7A00A64225 /* GroupNetwork.swift in Sources */,
 				BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */,
 				BF23DACA29B19337002F7995 /* MyPageViewModel.swift in Sources */,
 				BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */,

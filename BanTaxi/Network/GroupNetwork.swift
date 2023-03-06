@@ -10,7 +10,7 @@ import RxSwift
 import FirebaseFirestore
 import FirebaseAuth
 
-struct NewGroupNetwork {
+struct GroupNetwork {
     
     let db = Firestore.firestore()
     
@@ -31,6 +31,26 @@ struct NewGroupNetwork {
                     }
                 })
                 return Disposables.create()
+        }
+        
+    }
+    
+    func fetchMyGroupsFB(with uid: String) -> Observable<[GroupInfo]> {
+        print("fetchMyGroupsFB")
+        return Observable.create { observer in
+            db.collection("group").whereField("hostUid", isEqualTo: uid)
+                .getDocuments { snapshot, err in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        var list = [GroupInfo]()
+                        for document in snapshot!.documents {
+                            list.append(GroupInfo(data: document.data()))
+                        }
+                        observer.onNext(list)
+                    }
+                }
+            return Disposables.create()
         }
         
     }
