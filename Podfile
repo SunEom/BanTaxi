@@ -15,5 +15,6 @@ target 'BanTaxi' do
   pod 'GoogleSignIn'
   pod 'SnapKit', '~> 5.6.0'
   pod 'RxAlamofire'
+  pod 'DateToolsSwift'
   
 end

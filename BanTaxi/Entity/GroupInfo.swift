@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct GroupInfo {
     let name: String
@@ -40,7 +41,7 @@ struct GroupInfo {
         self.name = data["name"] as? String ?? ""
         self.hostUid = data["hostUid"] as? String ?? ""
         self.intake = data["intake"] as? Int ?? 0
-        self.time = data["time"] as? Date ?? Date()
+        self.time = (data["time"] as? Timestamp ?? Timestamp(date: Date())).dateValue()
         self.start = AddressData(data: data["start"] as? [String: Any] ?? [:])
         self.destination = AddressData(data: data["destination"] as? [String: Any] ?? [:])
     }

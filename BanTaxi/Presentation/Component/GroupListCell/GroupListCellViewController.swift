@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import DateToolsSwift
 
 class GroupListCellViewController: UITableViewCell {
     
@@ -46,9 +47,9 @@ class GroupListCellViewController: UITableViewCell {
         
         dayLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         monthLabel.font = .systemFont(ofSize: 16, weight: .heavy)
-        
-        dayLabel.text = "\(Calendar.current.dateComponents([.day], from: viewModel.groupInfo.time).day!)"
-        monthLabel.text = "Mar"
+        dayLabel.text = "\(viewModel.groupInfo.time.format(with: "d"))"
+        monthLabel.text = "\(viewModel.groupInfo.time.format(with: "MMM"))"
+
         
         infoStackView.axis = .vertical
         
