@@ -20,7 +20,9 @@ struct GroupNetwork {
             let id = "\(groupInfo.hostUid)\(Date().timeIntervalSince1970)" // document 이름으로 사용될 id
                 db.collection("group").document(id).getDocument(completion: { snapshot, error in // 중복되는 id가 있는지 확인
                     if snapshot?.data() == nil {
-                        db.collection("group").document(id).setData(groupInfo.getDict()) { error in
+                        var data = groupInfo
+                        data.documentID = id
+                        db.collection("group").document(id).setData(data.getDict()) { error in
                                 if error != nil {
                                     return observer.onNext(RequestResult(isSuccess: false, msg: "알 수 없는 오류가 발생했습니다."))
                                 }

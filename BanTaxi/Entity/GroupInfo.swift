@@ -15,6 +15,9 @@ struct GroupInfo {
     let start: AddressData
     let destination: AddressData
     let hostUid: String
+    var documentID: String
+    let participants: [String]
+    let participantsCount: Int
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -25,7 +28,7 @@ struct GroupInfo {
     }
     
     func getDict() -> [String: Any] {
-        return ["name":name, "time":time, "intake": intake, "start":start.getDict(), "destination":destination.getDict(), "hostUid": hostUid]
+        return ["name":name, "time":time, "intake": intake, "start":start.getDict(), "destination":destination.getDict(), "hostUid": hostUid, "documentID": documentID, "participants": participants, "participantsCount": participantsCount]
     }
     
     init(name: String, time: Date, intake: Int, start: AddressData, destination: AddressData, hostUid: String) {
@@ -35,6 +38,9 @@ struct GroupInfo {
         self.start = start
         self.destination = destination
         self.hostUid = hostUid
+        self.documentID = ""
+        self.participants = [hostUid]
+        self.participantsCount =  1
     }
     
     init(data: [String: Any]) {
@@ -44,5 +50,8 @@ struct GroupInfo {
         self.time = (data["time"] as? Timestamp ?? Timestamp(date: Date())).dateValue()
         self.start = AddressData(data: data["start"] as? [String: Any] ?? [:])
         self.destination = AddressData(data: data["destination"] as? [String: Any] ?? [:])
+        self.documentID = data["documentId"] as? String ?? ""
+        self.participants = data["participants"] as? [String] ?? []
+        self.participantsCount = data["participantsCount"] as? Int ?? 0
     }
 }
