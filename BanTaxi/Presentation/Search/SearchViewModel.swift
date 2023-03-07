@@ -11,4 +11,15 @@ import RxRelay
 
 struct SearchViewModel {
     let disposeBag = DisposeBag()
+    let keyword = PublishSubject<String>()
+    let titleSearchResult = PublishSubject<[GroupInfo]>()
+    let titleSearchButtonTap = PublishRelay<Void>()
+    
+    init(_ repo: GroupRepository = GroupRepository()) {
+        titleSearchButtonTap
+            .withLatestFrom(keyword)
+            .flatMapLatest(repo.fetchGroupsByKeyword(with:))
+            .bind(to: titleSearchResult)
+            .disposed(by: disposeBag)
+    }
 }

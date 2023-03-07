@@ -45,4 +45,10 @@ struct GroupRepository {
             return Observable.just([])
         }
     }
+    
+    func fetchGroupsByKeyword(with keyword: String) -> Observable<[GroupInfo]> {
+        return network.fetchAllGroupsFB()
+            .map{ $0.filter { $0.name.contains(keyword) }}
+    }
+    
 }

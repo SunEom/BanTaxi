@@ -52,6 +52,9 @@ class SearchViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
+        titleSearchTableView.register(GroupListCellViewController.self, forCellReuseIdentifier: K.TableViewCellID.GroupListCell)
+        
         bind()
         attribute()
         layout()
@@ -83,6 +86,35 @@ class SearchViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        
+        titleSearchTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.keyword)
+            .disposed(by: disposeBag)
+        
+        titleSearchTextField.rx.controlEvent(.editingDidEndOnExit)
+            .bind(to: viewModel.titleSearchButtonTap)
+            .disposed(by: disposeBag)
+        
+        viewModel.titleSearchResult
+            .bind(to: titleSearchTableView.rx.items) { tv, row, groupInfo in
+                let cell = tv.dequeueReusableCell(withIdentifier: K.TableViewCellID.GroupListCell, for: IndexPath(row: row, section: 0)) as! GroupListCellViewController
+                cell.setUp(with: groupInfo)
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        titleSearchTableView.rx.itemSelected
+            .observe(on: MainScheduler.instance)
+            .withLatestFrom(viewModel.titleSearchResult) { indexPath, list in
+                return (indexPath, list[indexPath.row])
+            }
+            .subscribe { (indexPath, groupInfo) in
+                self.titleSearchTableView.cellForRow(at: indexPath)?.isSelected = false
+                self.navigationController?.pushViewController(GroupDetailViewController(with: groupInfo), animated: true)
+            }
+            .disposed(by: disposeBag)
+            
     }
     
     private func attribute() {
