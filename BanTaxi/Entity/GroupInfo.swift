@@ -19,14 +19,6 @@ struct GroupInfo {
     let participants: [String]
     let participantsCount: Int
     
-    enum CodingKeys: String, CodingKey {
-        case name
-        case time
-        case intake
-        case start
-        case destination
-    }
-    
     func getDict() -> [String: Any] {
         return ["name":name, "time":time, "intake": intake, "start":start.getDict(), "destination":destination.getDict(), "hostUid": hostUid, "documentID": documentID, "participants": participants, "participantsCount": participantsCount]
     }
