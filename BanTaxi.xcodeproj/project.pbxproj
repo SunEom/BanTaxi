@@ -18,6 +18,10 @@
 		BF23DAD929B5A80C002F7995 /* MyGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */; };
 		BF23DADF29B5AB3E002F7995 /* GroupListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */; };
 		BF23DAE129B5ABA6002F7995 /* GroupListCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAE029B5ABA6002F7995 /* GroupListCellViewController.swift */; };
+		BF23DAE429B5CA09002F7995 /* GroupDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAE329B5CA09002F7995 /* GroupDetailViewModel.swift */; };
+		BF23DAE629B5CA24002F7995 /* GroupDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAE529B5CA24002F7995 /* GroupDetailViewController.swift */; };
+		BF273D4529B6ECF600B71DB9 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF273D4429B6ECF600B71DB9 /* MapViewModel.swift */; };
+		BF273D4729B6ED3600B71DB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF273D4629B6ED3600B71DB9 /* MapViewController.swift */; };
 		BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44118729A21DFE00A55F27 /* RequestResult.swift */; };
 		BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */; };
 		BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4718F829A35BFD00A64225 /* LocationSelectViewModel.swift */; };
@@ -100,6 +104,10 @@
 		BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupViewController.swift; sourceTree = "<group>"; };
 		BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCellViewModel.swift; sourceTree = "<group>"; };
 		BF23DAE029B5ABA6002F7995 /* GroupListCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCellViewController.swift; sourceTree = "<group>"; };
+		BF23DAE329B5CA09002F7995 /* GroupDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailViewModel.swift; sourceTree = "<group>"; };
+		BF23DAE529B5CA24002F7995 /* GroupDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailViewController.swift; sourceTree = "<group>"; };
+		BF273D4429B6ECF600B71DB9 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		BF273D4629B6ED3600B71DB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BF44118729A21DFE00A55F27 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		BF4718F429A33ED500A64225 /* BanTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BanTaxi.entitlements; sourceTree = "<group>"; };
 		BF4718F629A35BF500A64225 /* LocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +274,25 @@
 				BF23DAE029B5ABA6002F7995 /* GroupListCellViewController.swift */,
 			);
 			path = GroupListCell;
+			sourceTree = "<group>";
+		};
+		BF23DAE229B5C9FD002F7995 /* GroupDetail */ = {
+			isa = PBXGroup;
+			children = (
+				BF273D4329B6ECF000B71DB9 /* MapView */,
+				BF23DAE329B5CA09002F7995 /* GroupDetailViewModel.swift */,
+				BF23DAE529B5CA24002F7995 /* GroupDetailViewController.swift */,
+			);
+			path = GroupDetail;
+			sourceTree = "<group>";
+		};
+		BF273D4329B6ECF000B71DB9 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				BF273D4429B6ECF600B71DB9 /* MapViewModel.swift */,
+				BF273D4629B6ED3600B71DB9 /* MapViewController.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		BF44118629A21DF400A55F27 /* Entity */ = {
@@ -471,6 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				BF23DADA29B5AAF2002F7995 /* Component */,
+				BF23DAE229B5C9FD002F7995 /* GroupDetail */,
 				BF23DAD529B5A7DE002F7995 /* MyGroup */,
 				BF23DAC829B19328002F7995 /* MyPage */,
 				BF47197E29AC7E2600A64225 /* Search */,
@@ -645,6 +673,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF273D4529B6ECF600B71DB9 /* MapViewModel.swift in Sources */,
 				BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */,
 				BF47196629A9C9A900A64225 /* AddressSearchViewModel.swift in Sources */,
 				BF47198629AD8A9E00A64225 /* GroupRepository.swift in Sources */,
@@ -655,11 +684,13 @@
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
 				BF47198429AC882900A64225 /* UITextField.swift in Sources */,
 				BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */,
+				BF273D4729B6ED3600B71DB9 /* MapViewController.swift in Sources */,
 				BF23DAC129B096D5002F7995 /* StartViewModel.swift in Sources */,
 				BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BF47197029AB30B100A64225 /* Constant.swift in Sources */,
 				BF47197729AC422500A64225 /* AddressRepository.swift in Sources */,
+				BF23DAE629B5CA24002F7995 /* GroupDetailViewController.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
 				BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */,
@@ -681,6 +712,7 @@
 				BF47196329A8871700A64225 /* UIView.swift in Sources */,
 				BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */,
 				BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */,
+				BF23DAE429B5CA09002F7995 /* GroupDetailViewModel.swift in Sources */,
 				BF23DAE129B5ABA6002F7995 /* GroupListCellViewController.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */,
 				BF47195229A5A6E000A64225 /* MainViewController.swift in Sources */,

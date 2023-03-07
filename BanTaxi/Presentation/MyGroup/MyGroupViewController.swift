@@ -43,6 +43,18 @@ class MyGroupViewController: UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .map { indexPath in
+                self.tableView.cellForRow(at: indexPath)?.isSelected = false
+                return indexPath.row
+            }
+            .withLatestFrom(viewModel.list) { idx, list in return list[idx] }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { groupInfo in
+                self.navigationController?.pushViewController(GroupDetailViewController(with: groupInfo), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
