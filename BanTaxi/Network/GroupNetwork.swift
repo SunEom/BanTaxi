@@ -77,6 +77,7 @@ struct GroupNetwork {
         
     }
     
+    
     func deleteGroupFB(_ groupInfo: GroupInfo) -> Observable<RequestResult> {
         return Observable.create { observer in
             db.collection("group").document(groupInfo.documentID).delete() { error in
@@ -86,6 +87,96 @@ struct GroupNetwork {
                     observer.onNext(RequestResult(isSuccess: true, msg: "정상적으로 삭제되었습니다."))
                 }
             }
+            return Disposables.create()
+        }
+    }
+    
+    func fetchDetailFB(id: String) -> Observable<GroupInfo> {
+        return Observable.create { observer in
+            db.collection("group").document(id).getDocument { snapshot, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    if let data = snapshot?.data() {
+                        observer.onNext(GroupInfo(data: data))
+                    } else {
+                        print("Error...")
+                    }
+                    
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func joinGroupFB(groupID: String) -> Observable<RequestResult> {
+        return Observable<RequestResult>.create { observer in
+            
+            db.collection("group").document(groupID).getDocument { snapshot, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    if let data = snapshot?.data() {
+                        let groupInfo = GroupInfo(data: data)
+                        if let uid = Auth.auth().currentUser?.uid {
+                            if groupInfo.participants.contains(uid) {
+                                observer.onNext(RequestResult(isSuccess: false, msg: "이미 참여한 그룹입니다."))
+                            } else {
+                                db.collection("group").document(groupInfo.documentID).updateData(["participants" : groupInfo.participants + [uid], "participantsCount": groupInfo.participantsCount+1]) { error in
+                                    if let error = error {
+                                        print(error)
+                                        observer.onNext(RequestResult(isSuccess: false, msg: error.localizedDescription))
+                                    } else {
+                                        observer.onNext(RequestResult(isSuccess: true, msg: "정상적으로 참여되었습니다."))
+                                    }
+                                }
+                            }
+                            
+                        }
+                        
+                    } else {
+                        print("Error...")
+                    }
+                    
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func exitGroupFB(groupID: String) -> Observable<RequestResult> {
+        return Observable.create { observer in
+            
+            db.collection("group").document(groupID).getDocument { snapshot, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    if let data = snapshot?.data() {
+                        let groupInfo = GroupInfo(data: data)
+                        if let uid = Auth.auth().currentUser?.uid {
+                            if !groupInfo.participants.contains(uid) {
+                                observer.onNext(RequestResult(isSuccess: false, msg: "참여 중인 그룹이 아닙니다."))
+                            } else {
+                                db.collection("group").document(groupInfo.documentID).updateData(["participants" : groupInfo.participants.filter { $0 != uid }, "participantsCount": groupInfo.participantsCount-1]) { error in
+                                    if let error = error {
+                                        print(error)
+                                        observer.onNext(RequestResult(isSuccess: false, msg: error.localizedDescription))
+                                    } else {
+                                        observer.onNext(RequestResult(isSuccess: true, msg: "정상적으로 참여되었습니다."))
+                                    }
+                                }
+                            }
+                            
+                        }
+                        
+                    } else {
+                        print("Error...")
+                    }
+                    
+                }
+            }
+            
             return Disposables.create()
         }
     }

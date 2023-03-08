@@ -11,32 +11,94 @@ import RxRelay
 
 struct GroupDetailViewModel {
     let disposeBag = DisposeBag()
-    let groupInfo: GroupInfo
-    let isMine: Observable<Bool>
+    let groupInfo: BehaviorSubject<GroupInfo>
+    let groupID: String
+    
+    let fetchRequest = PublishSubject<Void>()
+    
+    let isMine = PublishSubject<Bool>()
     let deleteRequest = PublishSubject<Void>()
     let deleteRequestResult = PublishSubject<RequestResult>()
+    let alreadyJoin = PublishSubject<Bool>()
+    
+    let joinRequest = PublishSubject<Void>()
+    let joinRequestResult = PublishSubject<RequestResult>()
+    
+    let exitRequest = PublishSubject<Void>()
+    let exitRequestResult = PublishSubject<RequestResult>()
     
     init(_ repo: GroupRepository = GroupRepository(), with groupInfo: GroupInfo) {
-        self.groupInfo = groupInfo
-        print(groupInfo)
+        self.groupInfo = BehaviorSubject(value: groupInfo)
+        self.groupID = groupInfo.documentID
         
-        isMine = UserManager.getInstance()
-            .map{ userData in
-                if userData == nil {
-                    return false
-                } else {
-                    if userData!.uid == groupInfo.hostUid {
-                        return true
-                    } else {
-                        return false
-                    }
-                }
+        //MARK: - 그룹 정보 확인
+        
+        self.groupInfo.withLatestFrom(UserManager.getInstance()){ groupInfo, userData in
+            return (groupInfo, userData)
+        }
+        .map{ (groupInfo, userData) in
+            if userData == nil {
+                return false
+            } else {
+                return userData!.uid == groupInfo.hostUid
             }
+        }
+        .bind(to: isMine)
+        .disposed(by: disposeBag)
+        
+        self.groupInfo.withLatestFrom(UserManager.getInstance()){ groupInfo, userData in
+            return (groupInfo, userData)
+        }
+        .map{ (groupInfo, userData) in
+            if userData == nil {
+                return false
+            } else {
+                return groupInfo.participants.contains(userData!.uid)
+            }
+        }
+        .bind(to: alreadyJoin)
+        .disposed(by: disposeBag)
+        
+        //MARK: - 그룹 삭제
         
         deleteRequest
             .flatMapLatest{ repo.deleteGroup(groupInfo) }
             .bind(to: deleteRequestResult)
             .disposed(by: disposeBag)
+        
+        //MARK: - 그룹 상세정보 가져오기
+        
+        fetchRequest
+            .flatMapLatest { repo.fetchDetail(id: groupInfo.documentID) }
+            .map {
+                print($0)
+                return $0
+            }
+            .bind(to: self.groupInfo)
+            .disposed(by: disposeBag)
+        
+        joinRequestResult
+            .map { _ in Void() }
+            .bind(to: fetchRequest )
+            .disposed(by: disposeBag)
+        
+        exitRequestResult
+            .map { _ in Void() }
+            .bind(to: fetchRequest)
+            .disposed(by: disposeBag)
+        
+        //MARK: - 그룹 참여
+        joinRequest
+            .flatMapLatest { repo.joinGroup(groupID: groupInfo.documentID) }
+            .bind(to: joinRequestResult)
+            .disposed(by: disposeBag)
+        
+        //MARK: - 그룹 나가기
+        exitRequest
+            .flatMapLatest { repo.exitGroup(groupID: groupInfo.documentID) }
+            .bind(to: exitRequestResult)
+            .disposed(by: disposeBag)
+        
         
     }
 }

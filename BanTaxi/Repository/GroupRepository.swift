@@ -54,4 +54,16 @@ struct GroupRepository {
     func deleteGroup(_ groupInfo: GroupInfo) -> Observable<RequestResult> {
         return network.deleteGroupFB(groupInfo)
     }
+    
+    func fetchDetail(id: String) -> Observable<GroupInfo> {
+        return network.fetchDetailFB(id: id)
+    }
+    
+    func joinGroup(groupID: String) -> Observable<RequestResult> {
+        return network.joinGroupFB(groupID: groupID)
+    }
+    
+    func exitGroup(groupID: String) -> Observable<RequestResult> {
+        return network.exitGroupFB(groupID: groupID)
+    }
 }
