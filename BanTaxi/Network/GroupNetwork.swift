@@ -76,4 +76,18 @@ struct GroupNetwork {
         }
         
     }
+    
+    func deleteGroupFB(_ groupInfo: GroupInfo) -> Observable<RequestResult> {
+        return Observable.create { observer in
+            db.collection("group").document(groupInfo.documentID).delete() { error in
+                if let error = error {
+                    observer.onNext(RequestResult(isSuccess: false, msg: error.localizedDescription))
+                } else {
+                    observer.onNext(RequestResult(isSuccess: true, msg: "정상적으로 삭제되었습니다."))
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
 }

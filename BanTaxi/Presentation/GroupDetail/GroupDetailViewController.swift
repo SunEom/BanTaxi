@@ -14,6 +14,8 @@ class GroupDetailViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: GroupDetailViewModel!
     
+    let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: nil, action: nil)
+    
     let nameLabel = UILabel()
     
     let timeImgView = UIImageView(image: UIImage(systemName: "timer"))
@@ -65,10 +67,52 @@ class GroupDetailViewController: UIViewController {
                 self.present(pvc, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.isMine
+            .map{ !$0 }
+            .bind(to: deleteButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                let alert = UIAlertController(title: "삭제", message: "정말로 그룹을 삭제하시겠습니까?", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                    self.viewModel.deleteRequest.onNext(Void())
+                }
+                let cancel = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(confirm)
+                alert.addAction(cancel)
+                self.present(alert, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.deleteRequestResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { result in
+                if result.isSuccess {
+                    let alert = UIAlertController(title: "성공", message: "그룹이 삭제되었습니다.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default) { _ in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                } else {
+                    print(result.msg)
+                    let alert = UIAlertController(title: "오류", message: "오류가 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
         view.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem = deleteButton
+        navigationItem.rightBarButtonItem?.tintColor = .red
         
         nameLabel.text = viewModel.groupInfo.name
         nameLabel.font = .systemFont(ofSize: 23, weight: .bold)

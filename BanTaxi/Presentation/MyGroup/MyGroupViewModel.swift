@@ -12,10 +12,13 @@ import RxRelay
 struct MyGroupViewModel {
     let disposeBag = DisposeBag()
     
-    let list : Observable<[GroupInfo]>
-    
+    let list = PublishSubject<[GroupInfo]>()
+    let fetchRequest = PublishSubject<Void>()
     
     init(_ repo: GroupRepository = GroupRepository()) {
-        list = repo.fetchMyGroup()
+        fetchRequest
+            .flatMapLatest(repo.fetchMyGroup)
+            .bind(to: list)
+            .disposed(by: disposeBag)
     }
 }

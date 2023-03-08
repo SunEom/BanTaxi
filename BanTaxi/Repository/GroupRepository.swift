@@ -51,4 +51,7 @@ struct GroupRepository {
             .map{ $0.filter { $0.name.contains(keyword) }}
     }
     
+    func deleteGroup(_ groupInfo: GroupInfo) -> Observable<RequestResult> {
+        return network.deleteGroupFB(groupInfo)
+    }
 }

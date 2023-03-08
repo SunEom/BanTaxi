@@ -42,7 +42,7 @@ struct GroupInfo {
         self.time = (data["time"] as? Timestamp ?? Timestamp(date: Date())).dateValue()
         self.start = AddressData(data: data["start"] as? [String: Any] ?? [:])
         self.destination = AddressData(data: data["destination"] as? [String: Any] ?? [:])
-        self.documentID = data["documentId"] as? String ?? ""
+        self.documentID = data["documentID"] as? String ?? ""
         self.participants = data["participants"] as? [String] ?? []
         self.participantsCount = data["participantsCount"] as? Int ?? 0
     }
