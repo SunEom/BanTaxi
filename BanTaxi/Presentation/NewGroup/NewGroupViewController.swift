@@ -144,7 +144,9 @@ class NewGroupViewController: UIViewController {
             .subscribe(onNext:{ result in
                 if result.isSuccess {
                     let alert = UIAlertController(title: "성공", message: "새로운 그룹을 만들었습니다.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "확인", style: .default)
+                    let action = UIAlertAction(title: "확인", style: .default) { _ in
+                        self.navigationController?.popViewController(animated: true)
+                    }
                     alert.addAction(action)
                     self.present(alert, animated: true)
                 } else {
