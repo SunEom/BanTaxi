@@ -66,4 +66,21 @@ struct GroupRepository {
     func exitGroup(groupID: String) -> Observable<RequestResult> {
         return network.exitGroupFB(groupID: groupID)
     }
+    
+    func fetchWithStartPoint(from: AddressData) -> Observable<[GroupInfo]> {
+        return network.fetchAllGroupsFB()
+            .map { $0.filter {
+                
+                let dist = Distance.calcDistance((from.latitude, from.longitude), ($0.start.latitude, $0.start.longitude))
+                return dist != nil && dist! < 0.5
+            }}
+    }
+    
+    func fetchWithDestination(from: AddressData) -> Observable<[GroupInfo]> {
+        return network.fetchAllGroupsFB()
+            .map { $0.filter {
+                let dist = Distance.calcDistance((from.latitude, from.longitude), ($0.destination.latitude, $0.destination.longitude))
+                return dist != nil && dist! < 0.5
+            }}
+    }
 }

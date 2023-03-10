@@ -10,4 +10,5 @@ import Foundation
 enum LocationSettingMode {
     case Starting
     case Destination
+    case Default
 }

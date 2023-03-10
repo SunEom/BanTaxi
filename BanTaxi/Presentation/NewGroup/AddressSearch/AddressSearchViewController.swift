@@ -14,7 +14,7 @@ class AddressSearchViewController: UIViewController {
     let diseposeBag = DisposeBag()
     let viewModel : AddressSearchViewModel!
     
-    let newGroupViewModel: NewGroupViewModel!
+    let addressDataContainer: BehaviorRelay<AddressData?>!
     let mode: LocationSettingMode!
     
     let topView = UIView()
@@ -22,8 +22,8 @@ class AddressSearchViewController: UIViewController {
     let underLine = UIView()
     let tableView = UITableView()
     
-    init(mode: LocationSettingMode, with newGroupViewModel: NewGroupViewModel) {
-        self.newGroupViewModel = newGroupViewModel
+    init(mode: LocationSettingMode, with addressDataContainer: BehaviorRelay<AddressData?>!) {
+        self.addressDataContainer = addressDataContainer
         self.mode = mode
         viewModel = AddressSearchViewModel()
         super.init(nibName: nil, bundle: nil)
@@ -67,13 +67,7 @@ class AddressSearchViewController: UIViewController {
             }
             .subscribe {
                 self.navigationController?.popViewController(animated: true)
-                switch self.mode {
-                    case .Starting:
-                        self.newGroupViewModel.startingPoint.accept($0)
-                    case .Destination:
-                        self.newGroupViewModel.destinationPoint.accept($0)
-                    default:break
-                }
+                self.addressDataContainer.accept($0)
             }
             .disposed(by: diseposeBag)
             

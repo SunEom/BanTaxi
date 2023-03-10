@@ -80,6 +80,7 @@
 		BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198729AD8AD100A64225 /* GroupInfo.swift */; };
 		BF47198A29AD8D7A00A64225 /* GroupNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198929AD8D7A00A64225 /* GroupNetwork.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
+		BFCC3E5729BAFCA10037D89E /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC3E5629BAFCA10037D89E /* Distance.swift */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
 		BFE361DC29A1F6F200FA0F11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFE361DB29A1F6F200FA0F11 /* Assets.xcassets */; };
@@ -179,6 +180,7 @@
 		BF47198729AD8AD100A64225 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		BF47198929AD8D7A00A64225 /* GroupNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNetwork.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BFCC3E5629BAFCA10037D89E /* Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				BF47194C29A3CAFB00A64225 /* API.swift */,
 				BF47196229A8871700A64225 /* UIView.swift */,
 				BF47198329AC882900A64225 /* UITextField.swift */,
+				BFCC3E5629BAFCA10037D89E /* Distance.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -682,6 +685,7 @@
 				BF23DAD729B5A7EC002F7995 /* MyGroupViewModel.swift in Sources */,
 				BF44118829A21DFE00A55F27 /* RequestResult.swift in Sources */,
 				BFE361F729A1FB3800FA0F11 /* LoginViewController.swift in Sources */,
+				BFCC3E5729BAFCA10037D89E /* Distance.swift in Sources */,
 				BF47198429AC882900A64225 /* UITextField.swift in Sources */,
 				BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */,
 				BF273D4729B6ED3600B71DB9 /* MapViewController.swift in Sources */,

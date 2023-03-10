@@ -40,7 +40,7 @@ class SearchViewController: UIViewController {
     let searchModeButtonStackView = UIStackView()
     let startingPointButton = UIButton()
     let destinationButton = UIButton()
-    let locationTableView = UITableView()
+    let locationSearchTableView = UITableView()
     
     init() {
         viewModel = SearchViewModel()
@@ -54,6 +54,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         
         titleSearchTableView.register(GroupListCellViewController.self, forCellReuseIdentifier: K.TableViewCellID.GroupListCell)
+        locationSearchTableView.register(GroupListCellViewController.self, forCellReuseIdentifier: K.TableViewCellID.GroupListCell)
         
         bind()
         attribute()
@@ -61,6 +62,8 @@ class SearchViewController: UIViewController {
     }
     
     private func bind() {
+        
+        // 그룹명 검색
         
         titleModeButton.rx.tap
             .asDriver()
@@ -85,7 +88,6 @@ class SearchViewController: UIViewController {
                 self.locationUnderLine.isHidden = false
             })
             .disposed(by: disposeBag)
-        
         
         titleSearchTextField.rx.text
             .orEmpty
@@ -115,6 +117,55 @@ class SearchViewController: UIViewController {
             }
             .disposed(by: disposeBag)
             
+        
+        // 위치 검색
+        
+        viewModel.targetAddress
+            .filter { $0 != nil }
+            .map { $0!.roadAddress}
+            .bind(to: currentLocationLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        mapSearchButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Default, with: self.viewModel.targetAddress), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        addressSearchButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Default, with: self.viewModel.targetAddress), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        startingPointButton.rx.tap
+            .bind(to: viewModel.startPointSearchButtonTap)
+            .disposed(by: disposeBag)
+        
+        destinationButton.rx.tap
+            .bind(to: viewModel.destinationSearchButtonTap)
+            .disposed(by: disposeBag)
+        
+        viewModel.locationSearchResult
+            .bind(to: locationSearchTableView.rx.items) { tv, row, groupInfo in
+                let cell = tv.dequeueReusableCell(withIdentifier: K.TableViewCellID.GroupListCell, for: IndexPath(row: row, section: 0)) as! GroupListCellViewController
+                cell.setUp(with: groupInfo)
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        locationSearchTableView.rx.itemSelected
+            .observe(on: MainScheduler.instance)
+            .withLatestFrom(viewModel.locationSearchResult) { indexPath, list in
+                return (indexPath, list[indexPath.row])
+            }
+            .subscribe { (indexPath, groupInfo) in
+                self.locationSearchTableView.cellForRow(at: indexPath)?.isSelected = false
+                self.navigationController?.pushViewController(GroupDetailViewController(with: groupInfo), animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
@@ -239,7 +290,7 @@ class SearchViewController: UIViewController {
         
         
         //LocationMode
-        [locationSearchView, locationTableView].forEach { locationModeView.addSubview($0) }
+        [locationSearchView, locationSearchTableView].forEach { locationModeView.addSubview($0) }
         [currentLocationStackView, locationButtonStackView, searchModeButtonStackView].forEach { locationSearchView.addSubview($0)}
         [currentLocationImageView, currentLocationLabel].forEach { currentLocationStackView.addArrangedSubview($0) }
         [mapSearchButton, addressSearchButton].forEach { locationButtonStackView.addArrangedSubview($0) }
@@ -340,7 +391,7 @@ class SearchViewController: UIViewController {
             $0.height.equalTo(40)
         }
         
-        locationTableView.snp.makeConstraints {
+        locationSearchTableView.snp.makeConstraints {
             $0.top.equalTo(locationSearchView.snp.bottom).offset(15)
             $0.leading.trailing.bottom.equalToSuperview()
         }

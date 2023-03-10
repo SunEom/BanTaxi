@@ -15,7 +15,7 @@ class LocationSelectViewController: UIViewController {
     
     let mode: LocationSettingMode!
     let disposeBag = DisposeBag()
-    let newGroupViewModel: NewGroupViewModel!
+    let addressDataContainer: BehaviorRelay<AddressData?>!
 
     let locationManager: CLLocationManager!
     let viewModel: LocationSelectViewModel!
@@ -24,8 +24,8 @@ class LocationSelectViewController: UIViewController {
     let centerMarker = MTMapPOIItem()
     let saveButton = UIButton()
     
-    init(mode: LocationSettingMode, with: NewGroupViewModel) {
-        self.newGroupViewModel = with
+    init(mode: LocationSettingMode, with: BehaviorRelay<AddressData?>) {
+        self.addressDataContainer = with
         self.mode = mode
         locationManager = CLLocationManager()
         viewModel = LocationSelectViewModel()
@@ -66,46 +66,24 @@ class LocationSelectViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        switch mode {
-            case .Starting:
-                saveButton.rx.tap
-                    .withLatestFrom(viewModel.selectedPoint)
-                    .subscribe(onNext: {
-                        self.newGroupViewModel.startingPoint.accept($0)
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                    .disposed(by: disposeBag)
-                
-                newGroupViewModel.startingPoint
-                    .filter { $0 != nil && $0?.latitude != nil && $0?.longitude != nil }
-                    .map {
-                        let center = MTMapPoint(geoCoord: MTMapPointGeo(latitude: $0!.latitude!, longitude: $0!.longitude!))
-                        self.mapView.setMapCenter(center, zoomLevel: 1, animated: true)
-                        return center!
-                    }
-                    .bind(to: viewModel.mapCenterPoint)
-                    .disposed(by: disposeBag)
-                
-            case .Destination:
-                saveButton.rx.tap
-                    .withLatestFrom(viewModel.selectedPoint)
-                    .subscribe(onNext: {
-                        self.newGroupViewModel.destinationPoint.accept($0)
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                    .disposed(by: disposeBag)
-                
-                newGroupViewModel.destinationPoint
-                    .filter { $0 != nil && $0?.latitude != nil && $0?.longitude != nil }
-                    .map {
-                        let center = MTMapPoint(geoCoord: MTMapPointGeo(latitude: $0!.latitude!, longitude: $0!.longitude!))
-                        self.mapView.setMapCenter(center, zoomLevel: 1, animated: true)
-                        return center!
-                    }
-                    .bind(to: viewModel.mapCenterPoint)
-                    .disposed(by: disposeBag)
-            default: break
-        }
+        saveButton.rx.tap
+            .withLatestFrom(viewModel.selectedPoint)
+            .subscribe(onNext: {
+                self.addressDataContainer.accept($0)
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        addressDataContainer
+            .filter { $0 != nil && $0?.latitude != nil && $0?.longitude != nil }
+            .map {
+                let center = MTMapPoint(geoCoord: MTMapPointGeo(latitude: $0!.latitude!, longitude: $0!.longitude!))
+                self.mapView.setMapCenter(center, zoomLevel: 1, animated: true)
+                return center!
+            }
+            .bind(to: viewModel.mapCenterPoint)
+            .disposed(by: disposeBag)
+        
     }
     
     private func attribute() {
@@ -116,7 +94,8 @@ class LocationSelectViewController: UIViewController {
                 title = "출발지 설정"
             case .Destination:
                 title = "도착지 설정"
-            default: break
+            default:
+                title = "위치 설정"
         }
         
         self.navigationController?.navigationBar.topItem?.title = " "
