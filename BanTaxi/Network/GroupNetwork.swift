@@ -37,25 +37,25 @@ struct GroupNetwork {
         
     }
     
-    func fetchMyGroupsFB(with uid: String) -> Observable<[GroupInfo]> {
-        return Observable.create { observer in
-            db.collection("group").whereField("hostUid", isEqualTo: uid)
-                .getDocuments { snapshot, err in
-                    if let err = err {
-                        print("Error getting documents: \(err)")
-                    } else {
-                        var list = [GroupInfo]()
-                        for document in snapshot!.documents {
-                            list.append(GroupInfo(data: document.data()))
-                        }
-                        list.sort { $0.time > $1.time}
-                        observer.onNext(list)
-                    }
-                }
-            return Disposables.create()
-        }
-        
-    }
+//    func fetchMyGroupsFB(with uid: String) -> Observable<[GroupInfo]> {
+//        return Observable.create { observer in
+//            db.collection("group").whereField("hostUid", isEqualTo: uid)
+//                .getDocuments { snapshot, err in
+//                    if let err = err {
+//                        print("Error getting documents: \(err)")
+//                    } else {
+//                        var list = [GroupInfo]()
+//                        for document in snapshot!.documents {
+//                            list.append(GroupInfo(data: document.data()))
+//                        }
+//                        list.sort { $0.time > $1.time}
+//                        observer.onNext(list)
+//                    }
+//                }
+//            return Disposables.create()
+//        }
+//        
+//    }
     
     func fetchAllGroupsFB() -> Observable<[GroupInfo]> {
         return Observable.create { observer in

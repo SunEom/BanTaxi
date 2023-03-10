@@ -40,7 +40,8 @@ struct GroupRepository {
     func fetchMyGroup() -> Observable<[GroupInfo]> {
         
         if let uid = Auth.auth().currentUser?.uid {
-            return network.fetchMyGroupsFB(with: uid)
+            return network.fetchAllGroupsFB()
+                .map { $0.filter { $0.participants.contains(uid) }}
         } else {
             return Observable.just([])
         }
