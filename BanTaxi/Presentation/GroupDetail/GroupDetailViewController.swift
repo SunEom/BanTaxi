@@ -127,9 +127,9 @@ class GroupDetailViewController: UIViewController {
             .bind(to: chatButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        viewModel.alreadyJoin
+        Observable.combineLatest(viewModel.isMine, viewModel.alreadyJoin)
             .observe(on: MainScheduler.instance)
-            .map{ !$0 }
+            .map{ $0 || !$1 }
             .bind(to: exitButton.rx.isHidden)
             .disposed(by: disposeBag)
         
