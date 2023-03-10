@@ -11,9 +11,10 @@ import RxRelay
 
 struct GroupDetailViewModel {
     let disposeBag = DisposeBag()
-    let groupInfo: BehaviorSubject<GroupInfo>
+    let groupInfo: BehaviorSubject<GroupInfo>!
     let groupID: String
     
+    let isLoading = BehaviorSubject(value: true)
     let fetchRequest = PublishSubject<Void>()
     
     let isMine = PublishSubject<Bool>()
@@ -30,6 +31,24 @@ struct GroupDetailViewModel {
     init(_ repo: GroupRepository = GroupRepository(), with groupInfo: GroupInfo) {
         self.groupInfo = BehaviorSubject(value: groupInfo)
         self.groupID = groupInfo.documentID
+        
+        //MARK: - 로딩 설정
+        
+
+        Observable.of(fetchRequest, deleteRequest, joinRequest, exitRequest).merge()
+            .map { _ in true }
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
+        
+        self.groupInfo
+            .map { _ in false }
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
+        
+        Observable.of( exitRequestResult).merge()
+            .map { _ in false }
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
         
         //MARK: - 그룹 정보 확인
         
@@ -70,10 +89,6 @@ struct GroupDetailViewModel {
         
         fetchRequest
             .flatMapLatest { repo.fetchDetail(id: groupInfo.documentID) }
-            .map {
-                print($0)
-                return $0
-            }
             .bind(to: self.groupInfo)
             .disposed(by: disposeBag)
         
@@ -98,7 +113,5 @@ struct GroupDetailViewModel {
             .flatMapLatest { repo.exitGroup(groupID: groupInfo.documentID) }
             .bind(to: exitRequestResult)
             .disposed(by: disposeBag)
-        
-        
     }
 }

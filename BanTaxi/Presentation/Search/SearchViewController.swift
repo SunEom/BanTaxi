@@ -9,10 +9,13 @@ import Foundation
 import RxSwift
 import RxCocoa
 import SnapKit
+import NVActivityIndicatorView
 
 class SearchViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: SearchViewModel!
+    
+    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
     let modeButtonStackView = UIStackView()
     let titleModeButton = UIButton()
@@ -62,6 +65,19 @@ class SearchViewController: UIViewController {
     }
     
     private func bind() {
+        
+        viewModel.isLoading
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { loading in
+                if loading {
+                    self.activityIndicator.startAnimating()
+                    self.activityIndicator.isHidden = false
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
         
         // 그룹명 검색
         
@@ -280,7 +296,7 @@ class SearchViewController: UIViewController {
     
     private func layout() {
         // Common
-        [modeButtonStackView, divider, titleUnderLine, locationUnderLine, titleModeView, locationModeView].forEach { view.addSubview($0) }
+        [modeButtonStackView, divider, titleUnderLine, locationUnderLine, titleModeView, locationModeView, activityIndicator].forEach { view.addSubview($0) }
         [titleModeButton, locationModeButton].forEach { modeButtonStackView.addArrangedSubview($0) }
         
         //TitleMode

@@ -11,6 +11,9 @@ import RxRelay
 
 struct SearchViewModel {
     let disposeBag = DisposeBag()
+    
+    let isLoading = BehaviorSubject(value: false)
+    
     let keyword = PublishSubject<String>()
     let titleSearchResult = PublishSubject<[GroupInfo]>()
     let titleSearchButtonTap = PublishRelay<Void>()
@@ -21,6 +24,17 @@ struct SearchViewModel {
     let locationSearchResult = PublishSubject<[GroupInfo]>()
     
     init(_ repo: GroupRepository = GroupRepository()) {
+        
+        Observable.of(titleSearchButtonTap, startPointSearchButtonTap, destinationSearchButtonTap).merge()
+            .map { _ in return true }
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
+        
+        Observable.of(titleSearchResult, locationSearchResult).merge()
+            .map { _ in return false }
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
+        
         titleSearchButtonTap
             .withLatestFrom(keyword)
             .flatMapLatest(repo.fetchGroupsByKeyword(with:))

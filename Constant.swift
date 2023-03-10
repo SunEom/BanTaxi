@@ -16,4 +16,9 @@ struct K {
         static let AddressSearchCell = "AddressSearchCell"
         static let GroupListCell = "GroupListCell"
     }
+    
+    struct ScreenSize {
+        static let width = UIScreen.main.bounds.width
+        static let height = UIScreen.main.bounds.height
+    }
 }

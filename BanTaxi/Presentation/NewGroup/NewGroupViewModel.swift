@@ -12,6 +12,8 @@ import RxRelay
 struct NewGroupViewModel {
     let disposeBag = DisposeBag()
     
+    let isLoading = BehaviorSubject(value: false)
+    
     let intakeCountList = PublishRelay.just([2,3,4,5])
     let groupName = BehaviorRelay<String>(value: "")
     let time = BehaviorRelay<Date>(value: Date())
@@ -24,6 +26,17 @@ struct NewGroupViewModel {
     let requestResult = PublishRelay<RequestResult>()
     
     init(_ repo: GroupRepository = GroupRepository()) {
+        
+        saveButtonTap
+            .map { _ in return true}
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
+        
+        requestResult
+            .map { _ in return false }
+            .bind(to: isLoading)
+            .disposed(by: disposeBag)
+
         
         intakeIndex
             .withLatestFrom(intakeCountList) { $1[$0] }

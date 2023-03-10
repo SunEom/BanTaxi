@@ -9,12 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import NVActivityIndicatorView
 
 class MyGroupViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: MyGroupViewModel!
     
     let tableView = UITableView()
+    
+    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
     init() {
         viewModel = MyGroupViewModel()
@@ -40,6 +43,20 @@ class MyGroupViewController: UIViewController {
     }
     
     private func bind() {
+        
+        viewModel.isLoading
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { loading in
+                if loading {
+                    self.activityIndicator.startAnimating()
+                    self.activityIndicator.isHidden = false
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.list
             .bind(to: tableView.rx.items) { tv, row, item in
                 let cell = tv.dequeueReusableCell(withIdentifier: K.TableViewCellID.GroupListCell) as! GroupListCellViewController
@@ -69,7 +86,7 @@ class MyGroupViewController: UIViewController {
     
     private func layout() {
         
-        [tableView].forEach { view.addSubview($0) }
+        [tableView, activityIndicator].forEach { view.addSubview($0) }
         
         tableView.snp.makeConstraints {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)

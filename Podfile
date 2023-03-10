@@ -16,5 +16,6 @@ target 'BanTaxi' do
   pod 'SnapKit', '~> 5.6.0'
   pod 'RxAlamofire'
   pod 'DateToolsSwift'
+  pod 'NVActivityIndicatorView'
   
 end

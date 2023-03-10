@@ -9,10 +9,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import NVActivityIndicatorView
 
 class GroupDetailViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: GroupDetailViewModel!
+    
+    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
     let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: nil, action: nil)
     
@@ -51,7 +54,6 @@ class GroupDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bind()
         attribute()
         layout()
@@ -63,6 +65,19 @@ class GroupDetailViewController: UIViewController {
     }
 
     private func bind() {
+        
+        viewModel.isLoading
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { loading in
+                if loading {
+                    self.activityIndicator.startAnimating()
+                    self.activityIndicator.isHidden = false
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
         
         viewModel.groupInfo
             .map { $0.name }
@@ -206,6 +221,8 @@ class GroupDetailViewController: UIViewController {
         mapButton.layer.borderWidth = 1
         mapButton.layer.borderColor = K.Color.mainColor?.cgColor
         
+        [joinButton, chatButton, exitButton].forEach { $0.isHidden = true }
+        
         joinButton.backgroundColor = K.Color.mainColor
         joinButton.setTitle("그룹 참여하기", for: .normal)
         joinButton.setTitleColor(.white, for: .normal)
@@ -232,7 +249,7 @@ class GroupDetailViewController: UIViewController {
     
     private func layout() {
             
-        [nameLabel, timeImgView, timeTitleLabel, timeLabel, intakeImgView, intakeTitleLabel, intakeLabel, startImgView, startTitleLabel, startLabel, destiImgView, destiTitleLabel, destiLabel, mapButton, joinButton, chatButton, exitButton].forEach { view.addSubview($0)}
+        [nameLabel, timeImgView, timeTitleLabel, timeLabel, intakeImgView, intakeTitleLabel, intakeLabel, startImgView, startTitleLabel, startLabel, destiImgView, destiTitleLabel, destiLabel, mapButton, joinButton, chatButton, exitButton, activityIndicator].forEach { view.addSubview($0)}
     
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(30)

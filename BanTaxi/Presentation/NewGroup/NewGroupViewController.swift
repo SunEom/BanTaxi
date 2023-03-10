@@ -8,11 +8,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import NVActivityIndicatorView
 
 class NewGroupViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     let viewModel: NewGroupViewModel!
+    
+    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -76,6 +79,19 @@ class NewGroupViewController: UIViewController {
     }
     
     private func bind() {
+        
+        viewModel.isLoading
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { loading in
+                if loading {
+                    self.activityIndicator.startAnimating()
+                    self.activityIndicator.isHidden = false
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
         
         saveButton.rx.tap
             .bind(to: viewModel.saveButtonTap)
@@ -240,6 +256,7 @@ class NewGroupViewController: UIViewController {
     
     private func layout() {
         view.addSubview(scrollView)
+        view.addSubview(activityIndicator)
         scrollView.addSubview(contentView)
         [nameStackView, startingPointStackView, destinationStackView, timeInTakeStackView].forEach { contentView.addSubview($0)}
         [timeStackView, intakeStackView].forEach { timeInTakeStackView.addArrangedSubview($0) }
