@@ -15,6 +15,7 @@ struct K {
     struct TableViewCellID {
         static let AddressSearchCell = "AddressSearchCell"
         static let GroupListCell = "GroupListCell"
+        static let ChatBubbleCell = "ChatBubbleCell"
     }
     
     struct ScreenSize {

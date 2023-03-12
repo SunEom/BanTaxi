@@ -179,6 +179,14 @@ class GroupDetailViewController: UIViewController {
         exitButton.rx.tap
             .bind(to: viewModel.exitRequest)
             .disposed(by: disposeBag)
+        
+        chatButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .withLatestFrom(self.viewModel.groupInfo)
+            .subscribe(onNext:{ groupInfo in
+                self.navigationController?.pushViewController(ChatRoomViewController(groupInfo: groupInfo), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {

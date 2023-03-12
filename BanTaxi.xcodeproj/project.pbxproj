@@ -80,6 +80,11 @@
 		BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198729AD8AD100A64225 /* GroupInfo.swift */; };
 		BF47198A29AD8D7A00A64225 /* GroupNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198929AD8D7A00A64225 /* GroupNetwork.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
+		BFC0F38E29BD6C4F00E27A1D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F38D29BD6C4F00E27A1D /* Chat.swift */; };
+		BFC0F39129BD6D3500E27A1D /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */; };
+		BFC0F39329BD6DB200E27A1D /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F39229BD6DB200E27A1D /* ChatRoomViewController.swift */; };
+		BFC0F39629BD73C700E27A1D /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F39529BD73C700E27A1D /* ChatBubbleCellViewModel.swift */; };
+		BFC0F39829BD746B00E27A1D /* ChatBubbleCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F39729BD746B00E27A1D /* ChatBubbleCellViewController.swift */; };
 		BFCC3E5729BAFCA10037D89E /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC3E5629BAFCA10037D89E /* Distance.swift */; };
 		BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */; };
 		BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE361D429A1F6F200FA0F11 /* SceneDelegate.swift */; };
@@ -180,6 +185,11 @@
 		BF47198729AD8AD100A64225 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		BF47198929AD8D7A00A64225 /* GroupNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNetwork.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BFC0F38D29BD6C4F00E27A1D /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
+		BFC0F39229BD6DB200E27A1D /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
+		BFC0F39529BD73C700E27A1D /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
+		BFC0F39729BD746B00E27A1D /* ChatBubbleCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewController.swift; sourceTree = "<group>"; };
 		BFCC3E5629BAFCA10037D89E /* Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 		BFE361CF29A1F6F200FA0F11 /* BanTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE361D229A1F6F200FA0F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -281,6 +291,7 @@
 		BF23DAE229B5C9FD002F7995 /* GroupDetail */ = {
 			isa = PBXGroup;
 			children = (
+				BFC0F38F29BD6D2B00E27A1D /* ChatRoom */,
 				BF273D4329B6ECF000B71DB9 /* MapView */,
 				BF23DAE329B5CA09002F7995 /* GroupDetailViewModel.swift */,
 				BF23DAE529B5CA24002F7995 /* GroupDetailViewController.swift */,
@@ -301,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				BF44118729A21DFE00A55F27 /* RequestResult.swift */,
+				BFC0F38D29BD6C4F00E27A1D /* Chat.swift */,
 				BF47196929AB26DC00A64225 /* AddressData.swift */,
 				BF47197129ABC77200A64225 /* LocationSettingMode.swift */,
 				BF47198729AD8AD100A64225 /* GroupInfo.swift */,
@@ -446,6 +458,25 @@
 				BF47198129AC7E5200A64225 /* SearchViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		BFC0F38F29BD6D2B00E27A1D /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				BFC0F39429BD73B600E27A1D /* ChatBubbleCell */,
+				BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */,
+				BFC0F39229BD6DB200E27A1D /* ChatRoomViewController.swift */,
+			);
+			path = ChatRoom;
+			sourceTree = "<group>";
+		};
+		BFC0F39429BD73B600E27A1D /* ChatBubbleCell */ = {
+			isa = PBXGroup;
+			children = (
+				BFC0F39529BD73C700E27A1D /* ChatBubbleCellViewModel.swift */,
+				BFC0F39729BD746B00E27A1D /* ChatBubbleCellViewController.swift */,
+			);
+			path = ChatBubbleCell;
 			sourceTree = "<group>";
 		};
 		BFE361C629A1F6F200FA0F11 = {
@@ -689,13 +720,16 @@
 				BF47198429AC882900A64225 /* UITextField.swift in Sources */,
 				BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */,
 				BF273D4729B6ED3600B71DB9 /* MapViewController.swift in Sources */,
+				BFC0F38E29BD6C4F00E27A1D /* Chat.swift in Sources */,
 				BF23DAC129B096D5002F7995 /* StartViewModel.swift in Sources */,
 				BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */,
 				BFE361D329A1F6F200FA0F11 /* AppDelegate.swift in Sources */,
 				BF47197029AB30B100A64225 /* Constant.swift in Sources */,
+				BFC0F39629BD73C700E27A1D /* ChatBubbleCellViewModel.swift in Sources */,
 				BF47197729AC422500A64225 /* AddressRepository.swift in Sources */,
 				BF23DAE629B5CA24002F7995 /* GroupDetailViewController.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
+				BFC0F39829BD746B00E27A1D /* ChatBubbleCellViewController.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
 				BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */,
 				BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */,
@@ -710,6 +744,7 @@
 				BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
+				BFC0F39329BD6DB200E27A1D /* ChatRoomViewController.swift in Sources */,
 				BF47198029AC7E3400A64225 /* SearchViewModel.swift in Sources */,
 				BF23DAD929B5A80C002F7995 /* MyGroupViewController.swift in Sources */,
 				BF47196C29AB2F6100A64225 /* AddressSearchViewCell.swift in Sources */,
@@ -718,6 +753,7 @@
 				BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */,
 				BF23DAE429B5CA09002F7995 /* GroupDetailViewModel.swift in Sources */,
 				BF23DAE129B5ABA6002F7995 /* GroupListCellViewController.swift in Sources */,
+				BFC0F39129BD6D3500E27A1D /* ChatRoomViewModel.swift in Sources */,
 				BF4718F929A35BFD00A64225 /* LocationSelectViewModel.swift in Sources */,
 				BF47195229A5A6E000A64225 /* MainViewController.swift in Sources */,
 				BF47195429A5A6E700A64225 /* MainViewModel.swift in Sources */,

@@ -17,5 +17,5 @@ target 'BanTaxi' do
   pod 'RxAlamofire'
   pod 'DateToolsSwift'
   pod 'NVActivityIndicatorView'
-  
+  pod 'IQKeyboardManagerSwift'
 end
