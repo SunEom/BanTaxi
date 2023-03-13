@@ -18,4 +18,5 @@ target 'BanTaxi' do
   pod 'DateToolsSwift'
   pod 'NVActivityIndicatorView'
   pod 'IQKeyboardManagerSwift'
+  pod 'KeyboardMan'
 end

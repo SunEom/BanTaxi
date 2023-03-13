@@ -19,7 +19,6 @@ class ChatBubbleCellViewController: UITableViewCell {
     
     func setUp(with chatData: Chat) {
         viewModel = ChatBubbleCellViewModel(chatData)
-        
         attribute()
         layout()
     }
@@ -51,15 +50,17 @@ class ChatBubbleCellViewController: UITableViewCell {
         otherChat.snp.makeConstraints {
             $0.top.equalTo(contentView).offset(10)
             $0.leading.equalTo(contentView).offset(20)
+            $0.width.lessThanOrEqualTo(K.ScreenSize.width*(2/3))
         }
         
         myChat.snp.makeConstraints {
             $0.top.equalTo(contentView).offset(10)
             $0.trailing.equalTo(contentView).offset(-20)
-            $0.width.lessThanOrEqualTo(K.ScreenSize.width/2)
+            $0.width.lessThanOrEqualTo(K.ScreenSize.width*(2/3))
         }
         
         contentView.snp.makeConstraints {
+            $0.leading.trailing.equalTo(self)
             $0.bottom.equalTo(otherChat.snp.bottom).offset(10)
             $0.bottom.equalTo(myChat.snp.bottom).offset(10)
         }
