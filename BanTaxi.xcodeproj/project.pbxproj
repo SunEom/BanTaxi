@@ -10,10 +10,10 @@
 		BF23DAB929AF0906002F7995 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAB829AF0906002F7995 /* UserManager.swift */; };
 		BF23DABD29B09340002F7995 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DABC29B09340002F7995 /* User.swift */; };
 		BF23DAC129B096D5002F7995 /* StartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC029B096D5002F7995 /* StartViewModel.swift */; };
-		BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC229B099F6002F7995 /* AuthRepository.swift */; };
+		BF23DAC329B099F6002F7995 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC229B099F6002F7995 /* UserRepository.swift */; };
 		BF23DACA29B19337002F7995 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAC929B19337002F7995 /* MyPageViewModel.swift */; };
 		BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACB29B1934F002F7995 /* MyPageViewController.swift */; };
-		BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACD29B1A655002F7995 /* AuthNetwork.swift */; };
+		BF23DACE29B1A655002F7995 /* UserNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DACD29B1A655002F7995 /* UserNetwork.swift */; };
 		BF23DAD729B5A7EC002F7995 /* MyGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAD629B5A7EC002F7995 /* MyGroupViewModel.swift */; };
 		BF23DAD929B5A80C002F7995 /* MyGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */; };
 		BF23DADF29B5AB3E002F7995 /* GroupListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */; };
@@ -79,6 +79,8 @@
 		BF47198629AD8A9E00A64225 /* GroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198529AD8A9E00A64225 /* GroupRepository.swift */; };
 		BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198729AD8AD100A64225 /* GroupInfo.swift */; };
 		BF47198A29AD8D7A00A64225 /* GroupNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198929AD8D7A00A64225 /* GroupNetwork.swift */; };
+		BF80048029C0118B00C4C17C /* NicknameEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80047F29C0118B00C4C17C /* NicknameEditViewModel.swift */; };
+		BF80048229C0120B00C4C17C /* NicknameEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80048129C0120B00C4C17C /* NicknameEditViewController.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFC0F38E29BD6C4F00E27A1D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F38D29BD6C4F00E27A1D /* Chat.swift */; };
 		BFC0F39129BD6D3500E27A1D /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */; };
@@ -102,10 +104,10 @@
 		BF23DAB829AF0906002F7995 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		BF23DABC29B09340002F7995 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF23DAC029B096D5002F7995 /* StartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewModel.swift; sourceTree = "<group>"; };
-		BF23DAC229B099F6002F7995 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		BF23DAC229B099F6002F7995 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		BF23DAC929B19337002F7995 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		BF23DACB29B1934F002F7995 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		BF23DACD29B1A655002F7995 /* AuthNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetwork.swift; sourceTree = "<group>"; };
+		BF23DACD29B1A655002F7995 /* UserNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetwork.swift; sourceTree = "<group>"; };
 		BF23DAD629B5A7EC002F7995 /* MyGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupViewModel.swift; sourceTree = "<group>"; };
 		BF23DAD829B5A80C002F7995 /* MyGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupViewController.swift; sourceTree = "<group>"; };
 		BF23DADE29B5AB3E002F7995 /* GroupListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCellViewModel.swift; sourceTree = "<group>"; };
@@ -184,6 +186,8 @@
 		BF47198529AD8A9E00A64225 /* GroupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRepository.swift; sourceTree = "<group>"; };
 		BF47198729AD8AD100A64225 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		BF47198929AD8D7A00A64225 /* GroupNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNetwork.swift; sourceTree = "<group>"; };
+		BF80047F29C0118B00C4C17C /* NicknameEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEditViewModel.swift; sourceTree = "<group>"; };
+		BF80048129C0120B00C4C17C /* NicknameEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEditViewController.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC0F38D29BD6C4F00E27A1D /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
@@ -256,6 +260,7 @@
 		BF23DAC829B19328002F7995 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				BF80047E29C0117A00C4C17C /* NicknameEdit */,
 				BF23DAC929B19337002F7995 /* MyPageViewModel.swift */,
 				BF23DACB29B1934F002F7995 /* MyPageViewController.swift */,
 			);
@@ -436,7 +441,7 @@
 			children = (
 				BF47197629AC422500A64225 /* AddressRepository.swift */,
 				BF47198529AD8A9E00A64225 /* GroupRepository.swift */,
-				BF23DAC229B099F6002F7995 /* AuthRepository.swift */,
+				BF23DAC229B099F6002F7995 /* UserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -446,7 +451,7 @@
 			children = (
 				BF47197929AC426A00A64225 /* AddressNetwork.swift */,
 				BF47198929AD8D7A00A64225 /* GroupNetwork.swift */,
-				BF23DACD29B1A655002F7995 /* AuthNetwork.swift */,
+				BF23DACD29B1A655002F7995 /* UserNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -458,6 +463,15 @@
 				BF47198129AC7E5200A64225 /* SearchViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		BF80047E29C0117A00C4C17C /* NicknameEdit */ = {
+			isa = PBXGroup;
+			children = (
+				BF80047F29C0118B00C4C17C /* NicknameEditViewModel.swift */,
+				BF80048129C0120B00C4C17C /* NicknameEditViewController.swift */,
+			);
+			path = NicknameEdit;
 			sourceTree = "<group>";
 		};
 		BFC0F38F29BD6D2B00E27A1D /* ChatRoom */ = {
@@ -720,6 +734,7 @@
 				BF47198429AC882900A64225 /* UITextField.swift in Sources */,
 				BF47198829AD8AD100A64225 /* GroupInfo.swift in Sources */,
 				BF273D4729B6ED3600B71DB9 /* MapViewController.swift in Sources */,
+				BF80048029C0118B00C4C17C /* NicknameEditViewModel.swift in Sources */,
 				BFC0F38E29BD6C4F00E27A1D /* Chat.swift in Sources */,
 				BF23DAC129B096D5002F7995 /* StartViewModel.swift in Sources */,
 				BF47196829A9C9C100A64225 /* AddressSearchViewController.swift in Sources */,
@@ -731,7 +746,7 @@
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
 				BFC0F39829BD746B00E27A1D /* ChatBubbleCellViewController.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
-				BF23DACE29B1A655002F7995 /* AuthNetwork.swift in Sources */,
+				BF23DACE29B1A655002F7995 /* UserNetwork.swift in Sources */,
 				BF47197A29AC426A00A64225 /* AddressNetwork.swift in Sources */,
 				BF47196E29AB2F7B00A64225 /* AddressSearchCellViewModel.swift in Sources */,
 				BF23DADF29B5AB3E002F7995 /* GroupListCellViewModel.swift in Sources */,
@@ -742,6 +757,7 @@
 				BF47198229AC7E5200A64225 /* SearchViewController.swift in Sources */,
 				BF23DACA29B19337002F7995 /* MyPageViewModel.swift in Sources */,
 				BF47197229ABC77200A64225 /* LocationSettingMode.swift in Sources */,
+				BF80048229C0120B00C4C17C /* NicknameEditViewController.swift in Sources */,
 				BFE361F429A1F94B00FA0F11 /* StartViewController.swift in Sources */,
 				BF47194D29A3CAFB00A64225 /* API.swift in Sources */,
 				BFC0F39329BD6DB200E27A1D /* ChatRoomViewController.swift in Sources */,
@@ -750,7 +766,7 @@
 				BF47196C29AB2F6100A64225 /* AddressSearchViewCell.swift in Sources */,
 				BF47196329A8871700A64225 /* UIView.swift in Sources */,
 				BF23DACC29B1934F002F7995 /* MyPageViewController.swift in Sources */,
-				BF23DAC329B099F6002F7995 /* AuthRepository.swift in Sources */,
+				BF23DAC329B099F6002F7995 /* UserRepository.swift in Sources */,
 				BF23DAE429B5CA09002F7995 /* GroupDetailViewModel.swift in Sources */,
 				BF23DAE129B5ABA6002F7995 /* GroupListCellViewController.swift in Sources */,
 				BFC0F39129BD6D3500E27A1D /* ChatRoomViewModel.swift in Sources */,

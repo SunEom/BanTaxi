@@ -41,4 +41,8 @@ struct UserManager {
         UserDefaults.standard.removeObject(forKey: "email")
         UserDefaults.standard.removeObject(forKey: "provider")
     }
+    
+    static func updateNickname(nickname: String) {
+        UserDefaults.standard.setValue(nickname, forKey: "nickname")
+    }
 }

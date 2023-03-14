@@ -15,7 +15,7 @@ struct MyPageViewModel {
     let logoutButtonTap = PublishRelay<Void>()
     let logoutResult = PublishRelay<RequestResult>()
     
-    init(_ repo: AuthRepository = AuthRepository()) {
+    init(_ repo: UserRepository = UserRepository()) {
         
         logoutButtonTap
             .flatMapLatest(repo.logout)

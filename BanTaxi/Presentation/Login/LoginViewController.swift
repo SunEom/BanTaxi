@@ -172,8 +172,16 @@ extension LoginViewController {
                   return
                 }
                 
-                guard let uid = authResult?.user.uid, let nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0], let email = authResult?.user.email else { return }
+                guard let uid = authResult?.user.uid, var nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0], let email = authResult?.user.email else { return }
                 
+                nickname = "G" + nickname
+                
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                
+                changeRequest?.displayName = nickname
+                changeRequest?.commitChanges(completion: { error in
+                    print(error?.localizedDescription)
+                })
                 
                 UserManager.login(userData: User(uid: uid, nickname: nickname, email: email, provider: "google"))
                 
@@ -277,8 +285,16 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                   return
                 }
                 
-                guard let uid = authResult?.user.uid, let nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0], let email = authResult?.user.email else { return }
+                guard let uid = authResult?.user.uid, var nickname = authResult?.user.email?.split(separator: "@").map({String($0)})[0], let email = authResult?.user.email else { return }
                 
+                nickname = "A" + nickname
+                
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                
+                changeRequest?.displayName = nickname
+                changeRequest?.commitChanges(completion: { error in
+                    print(error?.localizedDescription)
+                })
                 
                 UserManager.login(userData: User(uid: uid, nickname: nickname, email: email, provider: "apple"))
                 

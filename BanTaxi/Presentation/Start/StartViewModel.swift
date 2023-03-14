@@ -14,7 +14,7 @@ struct StartViewModel {
     let loginRequest = PublishSubject<Void>()
     let loginCheckFinished = PublishSubject<Void>()
     
-    init(_ repo: AuthRepository = AuthRepository()) {
+    init(_ repo: UserRepository = UserRepository()) {
         loginRequest
             .map(repo.localAutoLogin)
             .map(UserManager.login(userData:))

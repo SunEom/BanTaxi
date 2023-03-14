@@ -8,8 +8,20 @@
 import Foundation
 import RxSwift
 
-struct AuthRepository {
-    private let network = AuthNetwork()
+struct UserRepository {
+    private let network = UserNetwork()
+    
+    func updateNickname(with nickname: String) -> Observable<RequestResult>  {
+        return network.updateNicknameFB(nickname: nickname)
+            .map { result in
+                if result.isSuccess {
+                    UserManager.updateNickname(nickname: nickname)
+                    UserManager.login(userData: localAutoLogin())
+                }
+                return result
+            }
+    }
+    
     func localAutoLogin() -> User? {
         if let uid = UserDefaults.standard.string(forKey: "uid"), let nickname = UserDefaults.standard.string(forKey: "nickname"), let email = UserDefaults.standard.string(forKey: "email"), let provider = UserDefaults.standard.string(forKey: "provider") {
             return User(uid: uid, nickname: nickname, email: email, provider: provider)

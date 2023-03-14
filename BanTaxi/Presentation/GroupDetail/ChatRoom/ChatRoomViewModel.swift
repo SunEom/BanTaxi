@@ -14,7 +14,7 @@ struct ChatRoomViewModel {
     let disposeBag = DisposeBag()
     let groupInfo: GroupInfo
 //    let chatList = PublishSubject<[Chat]>()
-    let chatList = Observable.just([Chat(uid: "123123", groupID: "12312312", contents: "안녕하세요", date: "2023-03-12"), Chat(uid: Auth.auth().currentUser!.uid, groupID: "12312312", contents: "안녕하세요2", date: "2023-03-12"), Chat(uid: "123123", groupID: "12312312", contents: "안녕하세요3", date: "2023-03-12")])
+    let chatList = Observable.just([Chat(uid: "123123", groupID: "12312312", contents: "안녕하세요", date: "2023-03-12"), Chat(uid: Auth.auth().currentUser!.uid, groupID: "12312312", contents: "안녕하세요2", date: "2023-03-12"), Chat(uid: "123123", groupID: "12312312", contents: "안녕하세요123123124234913erlfaksdjfanl askdjfalsdkj falsdkj anlskd fnjalskd fajlnsdf ka3", date: "2023-03-12")])
     
     init(groupInfo:GroupInfo) {
         self.groupInfo = groupInfo
