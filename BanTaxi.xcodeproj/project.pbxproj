@@ -81,6 +81,8 @@
 		BF47198A29AD8D7A00A64225 /* GroupNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF47198929AD8D7A00A64225 /* GroupNetwork.swift */; };
 		BF80048029C0118B00C4C17C /* NicknameEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80047F29C0118B00C4C17C /* NicknameEditViewModel.swift */; };
 		BF80048229C0120B00C4C17C /* NicknameEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80048129C0120B00C4C17C /* NicknameEditViewController.swift */; };
+		BF80048429C1B5AC00C4C17C /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80048329C1B5AC00C4C17C /* ChatRepository.swift */; };
+		BF80048629C1B5BB00C4C17C /* ChatNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80048529C1B5BB00C4C17C /* ChatNetwork.swift */; };
 		BFBC461729A2014400CB3E0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */; };
 		BFC0F38E29BD6C4F00E27A1D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F38D29BD6C4F00E27A1D /* Chat.swift */; };
 		BFC0F39129BD6D3500E27A1D /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */; };
@@ -188,6 +190,8 @@
 		BF47198929AD8D7A00A64225 /* GroupNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNetwork.swift; sourceTree = "<group>"; };
 		BF80047F29C0118B00C4C17C /* NicknameEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEditViewModel.swift; sourceTree = "<group>"; };
 		BF80048129C0120B00C4C17C /* NicknameEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEditViewController.swift; sourceTree = "<group>"; };
+		BF80048329C1B5AC00C4C17C /* ChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
+		BF80048529C1B5BB00C4C17C /* ChatNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNetwork.swift; sourceTree = "<group>"; };
 		BFBC461629A2014400CB3E0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC0F38D29BD6C4F00E27A1D /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		BFC0F39029BD6D3500E27A1D /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 				BF47197629AC422500A64225 /* AddressRepository.swift */,
 				BF47198529AD8A9E00A64225 /* GroupRepository.swift */,
 				BF23DAC229B099F6002F7995 /* UserRepository.swift */,
+				BF80048329C1B5AC00C4C17C /* ChatRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -452,6 +457,7 @@
 				BF47197929AC426A00A64225 /* AddressNetwork.swift */,
 				BF47198929AD8D7A00A64225 /* GroupNetwork.swift */,
 				BF23DACD29B1A655002F7995 /* UserNetwork.swift */,
+				BF80048529C1B5BB00C4C17C /* ChatNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -723,6 +729,7 @@
 			files = (
 				BF273D4529B6ECF600B71DB9 /* MapViewModel.swift in Sources */,
 				BF4718F729A35BF500A64225 /* LocationSelectViewController.swift in Sources */,
+				BF80048629C1B5BB00C4C17C /* ChatNetwork.swift in Sources */,
 				BF47196629A9C9A900A64225 /* AddressSearchViewModel.swift in Sources */,
 				BF47198629AD8A9E00A64225 /* GroupRepository.swift in Sources */,
 				BF47195F29A856AA00A64225 /* NewGroupViewController.swift in Sources */,
@@ -744,6 +751,7 @@
 				BF47197729AC422500A64225 /* AddressRepository.swift in Sources */,
 				BF23DAE629B5CA24002F7995 /* GroupDetailViewController.swift in Sources */,
 				BFE361D529A1F6F200FA0F11 /* SceneDelegate.swift in Sources */,
+				BF80048429C1B5AC00C4C17C /* ChatRepository.swift in Sources */,
 				BFC0F39829BD746B00E27A1D /* ChatBubbleCellViewController.swift in Sources */,
 				BFE361F929A1FB3D00FA0F11 /* LoginViewModel.swift in Sources */,
 				BF23DACE29B1A655002F7995 /* UserNetwork.swift in Sources */,

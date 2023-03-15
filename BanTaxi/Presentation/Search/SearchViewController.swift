@@ -185,7 +185,6 @@ class SearchViewController: UIViewController {
     }
     
     private func attribute() {
-        view.addTapGesture()
         
         // Initialize
         self.navigationController?.navigationBar.topItem?.title = " "

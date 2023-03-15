@@ -13,10 +13,30 @@ import FirebaseAuth
 struct ChatRoomViewModel {
     let disposeBag = DisposeBag()
     let groupInfo: GroupInfo
-//    let chatList = PublishSubject<[Chat]>()
-    let chatList = Observable.just([Chat(uid: "123123", groupID: "12312312", contents: "안녕하세요", date: "2023-03-12"), Chat(uid: Auth.auth().currentUser!.uid, groupID: "12312312", contents: "안녕하세요2", date: "2023-03-12"), Chat(uid: "123123", groupID: "12312312", contents: "안녕하세요123123124234913erlfaksdjfanl askdjfalsdkj falsdkj anlskd fnjalskd fajlnsdf ka3", date: "2023-03-12")])
+    let chatList = PublishSubject<[Chat]>()
     
-    init(groupInfo:GroupInfo) {
+    let addObserverRequest = PublishSubject<Void>()
+
+    let chatMsg = PublishSubject<String>()
+    let sendButtonTap = PublishRelay<Void>()
+    
+    init(groupInfo:GroupInfo, _ repo: ChatRepository = ChatRepository()) {
         self.groupInfo = groupInfo
+        
+        addObserverRequest
+            .flatMapLatest{ repo.addChatObserver(groupID: groupInfo.documentID) }
+            .bind(to: chatList)
+            .disposed(by: disposeBag)
+        
+        sendButtonTap
+            .withLatestFrom(chatMsg)
+            .filter { $0 != "" }
+            .withLatestFrom(UserManager.getInstance()) { contents, user in
+                return Chat(uid: user!.uid, groupID: groupInfo.documentID, contents: contents, date: Date())
+            }
+            .subscribe(onNext: { repo.createNewChat(chatData: $0) })
+            .disposed(by: disposeBag)
+        
+        
     }
 }

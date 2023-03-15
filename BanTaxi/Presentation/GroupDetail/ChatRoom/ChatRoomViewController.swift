@@ -27,6 +27,13 @@ class ChatRoomViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.addObserverRequest.onNext(Void())
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +56,17 @@ class ChatRoomViewController: UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
+        
+        inputTextView.rx.text
+            .orEmpty
+            .bind(to: viewModel.chatMsg)
+            .disposed(by: disposeBag)
+        
+        sendBtn.rx.tap
+            .map { self.inputTextView.text = "" }
+            .bind(to: viewModel.sendButtonTap)
+            .disposed(by: disposeBag)
+        
     }
     
     private func attribute() {
