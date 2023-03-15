@@ -14,6 +14,7 @@ import FirebaseCore
 import SnapKit
 import AuthenticationServices
 import CryptoKit
+import FirebaseFirestore
 
 class LoginViewController: UIViewController {
     
@@ -185,10 +186,18 @@ extension LoginViewController {
                 
                 UserManager.login(userData: User(uid: uid, nickname: nickname, email: email, provider: "google"))
                 
-                let vc = UINavigationController(rootViewController: MainViewController())
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true)
+                let db = Firestore.firestore()
+                
+                db.collection("nickname").document(uid).setData(["nickname": nickname]) { error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        let vc = UINavigationController(rootViewController: MainViewController())
+                        vc.modalPresentationStyle = .fullScreen
+                        vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true)
+                    }
+                }
             }
         }
     }
@@ -298,11 +307,19 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 
                 UserManager.login(userData: User(uid: uid, nickname: nickname, email: email, provider: "apple"))
                 
-                let vc = UINavigationController(rootViewController: MainViewController())
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true)
-              
+                let db = Firestore.firestore()
+                
+                db.collection("nickname").document(uid).setData(["nickname": nickname]) { error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        let vc = UINavigationController(rootViewController: MainViewController())
+                        vc.modalPresentationStyle = .fullScreen
+                        vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true)
+                    }
+                }
+                
             }
         }
   }

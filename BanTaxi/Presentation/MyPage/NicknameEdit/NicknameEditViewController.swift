@@ -70,7 +70,7 @@ class NicknameEditViewController: UIViewController {
                 if result.isSuccess {
                     self.navigationController?.popViewController(animated: true)
                 } else {
-                    let alert = UIAlertController(title: "오류", message: "오류가 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "오류", message: result.msg == "이미 사용중인 닉네임입니다." ? "이미 사용중인 닉네임입니다." : "오류가 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(action)
                     self.present(alert, animated: true)

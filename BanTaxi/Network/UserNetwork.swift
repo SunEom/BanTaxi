@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import FirebaseAuth
+import FirebaseFirestore
 
 struct UserNetwork {
     func logoutFB() -> Bool {
@@ -28,9 +29,34 @@ struct UserNetwork {
                     if let error = error {
                         print(error.localizedDescription)
                         observer.onNext(RequestResult(isSuccess: false, msg: error.localizedDescription))
+                    } else {
+                        let db = Firestore.firestore()
+                        
+                        if let uid = Auth.auth().currentUser?.uid {
+                            db.collection("nickname").whereField("nickname", isEqualTo: nickname).getDocuments { snapshot, error in // 이미 사용중인 닉네임인지 확인
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                    return
+                                } else {
+                                    if snapshot != nil, snapshot!.count == 0 {
+                                        db.collection("nickname").document(uid).setData(["nickname": nickname]) { error in
+                                            if let error = error {
+                                                print(error.localizedDescription)
+                                                observer.onNext(RequestResult(isSuccess: false, msg: error.localizedDescription))
+                                            } else {
+                                                observer.onNext(RequestResult(isSuccess: true, msg: ""))
+                                            }
+                                        }
+                                    } else {
+                                        observer.onNext(RequestResult(isSuccess: false, msg: "이미 사용중인 닉네임입니다."))
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
                     
-                    observer.onNext(RequestResult(isSuccess: true, msg: "닉네임 수정 성공"))
+                    
                 }
             } else {
                 observer.onNext(RequestResult(isSuccess: false, msg: "업데이트 요청 생성 오류"))
