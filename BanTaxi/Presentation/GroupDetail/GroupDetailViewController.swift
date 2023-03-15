@@ -65,6 +65,20 @@ class GroupDetailViewController: UIViewController {
     }
 
     private func bind() {
+        viewModel.available
+            .bind(to: joinButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        viewModel.available
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { available in
+                if available {
+                    self.joinButton.backgroundColor = K.Color.mainColor
+                } else {
+                    self.joinButton.backgroundColor = .gray
+                }
+            })
+            .disposed(by: disposeBag)
         
         viewModel.isLoading
             .observe(on: MainScheduler.instance)
@@ -231,7 +245,6 @@ class GroupDetailViewController: UIViewController {
         
         [joinButton, chatButton, exitButton].forEach { $0.isHidden = true }
         
-        joinButton.backgroundColor = K.Color.mainColor
         joinButton.setTitle("그룹 참여하기", for: .normal)
         joinButton.setTitleColor(.white, for: .normal)
         joinButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)

@@ -33,14 +33,26 @@ class GroupListCellViewController: UITableViewCell {
     func setUp(with groupInfo: GroupInfo) {
         viewModel = GroupListCellViewModel(groupInfo)
         
+        bind()
         attribute()
         layout()
     }
     
+    private func bind() {
+        viewModel.available
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { available in
+                if available {
+                    self.leftColorBar.backgroundColor = K.Color.mainColor
+                } else {
+                    self.leftColorBar.backgroundColor = .gray
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func attribute() {
-            
-        leftColorBar.backgroundColor = K.Color.mainColor
-
+        
         dateStackView.axis = .vertical
         dateStackView.alignment = .center
         dateStackView.distribution = .fillEqually

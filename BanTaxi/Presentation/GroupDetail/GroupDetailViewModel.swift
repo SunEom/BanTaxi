@@ -14,6 +14,7 @@ struct GroupDetailViewModel {
     let groupInfo: BehaviorSubject<GroupInfo>!
     let groupID: String
     
+    let available : Observable<Bool>
     let isLoading = BehaviorSubject(value: true)
     let fetchRequest = PublishSubject<Void>()
     
@@ -31,6 +32,7 @@ struct GroupDetailViewModel {
     init(_ repo: GroupRepository = GroupRepository(), with groupInfo: GroupInfo) {
         self.groupInfo = BehaviorSubject(value: groupInfo)
         self.groupID = groupInfo.documentID
+        self.available = Observable.just(groupInfo.time > 1.days.earlier)
         
         //MARK: - 로딩 설정
         
