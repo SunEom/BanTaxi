@@ -186,6 +186,8 @@ class SearchViewController: UIViewController {
     
     private func attribute() {
         
+        view.addTapGesture(cancelsTouchesInViewOption: false)
+        
         // Initialize
         self.navigationController?.navigationBar.topItem?.title = " "
         view.backgroundColor = .white
