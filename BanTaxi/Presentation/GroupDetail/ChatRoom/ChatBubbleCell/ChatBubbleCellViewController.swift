@@ -78,8 +78,8 @@ class ChatBubbleCellViewController: UITableViewCell {
         
         contentView.snp.makeConstraints {
             $0.leading.trailing.equalTo(self)
-            $0.bottom.equalTo(otherChat.snp.bottom).offset(10)
-            $0.bottom.equalTo(myChat.snp.bottom).offset(10)
+            _ = viewModel.isMine ? $0.bottom.equalTo(myChat.snp.bottom).offset(10) : $0.bottom.equalTo(otherChat.snp.bottom).offset(10)
+            
         }
     }
 }

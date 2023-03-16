@@ -476,8 +476,6 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.0)
-  - IQKeyboardManagerSwift (6.5.10)
-  - KeyboardMan (1.2.3)
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -507,8 +505,6 @@ DEPENDENCIES:
   - FirebaseAuth
   - FirebaseFirestore
   - GoogleSignIn
-  - IQKeyboardManagerSwift
-  - KeyboardMan
   - NVActivityIndicatorView
   - RxAlamofire
   - RxCocoa (= 6.5.0)
@@ -536,8 +532,6 @@ SPEC REPOS:
     - gRPC-Core
     - GTMAppAuth
     - GTMSessionFetcher
-    - IQKeyboardManagerSwift
-    - KeyboardMan
     - leveldb-library
     - nanopb
     - NVActivityIndicatorView
@@ -568,8 +562,6 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
-  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
-  KeyboardMan: b51e3209d41ff56f65459c9cf734a5f8c5443783
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
@@ -580,6 +572,6 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: f02c96676d64f175e7aa01491fa936fdbbc022ef
+PODFILE CHECKSUM: 155f19cb0b72a43c8c8a3b5da711790452bb752c
 
 COCOAPODS: 1.11.3

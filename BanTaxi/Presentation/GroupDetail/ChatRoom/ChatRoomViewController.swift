@@ -14,6 +14,7 @@ class ChatRoomViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: ChatRoomViewModel
     
+    let contentView = UIView()
     let tableView = UITableView()
     let bottomStackView = UIStackView()
     let inputTextView = UITextView()
@@ -33,7 +34,15 @@ class ChatRoomViewController: UIViewController {
         super.viewWillAppear(animated)
         
         viewModel.addObserverRequest.onNext(Void())
+        
+        // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+              // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+              
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,20 +104,25 @@ class ChatRoomViewController: UIViewController {
     }
     
     private func layout() {
-        [tableView, bottomStackView].forEach { view.addSubview($0) }
+        view.addSubview(contentView)
+        [tableView, bottomStackView].forEach { contentView.addSubview($0) }
     
         [inputTextView, sendBtn].forEach { bottomStackView.addArrangedSubview($0) }
         
+        contentView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         tableView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.top.equalTo(contentView).offset(10)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(bottomStackView.snp.top)
         }
         
         bottomStackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            $0.leading.equalTo(contentView).offset(10)
+            $0.trailing.equalTo(contentView).offset(-10)
+            $0.bottom.equalTo(contentView).offset(-10)
             $0.height.equalTo(40)
         }
         
@@ -116,4 +130,27 @@ class ChatRoomViewController: UIViewController {
             $0.width.height.equalTo(40)
         }
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+             
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            // if keyboard size is not available for some reason, dont do anything
+            return
+        }
+       
+       // move the root view up by the distance of keyboard height
+        self.view.frame.size.height -= keyboardSize.height
+     }
+
+     @objc func keyboardWillHide(notification: NSNotification) {
+         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+             // if keyboard size is not available for some reason, dont do anything
+             return
+         }
+       // move back the root view origin to zero
+         self.view.frame.size.height += keyboardSize.height
+     }
+    
 }
+
+
