@@ -15,17 +15,25 @@ class ChatBubbleCellViewController: UITableViewCell {
     var viewModel: ChatBubbleCellViewModel!
     let otherChat = UITextView()
     let myChat = UITextView()
-    
+    let nicknameLabel = UILabel()
     
     func setUp(with chatData: Chat) {
         viewModel = ChatBubbleCellViewModel(chatData)
+        
+        bind()
         attribute()
         layout()
     }
     
+    private func bind() {
+        viewModel.nickname
+            .bind(to: nicknameLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
     private func attribute(){
         backgroundColor = .white
-        otherChat.backgroundColor = .lightGray
+        otherChat.backgroundColor = UIColor(white: 0.9, alpha: 1)
         myChat.backgroundColor = K.Color.mainColor
         [otherChat, myChat].forEach {
             $0.text = self.viewModel.chatData.contents
@@ -38,18 +46,27 @@ class ChatBubbleCellViewController: UITableViewCell {
         }
         myChat.textColor = .white
         
+        nicknameLabel.font = .systemFont(ofSize: 13, weight: .bold)
+        
         myChat.isHidden = !viewModel.isMine
         otherChat.isHidden = viewModel.isMine
+        nicknameLabel.isHidden = viewModel.isMine
     }
     
     private func layout() {
-        [otherChat, myChat].forEach {
+        [nicknameLabel, otherChat, myChat].forEach {
             contentView.addSubview($0)
         }
         
-        otherChat.snp.makeConstraints {
-            $0.top.equalTo(contentView).offset(10)
+        nicknameLabel.snp.makeConstraints {
+            $0.top.equalTo(contentView.snp.top).offset(10)
             $0.leading.equalTo(contentView).offset(20)
+            $0.trailing.equalTo(contentView).offset(-20)
+        }
+        
+        otherChat.snp.makeConstraints {
+            $0.top.equalTo(nicknameLabel.snp.bottom)
+            $0.leading.equalTo(nicknameLabel)
             $0.width.lessThanOrEqualTo(K.ScreenSize.width*(2/3))
         }
         

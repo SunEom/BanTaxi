@@ -39,4 +39,20 @@ struct ChatNetwork {
         }
     
     }
+    
+    func fetchChatNicknameFB(with uid: String) -> Observable<String> {
+        return Observable.create { observer in
+            
+            db.collection("nickname").document(uid).getDocument { snapshot, error in
+                if let error = error {
+                    print(error)
+                } else if let data = snapshot?.data(){
+                    let nickname = data["nickname"]! as! String
+                    observer.onNext(nickname)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
 }

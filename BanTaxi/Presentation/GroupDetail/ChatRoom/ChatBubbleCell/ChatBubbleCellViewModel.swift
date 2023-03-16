@@ -14,9 +14,11 @@ struct ChatBubbleCellViewModel {
     let disposeBag = DisposeBag()
     let isMine: Bool
     let chatData: Chat
-    
-    init(_ chatData: Chat) {
+    let nickname: Observable<String>
+    init(_ chatData: Chat, _ repo: ChatRepository = ChatRepository() ) {
         self.chatData = chatData
         self.isMine = chatData.uid == Auth.auth().currentUser!.uid
+        
+        self.nickname = repo.fetchChatNickname(with: chatData.uid)
     }
 }

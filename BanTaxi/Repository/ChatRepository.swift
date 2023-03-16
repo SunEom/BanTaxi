@@ -18,4 +18,8 @@ struct ChatRepository {
     func addChatObserver(groupID: String) -> Observable<[Chat]> {
         return network.setChatObserver(groupID: groupID)
     }
+    
+    func fetchChatNickname(with uid: String) -> Observable<String> {
+        return network.fetchChatNicknameFB(with: uid)
+    }
 }
