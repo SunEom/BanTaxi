@@ -54,6 +54,7 @@ class ChatRoomViewController: UIViewController {
     }
     
     private func bind() {
+     
         viewModel.chatList
             .bind(to: tableView.rx.items) { tv, row, chat in
                 let indexPath = IndexPath(row: row, section: 0)

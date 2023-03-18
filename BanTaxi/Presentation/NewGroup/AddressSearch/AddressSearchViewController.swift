@@ -83,7 +83,7 @@ class AddressSearchViewController: UIViewController {
     
     private func attribute() {
         view.backgroundColor = .white
-        view.addTapGesture()
+        view.addTapGesture(cancelsTouchesInViewOption: false)
         
         self.navigationController?.navigationBar.topItem?.title = " "
         self.navigationController?.navigationBar.tintColor = .white
