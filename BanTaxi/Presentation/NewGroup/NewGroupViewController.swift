@@ -103,7 +103,7 @@ class NewGroupViewController: UIViewController {
             .disposed(by: disposeBag)
         
         timePicker.rx.controlEvent(.valueChanged)
-            .map { self.timePicker.date }
+            .map { self.timePicker.date < Date.now ? 1.days.later(than: self.timePicker.date) : self.timePicker.date }
             .bind(to: viewModel.time)
             .disposed(by: disposeBag)
         

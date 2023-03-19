@@ -14,7 +14,7 @@ struct NewGroupViewModel {
     
     let isLoading = BehaviorSubject(value: false)
     
-    let intakeCountList = PublishRelay.just([2,3,4,5])
+    let intakeCountList = PublishRelay.just([2,3,4])
     let groupName = BehaviorRelay<String>(value: "")
     let time = BehaviorRelay<Date>(value: Date())
     let intakeIndex = BehaviorRelay(value: 0)
