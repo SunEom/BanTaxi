@@ -13,14 +13,15 @@ struct MyPageViewModel {
     let disposeBag = DisposeBag()
     let user = UserManager.getInstance()
     let logoutButtonTap = PublishRelay<Void>()
-    let logoutResult = PublishRelay<RequestResult>()
     
-    init(_ repo: UserRepository = UserRepository()) {
+    init() {
         
         logoutButtonTap
-            .flatMapLatest(repo.logout)
-            .bind(to: logoutResult)
+            .subscribe(onNext: {
+                UserManager.logout()
+            })
             .disposed(by: disposeBag)
+            
             
     }
 }

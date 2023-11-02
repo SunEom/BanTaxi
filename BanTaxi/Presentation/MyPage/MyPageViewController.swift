@@ -14,8 +14,6 @@ class MyPageViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: MyPageViewModel!
     
-    let editButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: nil, action: nil)
-    
     let imageView = UIImageView()
     let nicknameLabel = UILabel()
     
@@ -74,30 +72,22 @@ class MyPageViewController: UIViewController {
             .bind(to: viewModel.logoutButtonTap)
             .disposed(by: disposeBag)
         
-        viewModel.logoutResult
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { result in
-                if result.isSuccess {
-                    self.dismiss(animated: true)
-                }
+        logoutButton.rx.tap
+            .asDriver()
+            .drive(onNext: {
+                let vc = LoginViewController()
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
             })
             .disposed(by: disposeBag)
     
-        editButton.rx.tap
-            .asDriver()
-            .drive(onNext: {
-                self.navigationController?.pushViewController(NicknameEditViewController(), animated: true)
-            })
-            .disposed(by: disposeBag)
     }
     
     private func attribute() {
         view.backgroundColor = .white
         self.navigationController?.navigationBar.topItem?.title = " "
         title = "마이 페이지"
-        
-        navigationItem.rightBarButtonItem = editButton
-        navigationItem.rightBarButtonItem?.tintColor = K.Color.mainColor
         
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .black
