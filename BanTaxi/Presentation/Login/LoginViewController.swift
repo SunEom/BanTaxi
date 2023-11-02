@@ -140,32 +140,28 @@ class LoginViewController: UIViewController {
 //MARK: - Google 로그인
 extension LoginViewController {
     private func googleLoginRequest() {
+        
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
 
         // Create Google Sign In configuration object.
         let config = GIDConfiguration(clientID: clientID)
-        
+        GIDSignIn.sharedInstance.configuration = config
+
         // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
 
-          if let error = error {
-              print(error.localizedDescription)
-              let alert = UIAlertController(title: "오류", message: "로그인 시도 중 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
-              alert.addAction(UIAlertAction(title: "확인", style: .default))
-              self.present(alert, animated: true)
-              
-              return
-          }
+            guard error == nil else {
+                print(error?.localizedDescription)
+                let alert = UIAlertController(title: "오류", message: "로그인 시도 중 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default))
+                self.present(alert, animated: true)
+                
+                return
+            }
 
-          guard
-            let authentication = user?.authentication,
-            let idToken = authentication.idToken
-          else {
-            return
-          }
+            guard let user = result?.user, let idToken = user.idToken?.tokenString else { return }
 
-          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                         accessToken: authentication.accessToken)
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
 
             Auth.auth().signIn(with: credential) { authResult, error in
                 if (error != nil) {
@@ -273,19 +269,18 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let nonce = currentNonce else {
-            fatalError("Invalid state: A login callback was received, but no login request was sent.")
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-            print("Unable to fetch identity token")
-            return
+                print("Unable to fetch identity token")
+                return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-            print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-            return
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
             }
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
-            print("credential", credential)
 
             // Sign in with Firebase.
             Auth.auth().signIn(with: credential) { (authResult, error) in

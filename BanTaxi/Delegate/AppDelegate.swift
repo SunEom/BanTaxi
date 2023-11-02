@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        UserManager.autoLogin()
+        
         return true
     }
 
@@ -41,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       -> Bool {
       return GIDSignIn.sharedInstance.handle(url)
     }
-
 
 }
 

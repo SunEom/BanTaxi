@@ -20,7 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 라이트 모드만 지원
         self.window?.overrideUserInterfaceStyle = .light
         
-        let rootViewController = StartViewController()
+        var rootViewController: UIViewController!
+        
+        if UserManager.isLogin {
+            rootViewController = UINavigationController(rootViewController: MainViewController())
+        } else {
+            rootViewController = LoginViewController()
+        }
+        
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }
