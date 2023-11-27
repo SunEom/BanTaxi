@@ -120,28 +120,28 @@ class NewGroupViewController: UIViewController {
         startingPointMapButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Starting, with: self.viewModel.startingPoint), animated: true)
+//                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Starting, with: self.viewModel.startingPoint), animated: true)
             })
             .disposed(by: disposeBag)
         
         destinationMapButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Destination, with: self.viewModel.destinationPoint), animated: true)
+//                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Destination, with: self.viewModel.destinationPoint), animated: true)
             })
             .disposed(by: disposeBag)
         
         startingPointSearchButton.rx.tap
             .asDriver()
             .drive(onNext:  {
-                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Starting, with: self.viewModel.startingPoint), animated: true)
+//                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Starting, with: self.viewModel.startingPoint), animated: true)
             })
             .disposed(by: disposeBag)
         
         destinationSearchButton.rx.tap
             .asDriver()
             .drive(onNext:  {
-                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Destination,with: self.viewModel.destinationPoint), animated: true)
+//                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Destination,with: self.viewModel.destinationPoint), animated: true)
             })
             .disposed(by: disposeBag)
             

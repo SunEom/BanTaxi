@@ -143,7 +143,7 @@ class MainViewController: UIViewController {
         searchButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(SearchViewController(), animated: true)
+                self.navigationController?.pushViewController(SearchViewController(viewModel: SearchViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         

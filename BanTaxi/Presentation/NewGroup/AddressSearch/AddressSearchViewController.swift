@@ -14,7 +14,7 @@ class AddressSearchViewController: UIViewController {
     let diseposeBag = DisposeBag()
     let viewModel : AddressSearchViewModel!
     
-    let addressDataContainer: BehaviorRelay<AddressData?>!
+    let addressDataContainer: BehaviorSubject<AddressData?>!
     let mode: LocationSettingMode!
     
     let topView = UIView()
@@ -22,7 +22,7 @@ class AddressSearchViewController: UIViewController {
     let underLine = UIView()
     let tableView = UITableView()
     
-    init(mode: LocationSettingMode, with addressDataContainer: BehaviorRelay<AddressData?>!) {
+    init(mode: LocationSettingMode, with addressDataContainer: BehaviorSubject<AddressData?>!) {
         self.addressDataContainer = addressDataContainer
         self.mode = mode
         viewModel = AddressSearchViewModel()
@@ -67,7 +67,7 @@ class AddressSearchViewController: UIViewController {
             }
             .subscribe {
                 self.navigationController?.popViewController(animated: true)
-                self.addressDataContainer.accept($0)
+                self.addressDataContainer.onNext($0)
             }
             .disposed(by: diseposeBag)
             

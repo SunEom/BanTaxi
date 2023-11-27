@@ -15,7 +15,7 @@ class LocationSelectViewController: UIViewController {
     
     let mode: LocationSettingMode!
     let disposeBag = DisposeBag()
-    let addressDataContainer: BehaviorRelay<AddressData?>!
+    let addressDataContainer: BehaviorSubject<AddressData?>!
 
     let locationManager: CLLocationManager!
     let viewModel: LocationSelectViewModel!
@@ -24,7 +24,7 @@ class LocationSelectViewController: UIViewController {
     let centerMarker = MTMapPOIItem()
     let saveButton = UIButton()
     
-    init(mode: LocationSettingMode, with: BehaviorRelay<AddressData?>) {
+    init(mode: LocationSettingMode, with: BehaviorSubject<AddressData?>) {
         self.addressDataContainer = with
         self.mode = mode
         locationManager = CLLocationManager()
@@ -69,7 +69,7 @@ class LocationSelectViewController: UIViewController {
         saveButton.rx.tap
             .withLatestFrom(viewModel.selectedPoint)
             .subscribe(onNext: {
-                self.addressDataContainer.accept($0)
+                self.addressDataContainer.onNext($0)
                 self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
