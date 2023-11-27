@@ -12,5 +12,5 @@ import GoogleSignIn
 import FirebaseCore
 
 struct LoginViewModel {
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 }
