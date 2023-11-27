@@ -9,5 +9,5 @@ import RxSwift
 import RxRelay
 
 struct MainViewModel {
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 }
