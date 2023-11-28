@@ -12,88 +12,88 @@ import NVActivityIndicatorView
 
 class NewGroupViewController: UIViewController {
     
-    let disposeBag = DisposeBag()
-    let viewModel: NewGroupViewModel!
+    private let disposeBag = DisposeBag()
+    private let viewModel: NewGroupViewModel!
     
-    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
+    private let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     
-    let saveButton = UIBarButtonItem(title: "저장", style: .done, target: nil, action: nil)
+    private let saveButton = UIBarButtonItem(title: "저장", style: .done, target: nil, action: nil)
     
-    let nameStackView = UIStackView()
-    let nameLabel: UILabel = {
+    private let nameStackView = UIStackView()
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "그룹 이름"
         return label
     }()
     
-    let nameTextField: UITextField = {
+    private let nameTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
         textField.placeholder = "그룹 이름 입력"
         return textField
     }()
     
-    let startingPointStackView = UIStackView()
-    let startingPointLabel: UILabel = {
+    private let startingPointStackView = UIStackView()
+    private let startingPointLabel: UILabel = {
         let label = UILabel()
         label.text = "출발지"
         return label
     }()
     
-    let startingPointTextView = UITextView()
-    let startingPointButtonStackView = UIStackView()
-    let startingPointMapButton: UIButton = {
+    private let startingPointTextView = UITextView()
+    private let startingPointButtonStackView = UIStackView()
+    private let startingPointMapButton: UIButton = {
         let button = UIButton()
         button.setTitle( "지도에서 찾기", for: .normal)
         return button
     }()
     
-    let startingPointSearchButton: UIButton = {
+    private let startingPointSearchButton: UIButton = {
         let button = UIButton()
         button.setTitle( "주소 검색하기", for: .normal)
         return button
     }()
     
     
-    let destinationStackView = UIStackView()
-    let destinationLabel: UILabel = {
+    private let destinationStackView = UIStackView()
+    private let destinationLabel: UILabel = {
         let label = UILabel()
         label.text = "도착지"
         return label
     }()
     
-    let destinationTextView = UITextView()
-    let destinationButtonStackView = UIStackView()
-    let destinationMapButton: UIButton = {
+    private let destinationTextView = UITextView()
+    private let destinationButtonStackView = UIStackView()
+    private let destinationMapButton: UIButton = {
         let button = UIButton()
         button.setTitle("지도에서 찾기", for: .normal)
         return button
     }()
     
-    let destinationSearchButton: UIButton = {
+    private let destinationSearchButton: UIButton = {
         let button = UIButton()
         button.setTitle("주소 검색하기", for: .normal)
         return button
     }()
     
     
-    let timeInTakeStackView: UIStackView = {
+    private let timeInTakeStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
         return stackView
     }()
     
-    let timeStackView = UIStackView()
-    let timeLabel: UILabel = {
+    private let timeStackView = UIStackView()
+    private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "예정 시각"
         return label
     }()
     
-    let timePicker: UIDatePicker = {
+    private let timePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .time
         picker.preferredDatePickerStyle = .wheels
@@ -102,14 +102,14 @@ class NewGroupViewController: UIViewController {
         return picker
     }()
     
-    let intakeStackView = UIStackView()
-    let intakeLabel: UILabel = {
+    private let intakeStackView = UIStackView()
+    private let intakeLabel: UILabel = {
         let label = UILabel()
         label.text = "모집인원 (본인 포함)"
         return label
     }()
     
-    let intakePicker = UIPickerView()
+    private let intakePicker = UIPickerView()
     
     init(viewModel: NewGroupViewModel) {
         self.viewModel = viewModel
@@ -195,15 +195,7 @@ class NewGroupViewController: UIViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Starting, with: startingPoint), animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        destinationMapButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                guard let self = self else { return }
-                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Destination, with: destination), animated: true)
+                self.navigationController?.pushViewController(LocationSelectViewController(viewModel: LocationSelectViewModel(mode: .Starting, select: startingPoint)), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -211,7 +203,15 @@ class NewGroupViewController: UIViewController {
             .asDriver()
             .drive(onNext:  { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Starting, with: startingPoint), animated: true)
+                self.navigationController?.pushViewController(AddressSearchViewController(viewModel: AddressSearchViewModel(mode: .Starting, select: startingPoint)), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        destinationMapButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.pushViewController(LocationSelectViewController(viewModel: LocationSelectViewModel(mode: .Destination, select: destination)), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -219,11 +219,12 @@ class NewGroupViewController: UIViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Destination,with: destination), animated: true)
+                self.navigationController?.pushViewController(AddressSearchViewController(viewModel: AddressSearchViewModel(mode: .Destination, select: destination)), animated: true)
             })
             .disposed(by: disposeBag)
         
         startingPoint
+            .debug()
             .map { $0?.roadAddress ?? "아직 선택된 출발지가 없습니다" }
             .bind(to: startingPointTextView.rx.text)
             .disposed(by: disposeBag)
@@ -319,10 +320,6 @@ class NewGroupViewController: UIViewController {
         
         nameLabel.snp.makeConstraints {
             $0.height.equalTo(20)
-        }
-        
-        nameTextField.snp.makeConstraints {
-            $0.height.equalTo(30)
         }
         
         timeInTakeStackView.snp.makeConstraints {

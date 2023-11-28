@@ -293,7 +293,7 @@ class SearchViewController: UIViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.pushViewController(LocationSelectViewController(mode: .Default, with: selectedAddress), animated: true)
+                self.navigationController?.pushViewController(LocationSelectViewController(viewModel: LocationSelectViewModel(mode: .Default, select: selectedAddress)), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -301,7 +301,7 @@ class SearchViewController: UIViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.pushViewController(AddressSearchViewController(mode: .Default, with: selectedAddress), animated: true)
+                self.navigationController?.pushViewController(AddressSearchViewController(viewModel: AddressSearchViewModel(mode: .Default, select: selectedAddress)), animated: true)
             })
             .disposed(by: disposeBag)
         

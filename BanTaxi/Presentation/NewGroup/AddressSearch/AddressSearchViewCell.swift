@@ -15,55 +15,58 @@ class AddressSearchViewCell: UITableViewCell {
     let disposeBag = DisposeBag()
     var viewModel: AddressSearchViewCellViewModel!
     
-    let roadAddressLabel = UILabel()
-    let jibunAddressLabel = UILabel()
-    let placeNameLabel = UILabel()
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    let placeNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        return label
+    }()
+    
+    let roadAddressLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        return label
+    }()
+    
+    let jibunAddressLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        return label
+    }()
+    
+    
     
     func setUp(with viewModel: AddressSearchViewCellViewModel) {
         self.viewModel = viewModel
         
-        roadAddressLabel.text = viewModel.roadAddress
-        jibunAddressLabel.text = viewModel.jibunAddress
-        placeNameLabel.text = viewModel.placeName
-        
-        attribute()
+        bind()
         layout()
     }
     
-    
-    private func attribute() {
-        [roadAddressLabel, jibunAddressLabel, placeNameLabel].forEach {
-            $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        }
+    private func bind() {
+        placeNameLabel.text = viewModel.placeName
+        roadAddressLabel.text = viewModel.roadAddress
+        jibunAddressLabel.text = viewModel.jibunAddress
     }
     
+    
     private func layout() {
-        [placeNameLabel, roadAddressLabel, jibunAddressLabel].forEach { contentView.addSubview($0) }
         
-        placeNameLabel.snp.makeConstraints {
-            $0.top.equalTo(contentView.snp.top).offset(20)
-            $0.leading.equalTo(contentView.snp.leading).offset(20)
-            $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
-            $0.height.equalTo(15)
-        }
+        contentView.addSubview(stackView)
         
-        roadAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(placeNameLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(contentView.snp.leading).offset(20)
-            $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
-            $0.height.equalTo(15)
-        }
+        [placeNameLabel, roadAddressLabel, jibunAddressLabel].forEach { stackView.addArrangedSubview($0) }
         
-        jibunAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(roadAddressLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(contentView.snp.leading).offset(20)
-            $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
-            $0.height.equalTo(15)
+        stackView.snp.makeConstraints {
+            $0.top.leading.equalTo(contentView).offset(20)
+            $0.trailing.bottom.equalTo(contentView).offset(-20)
         }
-        
-        contentView.snp.makeConstraints {
-            $0.bottom.equalTo(jibunAddressLabel.snp.bottom).offset(20)
-        }
+    
     }
 
 }
