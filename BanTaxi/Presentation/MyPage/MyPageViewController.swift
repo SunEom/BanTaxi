@@ -11,21 +11,21 @@ import RxCocoa
 import SnapKit
 
 class MyPageViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let viewModel: MyPageViewModel!
+    private let disposeBag = DisposeBag()
+    private let viewModel: MyPageViewModel!
     
-    let imageView = UIImageView()
-    let nicknameLabel = UILabel()
+    private let imageView = UIImageView()
+    private let nicknameLabel = UILabel()
     
-    let emailStackView = UIStackView()
-    let emailImageView = UIImageView(image: UIImage(systemName: "envelope"))
-    let emailLabel = UILabel()
+    private let emailStackView = UIStackView()
+    private let emailImageView = UIImageView(image: UIImage(systemName: "envelope"))
+    private let emailLabel = UILabel()
     
-    let logoutButton = UIButton()
+    private let logoutButton = UIButton()
     
     
-    init() {
-        viewModel = MyPageViewModel()
+    init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,46 +42,34 @@ class MyPageViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.user
-            .map { $0?.provider }
-            .map { provider in
-                switch provider {
-                    case "apple":
-                        return UIImage(systemName: "apple.logo")
-                    case "google":
-                        return UIImage(named: "Google")
-                    default:
-                        return UIImage()
+        
+        let input = MyPageViewModel.Input(trigger: logoutButton.rx.tap.asDriver())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.user
+            .drive(onNext: {[weak self] user in
+                if user == nil {
+                    let vc = LoginViewController()
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.modalTransitionStyle = .crossDissolve
+                    self?.present(vc, animated: true)
+                } else {
+                    switch user!.provider {
+                        case "apple":
+                            self?.imageView.image = UIImage(systemName: "apple.logo")
+                        case "google":
+                            self?.imageView.image = UIImage(named: "Google")
+                        default:
+                            self?.imageView.image = UIImage()
+                    }
+                    
+                    self?.nicknameLabel.text = user!.nickname
+                    self?.emailLabel.text = user!.email
                 }
-            }
-            .bind(to: imageView.rx.image)
-            .disposed(by: disposeBag)
-
-        
-        viewModel.user
-            .map{ $0?.nickname ?? "" }
-            .bind(to: nicknameLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.user
-            .map { $0?.email ?? ""}
-            .bind(to: emailLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        logoutButton.rx.tap
-            .bind(to: viewModel.logoutButtonTap)
-            .disposed(by: disposeBag)
-        
-        logoutButton.rx.tap
-            .asDriver()
-            .drive(onNext: {
-                let vc = LoginViewController()
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true)
             })
             .disposed(by: disposeBag)
-    
+
     }
     
     private func attribute() {

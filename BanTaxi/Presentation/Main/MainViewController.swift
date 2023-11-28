@@ -122,7 +122,7 @@ class MainViewController: UIViewController {
         profileButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(MyPageViewController(), animated: true)
+                self.navigationController?.pushViewController(MyPageViewController(viewModel: MyPageViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         

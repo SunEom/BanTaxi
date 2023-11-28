@@ -7,21 +7,26 @@
 
 import Foundation
 import RxSwift
-import RxRelay
+import RxCocoa
 
 struct MyPageViewModel {
-    let disposeBag = DisposeBag()
-    let user = UserManager.getInstance()
-    let logoutButtonTap = PublishRelay<Void>()
+    private let disposeBag = DisposeBag()
     
-    init() {
-        
-        logoutButtonTap
-            .subscribe(onNext: {
+    struct Input {
+        let trigger: Driver<Void>
+    }
+    
+    struct Output {
+        let user: Driver<User?>
+    }
+    
+    func transform(input: Input) -> Output {
+        input.trigger
+            .drive(onNext: {
                 UserManager.logout()
             })
             .disposed(by: disposeBag)
-            
-            
+        
+        return Output(user: UserManager.getInstance().asDriver(onErrorJustReturn: nil))
     }
 }
