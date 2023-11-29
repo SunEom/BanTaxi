@@ -15,10 +15,42 @@ class ChatRoomViewController: UIViewController {
     let viewModel: ChatRoomViewModel
     
     let contentView = UIView()
-    let tableView = UITableView()
-    let bottomStackView = UIStackView()
-    let inputTextView = UITextView()
-    let sendBtn = UIButton()
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(ChatBubbleCellViewController.self, forCellReuseIdentifier: K.TableViewCellID.ChatBubbleCell)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
+    let bottomStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    let inputTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = .systemFont(ofSize: 15)
+        textView.backgroundColor = .white
+        textView.textColor = .black
+        textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        textView.layer.borderColor = UIColor.gray.cgColor
+        textView.layer.cornerRadius = 20
+        textView.layer.borderWidth = 0.3
+        return textView
+    }()
+    
+    let sendBtn: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 20
+        button.backgroundColor = K.Color.mainColor
+        return button
+    }()
     
     init(groupInfo: GroupInfo) {
         viewModel = ChatRoomViewModel(groupInfo: groupInfo)
@@ -33,20 +65,12 @@ class ChatRoomViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.addObserverRequest.onNext(Void())
-        
-        // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-
-              // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-              
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(ChatBubbleCellViewController.self, forCellReuseIdentifier: K.TableViewCellID.ChatBubbleCell)
         
         bind()
         attribute()
@@ -54,54 +78,32 @@ class ChatRoomViewController: UIViewController {
     }
     
     private func bind() {
+        
+        let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).map { _ in () }.asDriver(onErrorJustReturn: ())
+        
+        let input = ChatRoomViewModel.Input(trigger: viewWillAppear,
+                                            sendTrigger: sendBtn.rx.tap.asDriver().do(onNext:{[weak self] _ in self?.inputTextView.text = ""}),
+                                            chat: inputTextView.rx.text.orEmpty.asDriver())
      
-        viewModel.chatList
-            .bind(to: tableView.rx.items) { tv, row, chat in
+        let output = viewModel.transform(input: input)
+        
+        output.chats
+            .drive(tableView.rx.items) { tv, row, chat in
                 let indexPath = IndexPath(row: row, section: 0)
                 let cell = tv.dequeueReusableCell(withIdentifier: K.TableViewCellID.ChatBubbleCell, for: indexPath) as! ChatBubbleCellViewController
                 
                 cell.selectionStyle = .none
-                cell.setUp(with: chat)
+                cell.setUp(viewModel: ChatBubbleCellViewModel(chat))
                 
                 return cell
             }
             .disposed(by: disposeBag)
-        
-        inputTextView.rx.text
-            .orEmpty
-            .bind(to: viewModel.chatMsg)
-            .disposed(by: disposeBag)
-        
-        sendBtn.rx.tap
-            .map { self.inputTextView.text = "" }
-            .bind(to: viewModel.sendButtonTap)
-            .disposed(by: disposeBag)
-        
+    
     }
     
     private func attribute() {
         view.backgroundColor = .white
         view.addTapGesture()
-        
-        tableView.separatorStyle = .none
-        
-        bottomStackView.axis = .horizontal
-        bottomStackView.distribution = .fill
-        bottomStackView.alignment = .fill
-        bottomStackView.spacing = 10
-        
-        inputTextView.font = .systemFont(ofSize: 15)
-        inputTextView.backgroundColor = .white
-        inputTextView.textColor = .black
-        inputTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        inputTextView.layer.borderColor = UIColor.gray.cgColor
-        inputTextView.layer.cornerRadius = 20
-        inputTextView.layer.borderWidth = 0.3
-        
-        sendBtn.setImage(UIImage(systemName: "paperplane"), for: .normal)
-        sendBtn.tintColor = .white
-        sendBtn.layer.cornerRadius = 20
-        sendBtn.backgroundColor = K.Color.mainColor
     }
     
     private func layout() {

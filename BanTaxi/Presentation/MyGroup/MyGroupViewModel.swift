@@ -7,32 +7,42 @@
 
 import Foundation
 import RxSwift
-import RxRelay
+import RxCocoa
 
 struct MyGroupViewModel {
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+    private let repository: GroupRepository
     
-    let isLoading = BehaviorSubject(value: true)
+    struct Input {
+        let trigger: Driver<Void>
+        let select: Driver<IndexPath>
+    }
     
-    let list = PublishSubject<[GroupInfo]>()
-    let fetchRequest = PublishSubject<Void>()
+    struct Output {
+        let loading: Driver<Bool>
+        let groups: Driver<[GroupInfo]>
+        let selectedGroup: Driver<GroupInfo>
+    }
     
     init(_ repo: GroupRepository = GroupRepository()) {
-        fetchRequest
-            .flatMapLatest(repo.fetchMyGroup)
-            .bind(to: list)
-            .disposed(by: disposeBag)
+        self.repository = repo
+    }
+    
+    func transform(input: Input) -> Output {
+        let loading = PublishSubject<Bool>()
         
-        //MARK: - 로딩 설정
+        let groups = input.trigger
+            .do(onNext: { _ in loading.onNext(true)})
+            .flatMapLatest {
+                repository.fetchMyGroup()
+                    .do(onNext: { _ in loading.onNext(false)})
+                    .asDriver(onErrorJustReturn: [])
+            }
         
-        fetchRequest
-            .map { _ in return true}
-            .bind(to: isLoading)
-            .disposed(by: disposeBag)
+        let selectedGroup = input.select
+            .withLatestFrom(groups) { indexPath, list in list[indexPath.row] }
         
-        list
-            .map { _ in return false}
-            .bind(to: isLoading)
-            .disposed(by: disposeBag)
+        return Output(loading: loading.asDriver(onErrorJustReturn: false), groups: groups, selectedGroup: selectedGroup)
+        
     }
 }

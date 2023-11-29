@@ -7,18 +7,33 @@
 
 import Foundation
 import RxSwift
-import RxRelay
+import RxCocoa
 import FirebaseAuth
 
 struct ChatBubbleCellViewModel {
-    let disposeBag = DisposeBag()
-    let isMine: Bool
-    let chatData: Chat
-    let nickname: Observable<String>
+    private let disposeBag = DisposeBag()
+    private let chatData: Chat
+    private let repository: ChatRepository
+
+    struct Output {
+        let isMine: Driver<Bool>
+        let chat: Driver<String>
+        let nickname: Driver<String>
+    }
+    
     init(_ chatData: Chat, _ repo: ChatRepository = ChatRepository() ) {
         self.chatData = chatData
-        self.isMine = chatData.uid == Auth.auth().currentUser!.uid
+        self.repository = repo
+    }
+    
+    func tranform() -> Output {
+        let isMine = UserManager.getInstance()
+            .map { $0!.uid == chatData.uid }
+            .asDriver(onErrorJustReturn: false)
         
-        self.nickname = repo.fetchChatNickname(with: chatData.uid)
+        let nickname = repository.fetchChatNickname(with: chatData.uid)
+            .asDriver(onErrorJustReturn: "")
+        
+        return Output(isMine: isMine, chat: Driver.just(chatData.contents), nickname: nickname)
     }
 }

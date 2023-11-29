@@ -12,26 +12,22 @@ import SnapKit
 import NVActivityIndicatorView
 
 class MyGroupViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let viewModel: MyGroupViewModel!
+    private let disposeBag = DisposeBag()
+    private let viewModel: MyGroupViewModel
     
-    let tableView = UITableView()
+    private let tableView = UITableView()
     
-    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
+    private let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
-    init() {
-        viewModel = MyGroupViewModel()
+    init(viewModel: MyGroupViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.fetchRequest.onNext(Void())
-    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,9 +40,14 @@ class MyGroupViewController: UIViewController {
     
     private func bind() {
         
-        viewModel.isLoading
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { loading in
+        let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).map { _ in () }.asDriver(onErrorJustReturn: ())
+        
+        let input = MyGroupViewModel.Input(trigger: viewWillAppear, select: tableView.rx.itemSelected.asDriver())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.loading
+            .drive(onNext: { loading in
                 if loading {
                     self.activityIndicator.startAnimating()
                     self.activityIndicator.isHidden = false
@@ -56,24 +57,19 @@ class MyGroupViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+            
         
-        viewModel.list
-            .bind(to: tableView.rx.items) { tv, row, item in
+        output.groups
+            .drive(tableView.rx.items) { tv, row, item in
                 let cell = tv.dequeueReusableCell(withIdentifier: K.TableViewCellID.GroupListCell) as! GroupListCellViewController
                 cell.setUp(with: item)
                 return cell
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.itemSelected
-            .map { indexPath in
-                self.tableView.cellForRow(at: indexPath)?.isSelected = false
-                return indexPath.row
-            }
-            .withLatestFrom(viewModel.list) { idx, list in return list[idx] }
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { groupInfo in
-                self.navigationController?.pushViewController(GroupDetailViewController(with: groupInfo), animated: true)
+        output.selectedGroup
+            .drive(onNext: {[weak self] groupInfo in
+                self?.navigationController?.pushViewController(GroupDetailViewController(with: groupInfo), animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -87,6 +83,10 @@ class MyGroupViewController: UIViewController {
     private func layout() {
         
         [tableView, activityIndicator].forEach { view.addSubview($0) }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
         
         tableView.snp.makeConstraints {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)

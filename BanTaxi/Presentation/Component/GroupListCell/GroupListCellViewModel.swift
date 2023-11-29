@@ -12,10 +12,10 @@ import RxRelay
 struct GroupListCellViewModel {
     let disposeBag = DisposeBag()
     let groupInfo: GroupInfo
-    let available : Observable<Bool>
+    let available : Bool
     
     init(_ groupInfo: GroupInfo) {
         self.groupInfo = groupInfo
-        self.available = Observable.just(groupInfo.time > 1.days.earlier)
+        self.available = groupInfo.time > .now
     }
 }

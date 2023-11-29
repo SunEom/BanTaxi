@@ -136,7 +136,7 @@ class MainViewController: UIViewController {
         myGroupButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(MyGroupViewController(), animated: true)
+                self.navigationController?.pushViewController(MyGroupViewController(viewModel: MyGroupViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         
