@@ -20,61 +20,74 @@ class GroupListCellViewController: UITableViewCell {
     
     let mainStackView = UIStackView()
     
-    let dateStackView = UIStackView()
-    let dayLabel = UILabel()
-    let monthLabel = UILabel()
+    let dateStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
     
-    let infoStackView = UIStackView()
-    let nameLabel = UILabel()
-    let locationLabel = UILabel()
+    let dayLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .heavy)
+        return label
+    }()
     
-    let chevronImgView = UIImageView(image: UIImage(systemName: "chevron.right"))
+    let monthLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .heavy)
+        return label
+    }()
+    
+    
+    let infoStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 19, weight: .semibold)
+        return label
+    }()
+    
+    let locationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.textColor = .gray
+        return label
+    }()
+    
+    let chevronImgView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = K.Color.mainColor
+        return imageView
+    }()
     
     func setUp(with groupInfo: GroupInfo) {
         viewModel = GroupListCellViewModel(groupInfo)
         
         bind()
-        attribute()
         layout()
     }
     
     private func bind() {
-        viewModel.available
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { available in
-                if available {
-                    self.leftColorBar.backgroundColor = K.Color.mainColor
-                } else {
-                    self.leftColorBar.backgroundColor = .gray
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func attribute() {
-        
-        dateStackView.axis = .vertical
-        dateStackView.alignment = .center
-        dateStackView.distribution = .fillEqually
-        
-        dayLabel.font = .systemFont(ofSize: 20, weight: .heavy)
-        monthLabel.font = .systemFont(ofSize: 16, weight: .heavy)
         dayLabel.text = "\(viewModel.groupInfo.time.format(with: "d"))"
         monthLabel.text = "\(viewModel.groupInfo.time.format(with: "MMM"))"
-
-        
-        infoStackView.axis = .vertical
-        
-        nameLabel.font = .systemFont(ofSize: 19, weight: .semibold)
-        locationLabel.font = .systemFont(ofSize: 13, weight: .regular)
-        locationLabel.textColor = .gray
-        
         nameLabel.text = viewModel.groupInfo.name
         locationLabel.text = "\(viewModel.groupInfo.start.roadAddress!) → \(viewModel.groupInfo.destination.roadAddress!)"
-
-        chevronImgView.contentMode = .scaleAspectFit
-        chevronImgView.tintColor = K.Color.mainColor
+    
+        if viewModel.available {
+            self.leftColorBar.backgroundColor = K.Color.mainColor
+        } else {
+            self.leftColorBar.backgroundColor = .gray
+        }
     }
+    
+    
     
     private func layout() {
         
@@ -86,28 +99,24 @@ class GroupListCellViewController: UITableViewCell {
         
         leftColorBar.snp.makeConstraints {
             $0.width.equalTo(3)
-            $0.height.equalTo(60)
-            $0.top.equalTo(contentView.safeAreaLayoutGuide).offset(15)
-            $0.leading.equalToSuperview().offset(15)
-            $0.bottom.equalTo(contentView.safeAreaLayoutGuide).offset(-15)
+            $0.top.leading.equalTo(contentView).offset(15)
+            $0.bottom.equalTo(contentView).offset(-15)
         }
         
         dateStackView.snp.makeConstraints {
             $0.width.equalTo(50)
-            $0.height.equalTo(40)
+            $0.top.bottom.equalTo(leftColorBar)
             $0.leading.equalTo(leftColorBar).offset(5)
-            $0.centerY.equalTo(leftColorBar)
         }
         
         infoStackView.snp.makeConstraints {
-            $0.height.equalTo(dateStackView)
+            $0.top.bottom.equalTo(dateStackView)
             $0.leading.equalTo(dateStackView.snp.trailing).offset(10)
             $0.trailing.equalTo(chevronImgView.snp.leading).offset(-10)
-            $0.centerY.equalTo(leftColorBar)
         }
         
         chevronImgView.snp.makeConstraints {
-            $0.height.equalTo(dateStackView)
+            $0.top.bottom.equalTo(dateStackView)
             $0.width.equalTo(15)
             $0.trailing.equalToSuperview().offset(-10)
             $0.centerY.equalTo(leftColorBar)

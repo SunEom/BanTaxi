@@ -9,23 +9,24 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import NVActivityIndicatorView
 
 class AddressSearchViewController: UIViewController {
-    let diseposeBag = DisposeBag()
-    let viewModel : AddressSearchViewModel!
+    private let disposeBag = DisposeBag()
+    private let viewModel : AddressSearchViewModel
     
-    let addressDataContainer: BehaviorRelay<AddressData?>!
-    let mode: LocationSettingMode!
+    private let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
+    private let topView = UIView()
+    private let keywordTextField = UITextField()
+    private let underLine = UIView()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(AddressSearchViewCell.self, forCellReuseIdentifier: K.TableViewCellID.AddressSearchCell)
+        return tableView
+    }()
     
-    let topView = UIView()
-    let keywordTextField = UITextField()
-    let underLine = UIView()
-    let tableView = UITableView()
-    
-    init(mode: LocationSettingMode, with addressDataContainer: BehaviorRelay<AddressData?>!) {
-        self.addressDataContainer = addressDataContainer
-        self.mode = mode
-        viewModel = AddressSearchViewModel()
+    init(viewModel: AddressSearchViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,49 +37,48 @@ class AddressSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(AddressSearchViewCell.self, forCellReuseIdentifier: K.TableViewCellID.AddressSearchCell)
-        
         bind()
+        uiEvent()
         attribute()
         layout()
     }
     
     private func bind() {
         
-        viewModel.searchResults
-            .asDriver(onErrorJustReturn: [])
-            .map { $0 == nil ? [] : $0! }
+        let input = AddressSearchViewModel.Input(keyword: keywordTextField.rx.text.orEmpty.asDriver(),
+                                                 searchTrigger: keywordTextField.rx.controlEvent(.editingDidEndOnExit).asDriver(),
+                                                 saveTrigger: tableView.rx.itemSelected.asDriver())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.loading
+            .drive(onNext: { [weak self] loading in
+                if loading {
+                    self?.activityIndicator.startAnimating()
+                    self?.activityIndicator.isHidden = false
+                } else {
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.result
             .drive(tableView.rx.items) { tv, row, result in
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: K.TableViewCellID.AddressSearchCell, for: IndexPath(row: row, section: 0)) as! AddressSearchViewCell
-                
                 cell.setUp(with: AddressSearchViewCellViewModel(addressSearchResult: result))
-                
                 return cell
             }
-            .disposed(by: diseposeBag)
-        
+            .disposed(by: disposeBag)
+    }
+    
+    private func uiEvent() {
         tableView.rx.itemSelected
-            .map { indexPath in
-                self.tableView.cellForRow(at: indexPath)?.isSelected = false
-                return indexPath.row
-            }
-            .withLatestFrom(viewModel.searchResults) { row, results in
-                return results![row]
-            }
-            .subscribe {
-                self.navigationController?.popViewController(animated: true)
-                self.addressDataContainer.accept($0)
-            }
-            .disposed(by: diseposeBag)
-            
-        keywordTextField.rx.text
-            .orEmpty
-            .bind(to: viewModel.keyword)
-            .disposed(by: diseposeBag)
-        
-        keywordTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bind(to: viewModel.searchButtonTap)
-            .disposed(by: diseposeBag)
+            .asDriver()
+            .drive(onNext: {[weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
@@ -100,9 +100,13 @@ class AddressSearchViewController: UIViewController {
     }
     
     private func layout() {
-        [topView, tableView].forEach { view.addSubview($0) }
+        [topView, tableView, activityIndicator].forEach { view.addSubview($0) }
         
         [keywordTextField, underLine].forEach { topView.addSubview($0) }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(tableView)
+        }
         
         topView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()

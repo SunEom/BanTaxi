@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var rootViewController: UIViewController!
         
         if UserManager.isLogin {
-            rootViewController = UINavigationController(rootViewController: MainViewController())
+            rootViewController = UINavigationController(rootViewController: MainViewController(viewModel: MainViewModel()))
         } else {
             rootViewController = LoginViewController()
         }

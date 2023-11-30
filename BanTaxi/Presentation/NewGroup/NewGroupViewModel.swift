@@ -7,52 +7,49 @@
 
 import Foundation
 import RxSwift
-import RxRelay
+import RxCocoa
 
 struct NewGroupViewModel {
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+    private let repository: GroupRepository
     
-    let isLoading = BehaviorSubject(value: false)
     
-    let intakeCountList = PublishRelay.just([2,3,4])
-    let groupName = BehaviorRelay<String>(value: "")
-    let time = BehaviorRelay<Date>(value: Date())
-    let intakeIndex = BehaviorRelay(value: 0)
-    let intake = BehaviorRelay<Int>(value: 2)
-    let startingPoint = BehaviorRelay<AddressData?>(value: nil)
-    let destinationPoint = BehaviorRelay<AddressData?>(value: nil)
-    let saveButtonTap = PublishRelay<Void>()
+    struct Input {
+        let groupName: Driver<String>
+        let time: Driver<Date>
+        let intakeSelect: Driver<Int>
+        let startingPoint: Driver<AddressData?>
+        let destinationPoint: Driver<AddressData?>
+        let saveTrigger: Driver<Void>
+    }
     
-    let requestResult = PublishRelay<RequestResult>()
+    struct Output {
+        let loading: Driver<Bool>
+        let intakeCountList: Driver<[Int]>
+        let result: Driver<RequestResult>
+    }
     
     init(_ repo: GroupRepository = GroupRepository()) {
+        self.repository = repo
+    }
+    
+    func transform(input: Input) -> Output {
+        let loading = PublishSubject<Bool>()
         
-        saveButtonTap
-            .map { _ in return true}
-            .bind(to: isLoading)
-            .disposed(by: disposeBag)
-        
-        requestResult
-            .map { _ in return false }
-            .bind(to: isLoading)
+        let intakeCountList = Driver.just([2,3,4])
+        let intake = BehaviorSubject(value: 2)
+        input.intakeSelect
+            .withLatestFrom(intakeCountList) { idx, list in list[idx] }
+            .asObservable().bind(to: intake)
             .disposed(by: disposeBag)
 
+        let result = input.saveTrigger
+            .withLatestFrom(Driver.combineLatest(input.groupName, input.time, intake.asDriver(onErrorJustReturn: 2), input.startingPoint, input.destinationPoint))
+            .flatMapLatest { groupName, time, intake, startingPoint, destination in
+                repository.createNewGroup(with: (groupName, time, intake, startingPoint, destination))
+                    .asDriver(onErrorJustReturn: RequestResult(isSuccess: false, msg: ""))
+            }
         
-        intakeIndex
-            .withLatestFrom(intakeCountList) { $1[$0] }
-            .bind(to: intake)
-            .disposed(by: disposeBag)
-        
-        
-        let newGroupData = Observable.combineLatest(groupName, time, intake, startingPoint, destinationPoint)
-        
-        saveButtonTap
-            .withLatestFrom(newGroupData)
-            .flatMapLatest(repo.createNewGroup(with:))
-            .bind(to: requestResult)
-            .disposed(by: disposeBag)
-        
-        requestResult.subscribe(onNext: { print($0 )}).disposed(by: disposeBag)
-        
+        return Output(loading: loading.asDriver(onErrorJustReturn: false), intakeCountList: intakeCountList, result: result)
     }
 }

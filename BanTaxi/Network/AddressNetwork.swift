@@ -13,7 +13,7 @@ struct AddressNetwork {
     let disposeBag = DisposeBag()
     let session = URLSession.shared
     
-    func requestAddressSearch(with keyword: String) -> Observable<[AddressData]?> {
+    func requestAddressSearch(with keyword: String) -> Observable<[AddressData]> {
         let urlString = "https://dapi.kakao.com/v2/local/search/keyword.json?query=\(keyword)"
         let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: encodedString)!
@@ -30,7 +30,7 @@ struct AddressNetwork {
                     }
                     return addressData
                 } catch {
-                    return nil
+                    return []
                 }
             }
     }

@@ -10,7 +10,7 @@ import RxRelay
 
 struct AddressSearchViewCellViewModel {
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     let roadAddress: String?
     let jibunAddress: String?
     let placeName: String?

@@ -22,11 +22,60 @@ class LoginViewController: UIViewController {
     
     var currentNonce: String? // property for apple login
     
-    let titleLabel = UILabel()
-    let colorView = UIView()
-    let bottomView = UIView()
-    let googleLoginButton = UIButton()
-    let appleLoginButton = UIButton()
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "로그인"
+        label.font = .systemFont(ofSize: 30, weight: .bold)
+        label.textColor = .white
+        return label
+    }()
+    
+    let colorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "MainColor")
+        return view
+    }()
+    
+    let bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 30
+        view.layer.shadowOffset = CGSize.zero
+        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
+    let googleLoginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("구글로 로그인하기", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.setImage(UIImage(named: "Google"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.borderWidth = 0.5
+        button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 10)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
+    let appleLoginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("애플로 로그인하기", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.setImage(UIImage(named: "Apple"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.borderWidth = 0.5
+        button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 10)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +88,15 @@ class LoginViewController: UIViewController {
     
     private func bind(_ viewModel: LoginViewModel) {
         googleLoginButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                self.googleLoginRequest()
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                self?.googleLoginRequest()
             })
             .disposed(by: disposeBag)
         
         appleLoginButton.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .asDriver()
+            .drive(onNext: { [weak self] in
                 self?.startSignInWithAppleFlow()
             })
             .disposed(by: disposeBag)
@@ -54,42 +104,6 @@ class LoginViewController: UIViewController {
     
     private func attribute() {
         view.backgroundColor = .white
-        
-        colorView.backgroundColor = UIColor(named: "MainColor")
-        
-        bottomView.backgroundColor = .white
-        bottomView.layer.shadowColor = UIColor.black.cgColor
-        bottomView.layer.shadowOpacity = 0.5
-        bottomView.layer.shadowRadius = 30
-        bottomView.layer.shadowOffset = CGSize.zero
-        bottomView.layer.masksToBounds = false
-        bottomView.layer.cornerRadius = 20
-        
-        titleLabel.text = "로그인"
-        titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
-        titleLabel.textColor = .white
-        
-        googleLoginButton.setTitle("구글로 로그인하기", for: .normal)
-        googleLoginButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        googleLoginButton.setImage(UIImage(named: "Google"), for: .normal)
-        googleLoginButton.setTitleColor(.black, for: .normal)
-        googleLoginButton.layer.cornerRadius = 5
-        googleLoginButton.layer.borderColor = UIColor.gray.cgColor
-        googleLoginButton.layer.borderWidth = 0.5
-        googleLoginButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 10)
-        googleLoginButton.imageView?.contentMode = .scaleAspectFit
-        
-        appleLoginButton.setTitle("애플로 로그인하기", for: .normal)
-        appleLoginButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        appleLoginButton.setImage(UIImage(named: "Apple"), for: .normal)
-        appleLoginButton.setTitleColor(.black, for: .normal)
-        appleLoginButton.layer.cornerRadius = 5
-        appleLoginButton.layer.borderColor = UIColor.gray.cgColor
-        appleLoginButton.layer.borderWidth = 0.5
-        appleLoginButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 10)
-        appleLoginButton.imageView?.contentMode = .scaleAspectFit
-        
-        
     }
     
     private func layout() {
@@ -188,7 +202,7 @@ extension LoginViewController {
                     if let error = error {
                         print(error)
                     } else {
-                        let vc = UINavigationController(rootViewController: MainViewController())
+                        let vc = UINavigationController(rootViewController: MainViewController(viewModel: MainViewModel()))
                         vc.modalPresentationStyle = .fullScreen
                         vc.modalTransitionStyle = .crossDissolve
                         self.present(vc, animated: true)
@@ -308,7 +322,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     if let error = error {
                         print(error)
                     } else {
-                        let vc = UINavigationController(rootViewController: MainViewController())
+                        let vc = UINavigationController(rootViewController: MainViewController(viewModel: MainViewModel()))
                         vc.modalPresentationStyle = .fullScreen
                         vc.modalTransitionStyle = .crossDissolve
                         self.present(vc, animated: true)

@@ -13,22 +13,26 @@ import CoreLocation
 
 class LocationSelectViewController: UIViewController {
     
-    let mode: LocationSettingMode!
-    let disposeBag = DisposeBag()
-    let addressDataContainer: BehaviorRelay<AddressData?>!
-
-    let locationManager: CLLocationManager!
-    let viewModel: LocationSelectViewModel!
+    private let disposeBag = DisposeBag()
+    private let mapCenterPoint = PublishSubject<MTMapPoint>()
+    private let locationManager: CLLocationManager
+    private let viewModel: LocationSelectViewModel
     
-    let mapView = MTMapView()
-    let centerMarker = MTMapPOIItem()
-    let saveButton = UIButton()
+    private let mapView = MTMapView()
+    private let centerMarker = MTMapPOIItem()
+    private let saveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("해당 위치로 설정", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        button.backgroundColor = UIColor(named: "MainColor")
+        button.layer.cornerRadius = 5
+        return button
+    }()
     
-    init(mode: LocationSettingMode, with: BehaviorRelay<AddressData?>) {
-        self.addressDataContainer = with
-        self.mode = mode
+    init(viewModel: LocationSelectViewModel) {
+        self.viewModel = viewModel
         locationManager = CLLocationManager()
-        viewModel = LocationSelectViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,70 +46,65 @@ class LocationSelectViewController: UIViewController {
         mapViewSetting()
         locationManagerSetting()
         
-        bind()
+        bindViewModel()
+        uiEvent()
         attribute()
         layout()
     }
     
-    private func bind(){
-        viewModel.mapCenterPoint
-            .bind(to: centerMarker.rx.mapPoint)
-            .disposed(by: disposeBag)
+    private func bindViewModel(){
         
-        viewModel.mapCenterPoint
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: {
-                self.mapView.setMapCenter($0, animated: true)
+        let viewDidAppear = rx.sentMessage(#selector(UIViewController.viewDidAppear(_:)))
+            .map { _ in ()}
+            .asDriver(onErrorJustReturn: ())
+        
+        let input = LocationSelectViewModel.Input(initLocationTrigger: viewDidAppear,
+                                                  centerTrigger: mapCenterPoint.asDriver(onErrorJustReturn: MTMapPoint(geoCoord: MTMapPointGeo(latitude: 37.57861, longitude: 126.9768))),
+                                                  saveTrigger: saveButton.rx.tap.asDriver())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.initLocation
+            .drive(onNext: { [weak self] point in
+                self?.centerMarker.mapPoint = point
             })
             .disposed(by: disposeBag)
         
-        viewModel.selectedPoint
-            .subscribe(onNext: {
+        output.address
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
                 self.centerMarker.itemName = $0.roadAddress
                 self.mapView.select(self.centerMarker, animated: false)
             })
             .disposed(by: disposeBag)
         
-        saveButton.rx.tap
-            .withLatestFrom(viewModel.selectedPoint)
-            .subscribe(onNext: {
-                self.addressDataContainer.accept($0)
-                self.navigationController?.popViewController(animated: true)
+        output.mode
+            .drive(onNext: { [weak self] mode in
+                switch mode {
+                    case .Starting:
+                        self?.title = "출발지 설정"
+                    case .Destination:
+                        self?.title = "도착지 설정"
+                    default:
+                        self?.title = "위치 설정"
+                }
             })
-            .disposed(by: disposeBag)
-        
-        addressDataContainer
-            .filter { $0 != nil && $0?.latitude != nil && $0?.longitude != nil }
-            .map {
-                let center = MTMapPoint(geoCoord: MTMapPointGeo(latitude: $0!.latitude!, longitude: $0!.longitude!))
-                self.mapView.setMapCenter(center, zoomLevel: 1, animated: true)
-                return center!
-            }
-            .bind(to: viewModel.mapCenterPoint)
             .disposed(by: disposeBag)
         
     }
     
+    private func uiEvent() {
+        saveButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func attribute() {
         view.backgroundColor = .white
-        
-        switch mode {
-            case .Starting:
-                title = "출발지 설정"
-            case .Destination:
-                title = "도착지 설정"
-            default:
-                title = "위치 설정"
-        }
-        
         self.navigationController?.navigationBar.topItem?.title = " "
-        
-        saveButton.setTitle("해당 위치로 설정", for: .normal)
-        saveButton.setTitleColor(.white, for: .normal)
-        saveButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-        saveButton.backgroundColor = UIColor(named: "MainColor")
-        saveButton.layer.cornerRadius = 5
-        
     }
     
     private func layout() {
@@ -168,7 +167,7 @@ extension LocationSelectViewController: CLLocationManagerDelegate {
 extension LocationSelectViewController: MTMapViewDelegate {
     
     func mapView(_ mapView: MTMapView!, finishedMapMoveAnimation mapCenterPoint: MTMapPoint!) {
-        viewModel.mapCenterPoint.accept(mapCenterPoint)
+        self.mapCenterPoint.onNext(mapCenterPoint)
     }
     
     func mapView(_ mapView: MTMapView!, dragStartedOn mapPoint: MTMapPoint!) {

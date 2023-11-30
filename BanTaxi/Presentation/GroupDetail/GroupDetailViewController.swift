@@ -12,36 +12,156 @@ import SnapKit
 import NVActivityIndicatorView
 
 class GroupDetailViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let viewModel: GroupDetailViewModel!
+    private let disposeBag = DisposeBag()
+    private let viewModel: GroupDetailViewModel!
     
-    let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
+    private let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: K.ScreenSize.width, height: K.ScreenSize.height), type: .circleStrokeSpin, color: K.Color.mainColor, padding: 200)
     
-    let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: nil, action: nil)
+    private let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: nil, action: nil)
     
-    let nameLabel = UILabel()
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 23, weight: .bold)
+        return label
+    }()
     
-    let timeImgView = UIImageView(image: UIImage(systemName: "timer"))
-    let timeTitleLabel = UILabel()
-    let timeLabel = UILabel()
     
-    let intakeImgView = UIImageView(image: UIImage(systemName: "person.3"))
-    let intakeTitleLabel = UILabel()
-    let intakeLabel = UILabel()
+    private let timeImgView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "timer"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = K.Color.mainColor
+        return imageView
+    }()
+    private let timeTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .black
+        label.text = "예정 시각"
+        return label
+    }()
     
-    let startTitleLabel = UILabel()
-    let startImgView = UIImageView(image: UIImage(systemName: "car.circle"))
-    let startLabel = UILabel()
+    private let timeLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .right
+        return label
+    }()
     
-    let destiTitleLabel = UILabel()
-    let destiImgView = UIImageView(image: UIImage(systemName: "flag.checkered.circle"))
-    let destiLabel = UILabel()
+    private let intakeImgView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "person.3"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = K.Color.mainColor
+        return imageView
+    }()
     
-    let mapButton = UIButton()
+    private let intakeTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .black
+        label.text = "모집 인원"
+        return label
+    }()
     
-    let joinButton = UIButton()
-    let exitButton = UIButton()
-    let chatButton = UIButton()
+    private let intakeLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    private let startTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .black
+        label.text = "출발 주소"
+        return label
+    }()
+    
+    private let startImgView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "car.circle"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = K.Color.mainColor
+        return imageView
+    }()
+    
+    private let startLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .right
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        return label
+    }()
+    
+    
+    private let destiTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .black
+        label.text = "도착 주소"
+        return label
+    }()
+    
+    private let destiImgView: UIImageView = {
+       let imageView = UIImageView(image: UIImage(systemName: "flag.checkered.circle"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = K.Color.mainColor
+        return imageView
+    }()
+    
+    private let destiLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .right
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        return label
+    }()
+    
+    
+    private let mapButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setTitle("지도에서 보기", for: .normal)
+        button.setTitleColor(K.Color.mainColor, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = K.Color.mainColor?.cgColor
+        return button
+    }()
+    
+    private let joinButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("그룹 참여하기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
+    private let exitButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.setTitle("그룹에서 나가기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
+    private let chatButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = K.Color.mainColor
+        button.setTitle("채팅방", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.setImage(UIImage(systemName: "ellipsis.bubble.fill"), for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 5
+        button.semanticContentAttribute = .forceRightToLeft
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
+        return button
+    }()
+    
     
     init(with groupInfo: GroupInfo) {
         viewModel = GroupDetailViewModel(with: groupInfo)
@@ -58,147 +178,126 @@ class GroupDetailViewController: UIViewController {
         attribute()
         layout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.fetchRequest.onNext(Void())
-    }
 
     private func bind() {
-        viewModel.available
-            .bind(to: joinButton.rx.isEnabled)
+        
+        let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).map { _ in () }.asDriver(onErrorJustReturn: ())
+        
+        let delete = PublishSubject<Void>()
+        
+        let input = GroupDetailViewModel.Input(fetchTrigger: viewWillAppear,
+                                               deleteTrigger: delete.asDriver(onErrorJustReturn: ()),
+                                               joinTrigger: joinButton.rx.tap.asDriver(),
+                                               exitTrigger: exitButton.rx.tap.asDriver())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.loading
+            .drive(onNext: { [weak self] loading in
+                if loading {
+                    self?.activityIndicator.startAnimating()
+                    self?.activityIndicator.isHidden = false
+                } else {
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                }
+            })
             .disposed(by: disposeBag)
         
-        viewModel.available
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { available in
+        
+        
+        output.available
+            .drive(onNext: { available in
                 if available {
                     self.joinButton.backgroundColor = K.Color.mainColor
+                    self.joinButton.isEnabled = true
                 } else {
                     self.joinButton.backgroundColor = .gray
+                    self.joinButton.isEnabled = false
                 }
             })
             .disposed(by: disposeBag)
+
         
-        viewModel.isLoading
+        output.group
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { loading in
-                if loading {
-                    self.activityIndicator.startAnimating()
-                    self.activityIndicator.isHidden = false
-                } else {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                }
+            .subscribe(onNext: { [weak self] group in
+                guard let self = self else { return }
+                nameLabel.text = group.name
+                timeLabel.text = group.time.format(with: "yyyy. MM. dd. aa hh:mm", locale: Locale(identifier: "ko-kr"))
+                intakeLabel.text = "\(group.participantsCount)/\(group.intake)"
+                startLabel.text = group.start.roadAddress!
+                destiLabel.text = group.destination.roadAddress!
             })
-            .disposed(by: disposeBag)
-        
-        viewModel.groupInfo
-            .map { $0.name }
-            .bind(to: nameLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.groupInfo
-            .map { $0.time.format(with: "yyyy. MM. dd. aa hh:mm", locale: Locale(identifier: "ko-kr")) }
-            .bind(to: timeLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.groupInfo
-            .map { "\($0.participantsCount)/\($0.intake)" }
-            .bind(to: intakeLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.groupInfo
-            .map { $0.start.roadAddress! }
-            .bind(to: startLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.groupInfo
-            .map { $0.destination.roadAddress! }
-            .bind(to: destiLabel.rx.text)
             .disposed(by: disposeBag)
         
         mapButton.rx.tap
+            .withLatestFrom(output.group)
             .observe(on: MainScheduler.instance)
-            .withLatestFrom(viewModel.groupInfo)
-            .subscribe(onNext: { groupInfo in
-                let pvc = MapViewController(start: groupInfo.start, destination: groupInfo.destination)
+            .subscribe(onNext: { [weak self] groupInfo in
+                let pvc = MapViewController(viewModel: MapViewModel(start: groupInfo.start, destination: groupInfo.destination))
                 pvc.modalPresentationStyle = .overCurrentContext
                 pvc.modalTransitionStyle = .coverVertical
-                self.present(pvc, animated: true)
+                self?.present(pvc, animated: true)
             })
             .disposed(by: disposeBag)
         
-        viewModel.isMine
-            .observe(on: MainScheduler.instance)
+        output.isMine
             .map{ !$0 }
-            .bind(to: deleteButton.rx.isHidden)
+            .drive(deleteButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        viewModel.alreadyJoin
-            .observe(on: MainScheduler.instance)
+        output.alreadyJoin
             .map{ !$0 }
-            .bind(to: chatButton.rx.isHidden)
+            .drive(chatButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(viewModel.isMine, viewModel.alreadyJoin)
-            .observe(on: MainScheduler.instance)
+        output.alreadyJoin
+            .drive(joinButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        Driver.combineLatest(output.isMine, output.alreadyJoin)
             .map{ $0 || !$1 }
-            .bind(to: exitButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        viewModel.alreadyJoin
-            .observe(on: MainScheduler.instance)
-            .bind(to: joinButton.rx.isHidden)
+            .drive(exitButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         deleteButton.rx.tap
             .asDriver()
-            .drive(onNext: {
+            .drive(onNext: { [weak self] in
                 let alert = UIAlertController(title: "삭제", message: "정말로 그룹을 삭제하시겠습니까?", preferredStyle: .alert)
                 let confirm = UIAlertAction(title: "삭제", style: .destructive) { _ in
-                    self.viewModel.deleteRequest.onNext(Void())
+                    delete.onNext(())
                 }
                 let cancel = UIAlertAction(title: "취소", style: .cancel)
                 alert.addAction(confirm)
                 alert.addAction(cancel)
-                self.present(alert, animated: true)
+                self?.present(alert, animated: true)
             })
             .disposed(by: disposeBag)
         
-        viewModel.deleteRequestResult
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { result in
+        output.result
+            .drive(onNext: {[weak self] result in
                 if result.isSuccess {
                     let alert = UIAlertController(title: "성공", message: "그룹이 삭제되었습니다.", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default) { _ in
-                        self.navigationController?.popViewController(animated: true)
+                        self?.navigationController?.popViewController(animated: true)
                     }
                     alert.addAction(action)
-                    self.present(alert, animated: true)
+                    self?.present(alert, animated: true)
                 } else {
-                    print(result.msg)
-                    let alert = UIAlertController(title: "오류", message: "오류가 발생했습니다.\n잠시후에 다시 시도해주세요.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "오류", message: result.msg, preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(action)
-                    self.present(alert, animated: true)
+                    self?.present(alert, animated: true)
                 }
             })
             .disposed(by: disposeBag)
-        
-        joinButton.rx.tap
-            .bind(to: viewModel.joinRequest)
-            .disposed(by: disposeBag)
-        
-        exitButton.rx.tap
-            .bind(to: viewModel.exitRequest)
-            .disposed(by: disposeBag)
-        
+
         chatButton.rx.tap
             .observe(on: MainScheduler.instance)
-            .withLatestFrom(self.viewModel.groupInfo)
-            .subscribe(onNext:{ groupInfo in
-                self.navigationController?.pushViewController(ChatRoomViewController(groupInfo: groupInfo), animated: true)
+            .withLatestFrom(output.group)
+            .subscribe(onNext:{[weak self] groupInfo in
+                self?.navigationController?.pushViewController(ChatRoomViewController(groupInfo: groupInfo), animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -208,63 +307,6 @@ class GroupDetailViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = deleteButton
         navigationItem.rightBarButtonItem?.tintColor = .red
-        
-        nameLabel.font = .systemFont(ofSize: 23, weight: .bold)
-        
-        [timeTitleLabel, intakeTitleLabel, startTitleLabel, destiTitleLabel].forEach {
-            $0.font = .systemFont(ofSize: 16, weight: .semibold)
-            $0.textColor = .black
-        }
-        
-        [timeImgView, intakeImgView, startImgView, destiImgView].forEach {
-            $0.contentMode = .scaleAspectFit
-            $0.tintColor = K.Color.mainColor
-        }
-        
-        timeTitleLabel.text = "예정 시각"
-        
-        [timeLabel, intakeLabel, startLabel, destiLabel].forEach {
-            $0.font = .systemFont(ofSize: 16, weight: .regular)
-            $0.textAlignment = .right
-        }
-        startLabel.font = .systemFont(ofSize: 16, weight: .regular)
-        destiLabel.font = .systemFont(ofSize: 16, weight: .regular)
-    
-        intakeTitleLabel.text = "모집 인원"
-        
-        startTitleLabel.text = "출발 주소"
-        destiTitleLabel.text = "도착 주소"
-        
-        mapButton.backgroundColor = .white
-        mapButton.setTitle("지도에서 보기", for: .normal)
-        mapButton.setTitleColor(K.Color.mainColor, for: .normal)
-        mapButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        mapButton.layer.cornerRadius = 5
-        mapButton.layer.borderWidth = 1
-        mapButton.layer.borderColor = K.Color.mainColor?.cgColor
-        
-        [joinButton, chatButton, exitButton].forEach { $0.isHidden = true }
-        
-        joinButton.setTitle("그룹 참여하기", for: .normal)
-        joinButton.setTitleColor(.white, for: .normal)
-        joinButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        joinButton.layer.cornerRadius = 5
-        
-        chatButton.backgroundColor = K.Color.mainColor
-        chatButton.setTitle("채팅방", for: .normal)
-        chatButton.setTitleColor(.white, for: .normal)
-        chatButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        chatButton.setImage(UIImage(systemName: "ellipsis.bubble.fill"), for: .normal)
-        chatButton.tintColor = .white
-        chatButton.layer.cornerRadius = 5
-        chatButton.semanticContentAttribute = .forceRightToLeft
-        chatButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
-        
-        exitButton.backgroundColor = .red
-        exitButton.setTitle("그룹에서 나가기", for: .normal)
-        exitButton.setTitleColor(.white, for: .normal)
-        exitButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        exitButton.layer.cornerRadius = 5
         
     }
     

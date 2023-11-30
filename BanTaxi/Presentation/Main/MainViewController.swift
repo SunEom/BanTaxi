@@ -11,18 +11,98 @@ import RxCocoa
 import SnapKit
 
 class MainViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let viewModel: MainViewModel!
+    private let disposeBag = DisposeBag()
+    private let viewModel: MainViewModel
     
-    let titleLabel = UILabel()
-    let profileButton = UIButton()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "BanTaxi"
+        label.font = .systemFont(ofSize: 30, weight: .heavy)
+        label.textColor = UIColor(named: "MainColor")
+        return label
+    }()
     
-    let buttonStackView = UIStackView()
-    let newGroupButton = UIButton()
-    let myGroupButton = UIButton()
-    let searchButton = UIButton()
-    init() {
-        viewModel = MainViewModel()
+    private let profileButton: UIButton = {
+        let button = UIButton()
+        let profileButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        let profileButtonImg = UIImage(systemName: "person.circle", withConfiguration: profileButtonConfig)?.withRenderingMode(.alwaysTemplate)
+        button.tintColor = UIColor(named: "MainColor")
+        button.setImage(profileButtonImg, for: .normal)
+        return button
+    }()
+    
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 30
+        return stackView
+    }()
+    
+    private let newGroupButton: UIButton = {
+        let button = UIButton()
+        let newGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
+        let newGroupButtonImg = UIImage(systemName: "person.3", withConfiguration: newGroupButtonConfig)?.withRenderingMode(.alwaysTemplate)
+        button.setTitle("새 그룹 만들기", for: .normal)
+        button.setImage(newGroupButtonImg, for: .normal)
+        button.tintColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 20
+        button.layer.shadowOffset = CGSize.zero
+        button.layer.masksToBounds = false
+        button.backgroundColor = UIColor(named: "MainColor")
+        return button
+    }()
+    
+    private let myGroupButton: UIButton = {
+        let button = UIButton()
+        let myGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
+        let myGroupButtonImg = UIImage(systemName: "list.star", withConfiguration: myGroupButtonConfig)?.withRenderingMode(.alwaysTemplate)
+        button.setTitle("내 그룹 보기", for: .normal)
+        button.setTitleColor(UIColor(named: "MainColor"), for: .normal)
+        button.setImage(myGroupButtonImg, for: .normal)
+        button.tintColor = UIColor(named: "MainColor")
+        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 20
+        button.layer.shadowOffset = CGSize.zero
+        button.layer.masksToBounds = false
+        button.backgroundColor = .white
+        return button
+    }()
+    
+    private let searchButton: UIButton = {
+        let button = UIButton()
+        let searchButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
+        let searchButtonImg = UIImage(systemName: "magnifyingglass", withConfiguration: searchButtonConfig)?.withRenderingMode(.alwaysTemplate)
+        button.setTitle("그룹 찾기", for: .normal)
+        button.setTitleColor(UIColor(named: "MainColor"), for: .normal)
+        button.setImage(searchButtonImg, for: .normal)
+        button.tintColor = UIColor(named: "MainColor")
+        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 20
+        button.layer.shadowOffset = CGSize.zero
+        button.layer.masksToBounds = false
+        button.backgroundColor = .white
+        return button
+    }()
+    
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,37 +113,37 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bind()
+        uiEvent()
         attribute()
         layout()
     }
     
-    private func bind() {
+    private func uiEvent() {
         profileButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: {
-                self.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            .asDriver()
+            .drive(onNext: {
+                self.navigationController?.pushViewController(MyPageViewController(viewModel: MyPageViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         
         newGroupButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(NewGroupViewController(), animated: true)
+                self.navigationController?.pushViewController(NewGroupViewController(viewModel: NewGroupViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         
         myGroupButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(MyGroupViewController(), animated: true)
+                self.navigationController?.pushViewController(MyGroupViewController(viewModel: MyGroupViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         
         searchButton.rx.tap
             .asDriver()
             .drive(onNext: {
-                self.navigationController?.pushViewController(SearchViewController(), animated: true)
+                self.navigationController?.pushViewController(SearchViewController(viewModel: SearchViewModel()), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -72,75 +152,7 @@ class MainViewController: UIViewController {
     
     private func attribute() {
         view .backgroundColor = .white
-        
         self.navigationController?.navigationBar.tintColor = UIColor(named: "MainColor")
-        
-        titleLabel.text = "BanTaxi"
-        titleLabel.font = .systemFont(ofSize: 30, weight: .heavy)
-        titleLabel.textColor = UIColor(named: "MainColor")
-    
-        let profileButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
-        let profileButtonImg = UIImage(systemName: "person.circle", withConfiguration: profileButtonConfig)?.withRenderingMode(.alwaysTemplate)
-        profileButton.tintColor = UIColor(named: "MainColor")
-        profileButton.setImage(profileButtonImg, for: .normal)
-        
-        buttonStackView.axis = .vertical
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 30
-        [newGroupButton].forEach {
-            $0.backgroundColor = UIColor(named: "MainColor")
-        }
-        
-        [myGroupButton, searchButton].forEach {
-            $0.backgroundColor = .white
-        }
-        
-        let newGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
-        let newGroupButtonImg = UIImage(systemName: "person.3", withConfiguration: newGroupButtonConfig)?.withRenderingMode(.alwaysTemplate)
-        newGroupButton.setTitle("새 그룹 만들기", for: .normal)
-        newGroupButton.setImage(newGroupButtonImg, for: .normal)
-        newGroupButton.tintColor = .white
-        newGroupButton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
-        newGroupButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-        newGroupButton.imageView?.contentMode = .scaleAspectFit
-        newGroupButton.layer.cornerRadius = 20
-        newGroupButton.layer.shadowColor = UIColor.black.cgColor
-        newGroupButton.layer.shadowOpacity = 0.3
-        newGroupButton.layer.shadowRadius = 20
-        newGroupButton.layer.shadowOffset = CGSize.zero
-        newGroupButton.layer.masksToBounds = false
-        
-        let myGroupButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
-        let myGroupButtonImg = UIImage(systemName: "list.star", withConfiguration: myGroupButtonConfig)?.withRenderingMode(.alwaysTemplate)
-        myGroupButton.setTitle("내 그룹 보기", for: .normal)
-        myGroupButton.setTitleColor(UIColor(named: "MainColor"), for: .normal)
-        myGroupButton.setImage(myGroupButtonImg, for: .normal)
-        myGroupButton.tintColor = UIColor(named: "MainColor")
-        myGroupButton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
-        myGroupButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-        myGroupButton.imageView?.contentMode = .scaleAspectFit
-        myGroupButton.layer.cornerRadius = 20
-        myGroupButton.layer.shadowColor = UIColor.black.cgColor
-        myGroupButton.layer.shadowOpacity = 0.3
-        myGroupButton.layer.shadowRadius = 20
-        myGroupButton.layer.shadowOffset = CGSize.zero
-        myGroupButton.layer.masksToBounds = false
-        
-        let searchButtonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .default)
-        let searchButtonImg = UIImage(systemName: "magnifyingglass", withConfiguration: searchButtonConfig)?.withRenderingMode(.alwaysTemplate)
-        searchButton.setTitle("그룹 찾기", for: .normal)
-        searchButton.setTitleColor(UIColor(named: "MainColor"), for: .normal)
-        searchButton.setImage(searchButtonImg, for: .normal)
-        searchButton.tintColor = UIColor(named: "MainColor")
-        searchButton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
-        searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-        searchButton.imageView?.contentMode = .scaleAspectFit
-        searchButton.layer.cornerRadius = 20
-        searchButton.layer.shadowColor = UIColor.black.cgColor
-        searchButton.layer.shadowOpacity = 0.3
-        searchButton.layer.shadowRadius = 20
-        searchButton.layer.shadowOffset = CGSize.zero
-        searchButton.layer.masksToBounds = false
     }
     
     private func layout() {

@@ -7,36 +7,49 @@
 
 import Foundation
 import RxSwift
-import RxRelay
+import RxCocoa
 import FirebaseAuth
 
 struct ChatRoomViewModel {
-    let disposeBag = DisposeBag()
-    let groupInfo: GroupInfo
-    let chatList = PublishSubject<[Chat]>()
+    private let disposeBag = DisposeBag()
+    private let groupInfo: GroupInfo
+    private let repository: ChatRepository
     
-    let addObserverRequest = PublishSubject<Void>()
-
-    let chatMsg = PublishSubject<String>()
-    let sendButtonTap = PublishRelay<Void>()
+    struct Input {
+        let trigger: Driver<Void>
+        let sendTrigger: Driver<Void>
+        let chat: Driver<String>
+    }
+    
+    struct Output {
+        let chats: Driver<[Chat]>
+    }
     
     init(groupInfo:GroupInfo, _ repo: ChatRepository = ChatRepository()) {
         self.groupInfo = groupInfo
+        self.repository = repo
+    }
+    
+    func transform(input: Input) -> Output {
         
-        addObserverRequest
-            .flatMapLatest{ repo.addChatObserver(groupID: groupInfo.documentID) }
-            .bind(to: chatList)
-            .disposed(by: disposeBag)
-        
-        sendButtonTap
-            .withLatestFrom(chatMsg)
-            .filter { $0 != "" }
-            .withLatestFrom(UserManager.getInstance()) { contents, user in
-                return Chat(uid: user!.uid, groupID: groupInfo.documentID, contents: contents, date: Date())
+        let chats = input.trigger
+            .flatMapLatest {
+                repository.addChatObserver(groupID: groupInfo.documentID)
+                    .asDriver(onErrorJustReturn: [])
             }
-            .subscribe(onNext: { repo.createNewChat(chatData: $0) })
+        
+        input.sendTrigger
+            .withLatestFrom(input.chat)
+            .asObservable()
+            .withLatestFrom(UserManager.getInstance()) { chat, user in
+                return Chat(uid: user!.uid, groupID: groupInfo.documentID, contents: chat, date: .now)
+            }
+            .subscribe(onNext : { chat in
+                repository.createNewChat(chatData: chat)
+            })
             .disposed(by: disposeBag)
+            
         
-        
+        return Output(chats: chats)
     }
 }

@@ -11,19 +11,40 @@ import RxCocoa
 import SnapKit
 
 class MapViewController: UIViewController {
-    let diseposBag = DisposeBag()
-    let viewModel: MapViewModel!
-    let tapGesture = UITapGestureRecognizer()
+    private let diseposBag = DisposeBag()
+    private let viewModel: MapViewModel
+    private let tapGesture = UITapGestureRecognizer()
 
-    let topView = UIView()
-    let contentView = UIView()
-    let closeButton = UIButton()
-    let mapView = MTMapView()
-    let sPoiItem = MTMapPOIItem()
-    let dPoiItem = MTMapPOIItem()
+    private let topView = UIView()
+    private let contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
     
-    init(start: AddressData, destination: AddressData) {
-        viewModel = MapViewModel(start: start, destination: destination)
+    private let closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        return button
+    }()
+    private let mapView = MTMapView()
+    private let sPoiItem: MTMapPOIItem = {
+        let item = MTMapPOIItem()
+        item.markerType = .customImage
+        item.customImage = UIImage(systemName: "car.circle")
+        return item
+    }()
+    
+    private let dPoiItem: MTMapPOIItem = {
+        let item = MTMapPOIItem()
+        item.markerType = .customImage
+        item.customImage = UIImage(systemName: "flag.checkered.circle")
+        return item
+    }()
+    
+    
+    init(viewModel: MapViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,9 +55,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapViewSetting()
-        
         bind()
+        uiEvent()
         attribute()
         layout()
     }
@@ -46,25 +66,29 @@ class MapViewController: UIViewController {
         mapView.fitAreaToShowAllPOIItems()
     }
     
-    private func bind() {
-    
+    private func uiEvent() {
         closeButton.rx.tap
             .asDriver()
-            .drive(onNext:{
-                self.dismiss(animated: true)
+            .drive(onNext:{ [weak self] in
+                self?.dismiss(animated: true)
             })
             .disposed(by: diseposBag)
+    }
+    
+    private func bind() {
+        
+        mapView.setMapCenter(MTMapPoint(geoCoord: MTMapPointGeo(latitude: (viewModel.start.latitude!+viewModel.destination.latitude!)/2, longitude: (viewModel.start.longitude! + viewModel.destination.latitude!)/2)), animated: false)
+        sPoiItem.mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: viewModel.start.latitude!, longitude: viewModel.start.longitude!))
+        dPoiItem.mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: viewModel.destination.latitude!, longitude: viewModel.destination.longitude!))
+        mapView.addPOIItems([sPoiItem, dPoiItem])
+        
     }
     
     private func attribute() {
         view.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
         view.isOpaque = false
-        
         topView.addGestureRecognizer(tapGesture)
         tapGesture.addTarget(self, action: #selector(didTapView))
-        
-        contentView.backgroundColor = .white
-        closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
     }
     
     private func layout() {
@@ -95,18 +119,6 @@ class MapViewController: UIViewController {
             $0.height.equalTo(300)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-30)
         }
-    }
-    
-    private func mapViewSetting() {
-        
-        mapView.setMapCenter(MTMapPoint(geoCoord: MTMapPointGeo(latitude: (viewModel.start.latitude!+viewModel.destination.latitude!)/2, longitude: (viewModel.start.longitude! + viewModel.destination.latitude!)/2)), animated: false)
-        sPoiItem.mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: viewModel.start.latitude!, longitude: viewModel.start.longitude!))
-        sPoiItem.markerType = .customImage
-        sPoiItem.customImage = UIImage(systemName: "car.circle")
-        dPoiItem.mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: viewModel.destination.latitude!, longitude: viewModel.destination.longitude!))
-        dPoiItem.markerType = .customImage
-        dPoiItem.customImage = UIImage(systemName: "flag.checkered.circle")
-        mapView.addPOIItems([sPoiItem, dPoiItem])
     }
     
     @objc
